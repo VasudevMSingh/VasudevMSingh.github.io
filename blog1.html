@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <nav>
+        <a href="../index.html" class="back-button">← Home</a>
+    </nav>
+    <title>ERCOT Battery Monitor - 2024: Year So Far</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <style>
+       .blog-content {
+           max-width: 800px;
+           margin: 0 auto;
+           padding: 2rem;
+           color: var(--text-color);
+       }
+
+       .blog-content h1 {
+           font-size: 2.5rem;
+           margin-bottom: 1.5rem;
+           color: var(--text-color);
+           text-align: center;
+       }
+
+       .blog-content h2 {
+           font-size: 1.8rem;
+           margin: 2rem 0 1rem;
+           color: var(--text-color);
+       }
+
+       .data-highlight {
+           color: var(--primary-color);
+           font-weight: 500;
+       }
+
+       .footer-note {
+           margin-top: 3rem;
+           padding-top: 1rem;
+           border-top: 1px solid #e2e8f0;
+           font-style: italic;
+           color: #64748b;
+       }
+       .chart-container {
+        width: 100%;
+        max-width: 1800px;
+        height: 400px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 2px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-caption {
+            text-align: center;
+            margin-top: 1rem;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+   </style>
+</head>
+<body>
+   <article class="blog-content">
+       <h1>ERCOT Battery Monitor - 2024: Market Analysis and Revenue Trends</h1>
+       
+       <p>The ERCOT energy storage market has experienced significant transformation in 2024, characterized by notable shifts in revenue patterns and market dynamics. This analysis examines key trends and their implications for battery storage operators.</p>
+
+       <h2>Revenue Analysis: Year-over-Year Comparison</h2>
+       
+       <p>The market has witnessed a substantial adjustment in revenue metrics compared to 2023. Standalone 2-hour batteries in ERCOT have experienced a reduction in revenue from approximately $130 per kW-month in August 2023 to $10.45 per kW-month in 2024, representing a significant market recalibration.</p>
+       <div class="chart-container">
+        <canvas id="revenueChart"></canvas>
+
+        </div>
+    </div>
+       <p>Several factors have contributed to this revenue normalization:</p>
+
+       <p>First, the ancillary services market has demonstrated increased price stability compared to the heightened volatility observed in 2023. Additionally, the frequency of emergency high-demand situations, which previously drove substantial price escalations, has moderated. The market has also seen increased battery capacity deployment for emergency load service, resulting in more distributed opportunities for revenue generation. Furthermore, ECRS (ERCOT Contingency Reserve Service) offers have shown improved market equilibrium.</p>
+
+       <h2>Performance Analysis: 2-Hour Battery Systems Lead Market</h2>
+
+       <p>The data consistently demonstrates superior performance metrics for 2-hour battery systems in the ERCOT market. Even amid 2024's adjusted market conditions, these systems maintain their competitive advantage over 1-hour configurations. Current data indicates an average revenue generation of <span class="data-highlight">$2.56 per kW-month</span> for 2-hour systems in 2024, with these configurations consistently achieving top performance rankings in monthly assessments.</p>
+
+       <div class="chart-container">
+           [Chart 2: 1H vs 2H Battery Performance Metrics]
+       </div>
+
+       <h2>Revenue Stream Evolution</h2>
+
+       <p>A notable shift has occurred in revenue composition during this period. While ancillary services revenue has experienced a decline, energy-only revenue has demonstrated a <span class="data-highlight">22% increase</span> compared to 2023 levels. This transformation suggests an evolving market that rewards operational flexibility and strategic deployment of battery resources.</p>
+
+       <div class="chart-container">
+           [Chart 3: Energy-Only vs Ancillary Services Revenue Analysis]
+       </div>
+
+       <h2>Market Outlook</h2>
+
+       <p>The ERCOT battery storage market continues to mature, transitioning from the high-volatility environment of 2023 to a more stabilized marketplace in 2024. While overall revenue opportunities have moderated, the market demonstrates increasing sophistication in terms of value recognition and operational efficiency. Operators who adapt their strategies to these evolving market conditions while maintaining operational excellence will be best positioned for sustained success.</p>
+
+       <div class="footer-note">
+           <p>Note: All data presented is derived from comprehensive ERCOT market performance analysis. Charts indicate placement for relevant data visualizations.</p>
+       </div>
+   </article>
+   <script src="blogCharts.js"></script>
+</body>
+</html>
