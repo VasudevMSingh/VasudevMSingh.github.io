@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Vasudev - Vagabond</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        /* Reset body */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #2b2b2b;
+        }
+
+        /* Make terminal fill the viewport */
+        .terminal {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            border: none;
+            border-radius: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header stays at top */
+        .terminal-header {
+            padding: 0.75rem 1.5rem;
+            flex-shrink: 0;
+        }
+
+        /* Content area takes remaining space */
+        .terminal-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 2rem 6rem;
+            margin-bottom: 3rem;
+        }
+
+        /* About-specific styles */
+        .about-content {
+            color: var(--terminal-text);
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .about-section {
+            margin-bottom: 2.5rem;
+            padding: 1rem;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            background: rgba(0, 255, 0, 0.03);
+        }
+
+        .about-section h2 {
+            color: var(--terminal-text);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-header h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .highlight {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .command-item {
+            color: var(--terminal-text);
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .command-item:hover {
+            text-decoration: underline;
+        }
+
+        .command-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            background: var(--terminal-bg);
+            border-top: 1px solid var(--terminal-text);
+        }
+
+        /* Contact section styles */
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 0.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem;
+            background: rgba(0, 255, 0, 0.05);
+            border: 1px solid rgba(0, 255, 0, 0.1);
+        }
+
+        .contact-label {
+            color: var(--terminal-text);
+            opacity: 0.8;
+            font-family: 'VT323', monospace;
+            min-width: 180px;
+        }
+
+        .terminal-link {
+            color: var(--terminal-text);
+            text-decoration: none;
+            font-family: 'VT323', monospace;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .terminal-link:hover {
+            background: rgba(0, 255, 0, 0.2);
+            outline: 1px solid var(--terminal-text);
+        }
+
+        .terminal-link:active {
+            background: var(--terminal-text);
+            color: var(--terminal-bg);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .blink {
+            animation: blink 1s step-end infinite;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .terminal-content {
+                padding: 2rem 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-title">ABOUT.EXE - Vasudev Mohan Singh</div>
+            <div class="terminal-buttons">
+                <span class="terminal-button"></span>
+                <span class="terminal-button"></span>
+                <span class="terminal-button"></span>
+            </div>
+        </div>
+        <div class="terminal-content">
+            <article class="about-content">
+                <div class="about-header">
+                    <h1>Welcome to Vagabond</h1>
+                    <div class="subtitle">Where energy markets meet basketball courts, and data analysis meets creative thinking</div>
+                </div>
+
+                <div class="about-section">
+                    <h2>> INTRODUCTION</h2>
+                    <p>Hey there! Welcome to my digital home - a space where I share my professional journey, personal projects, and evolving perspectives on the world. Think of Vagabond as a curated collection of everything that makes me tick, from energy market analysis to basketball statistics, and everything in between.</p>
+                </div>
+
+                <div class="about-section">
+                    <h2>> PROFESSIONAL_PROFILE</h2>
+                    <p>I'm <span class="highlight">Vasudev</span>, calling Pune, MH home while working in one of the most exciting spaces in energy. Currently, I'm diving deep into US wholesale energy markets at a dynamic startup, where my days are spent optimizing utility-scale energy storage plants and finding hidden opportunities in complex market data.</p>
+                    <p>What really gets me going is the challenge of deconstructing complex energy market data and turning it into actionable insights. Over the past three years, I've developed a knack for:</p>
+                    <ul>
+                        <li>Finding those golden opportunities hidden in market data</li>
+                        <li>Optimizing battery storage operations for maximum value</li>
+                        <li>Translating complex market trends into winning strategies</li>
+                        <li>Building tools that make sense of market chaos</li>
+                    </ul>
+                </div>
+
+                <div class="about-section">
+                    <h2>> EDUCATION</h2>
+                    <p>My journey took an interesting turn at <span class="highlight">Arizona State University</span>, where I pursued my Master's in Electrical Power and Energy. It wasn't just about the degree - it was about building a foundation in:</p>
+                    <ul>
+                        <li>The intricate dance of energy markets</li>
+                        <li>The backbone of power systems</li>
+                        <li>The tools to turn data into decisions</li>
+                    </ul>
+                    <p>The global pandemic threw a curveball during my time at ASU, but it also taught me valuable lessons about adaptability and resilience. I completed my degree and returned to India, armed with knowledge and ready to take on new challenges in a familiar yet different context.</p>
+                    <p>Starting fresh back home was challenging, to say the least. It meant learning new dynamics, adapting to different work cultures, and finding my footing in the Indian energy sector. But hey, that's what makes the journey interesting, right?</p>
+                </div>
+
+                <div class="about-section">
+                    <h2>> PERSONAL_INTERESTS</h2>
+                    <p><span class="highlight">Basketball:</span> This isn't just a sport for me - it's been a constant companion from college courts to professional analysis. Whether I'm breaking down NBA games or playing a pickup game, basketball teaches me something new every day. The strategic thinking, teamwork, and competitive spirit I've learned on the court translate surprisingly well to the energy sector!</p>
+                    
+                    <p><span class="highlight">Chess:</span> Currently hovering around 1500 on chess.com, and loving every minute of it. There's something fascinating about the parallel between chess strategy and market analysis - both require thinking several moves ahead while staying flexible enough to adapt to changing conditions.</p>
+                    
+                    <p><span class="highlight">Reading:</span> Fiction is my escape hatch from the world of data and markets. There's nothing quite like getting lost in a well-crafted story, especially after a day of crunching numbers and analyzing market trends. It's my way of keeping the creative side of my brain just as active as the analytical side.</p>
+                </div>
+
+                <div class="about-section">
+                    <h2>> CONNECT</h2>
+                    <p>One thing I've learned in my journey so far - the best insights often come from unexpected conversations. Whether you want to geek out about energy markets, debate basketball statistics, discuss chess strategies, share book recommendations, or just have an interesting conversation, I'm always up for connecting with new people. The best ideas often spark from these casual interactions!</p>
+                </div>
+
+                <div class="about-section">
+                    <h2>> CONTACT_PROTOCOLS</h2>
+                    <div class="contact-links">
+                        <div class="contact-item">
+                            <span class="contact-label">> PROFESSIONAL_COM:</span>
+                            <a href="mailto:vasudev@batteryos.com" class="terminal-link">vasudev@batteryos.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">> PERSONAL_COM:</span>
+                            <a href="mailto:vasudevmsingh@gmail.com" class="terminal-link">vasudevmsingh@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">> LINKEDIN_CONNECT:</span>
+                            <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank" class="terminal-link">@vasudevmohansingh <span class="blink">▐</span></a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">> INSTAGRAM_FEED:</span>
+                            <a href="https://instagram.com/_vasudevsingh005/" target="_blank" class="terminal-link">@_vasudevsingh005 <span class="blink">▐</span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-section">
+                    <h2>> FUTURE_UPDATES</h2>
+                    <p>Vagabond is growing and evolving, just like my interests and experiences. Stay tuned for deep dives into energy markets, basketball analysis, chess insights, and whatever else catches my curiosity. This is just the beginning of what I hope will be an engaging journey of shared learning and discovery!</p>
+                </div>
+            </article>
+        </div>
+        <div class="command-bar">
+            <a href="index.html" class="command-item">[ESC] RETURN TO MAIN</a>
+            <span class="command-item">[CTRL+P] PRINT</span>
+        </div>
+    </div>
+</body>
+</html> 
