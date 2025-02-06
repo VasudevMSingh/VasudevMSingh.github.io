@@ -77,9 +77,60 @@
                 <span class="typing-text">INITIALIZING DATA ANALYSIS SEQUENCE...</span>
             </div>
 
+
             <div class="content-section">
                 <div class="section-header">
-                    <h2>> REGIONAL_DEMAND_ANALYSIS</h2>
+                    <h2>> TOP_ASSETS_REVENUE_IN_ERCOT_2023</h2>
+                </div>
+                <div class="viz-container">
+                    <img src="images/topassets_bymonth.png" alt="Top 3 Assets Revenue by Month" class="viz-image">
+                </div>
+                <div class="data-insights">
+                    <h3>> KEY_INSIGHTS:</h3>
+                    <ul>
+                        <li>Significant revenue spike observed in August 2023 (~160 $/kW-month) - This was due to high peak demand and introduction of ECRS into the revenue stack</li>
+                        <li>Consistent performance among top 3 assets with minimal spread</li>
+                        <li>Notable seasonal pattern with summer months showing highest returns</li>
+                        <li>Baseline revenue in non-summer months averages 5-10 $/kW-month</li>
+                        <li>> READ_MORE: <a href="blog1.html" class="terminal-link">ERCOT_MARKETS_2024.TXT <span class="blink">▐</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>> AUSTRALIA_REGIONAL_PRICE_ANALYSIS</h2>
+                </div>
+                <div class="viz-container multi-image">
+                    <div class="image-slider">
+                        <img src="images/price_hourly.png" alt="Regional Price Comparison (Hourly)" class="viz-image">
+                        <img src="images/price_monthly.png" alt="Regional Price Comparison (Monthly)" class="viz-image">
+                    </div>
+                    <button class="slider-button prev">[←]</button>
+                    <button class="slider-button next">[→]</button>
+                    <div class="image-counter">IMAGE 1/2</div>
+                    <div class="slider-nav">
+                        <div class="slider-dots">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="data-insights">
+                    <h3>> KEY_INSIGHTS:</h3>
+                    <ul>
+                        <li>Extreme price volatility in NSW and VIC during Jul-Aug 2022, with spikes reaching $12k/MWh</li>
+                        <li>TAS exhibits most stable price patterns across all regions</li>
+                        <li>Monthly averages show convergence of prices across regions by Jan 2023</li>
+                        <li>All regions demonstrate strong seasonal price patterns with winter peaks</li>
+                        <li>SA shows frequent but shorter duration price spikes compared to other regions</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>> AUSTRALIA_REGIONAL_DEMAND_ANALYSIS</h2>
                 </div>
                 <div class="viz-container multi-image">
                     <div class="image-slider">
@@ -97,48 +148,13 @@
                     </div>
                 </div>
                 <div class="data-insights">
-                    <h3>> DEMAND_PATTERNS:</h3>
+                    <h3>> KEY INSIGHTS:</h3>
                     <ul>
-                        <li>NSW consistently shows highest demand peaks across all regions</li>
+                        <li>New South Wales consistently shows highest demand peaks across all regions - owing to its relatively higher population density</li>
                         <li>Significant daily demand variations with clear morning and evening peaks</li>
                         <li>Summer months (Jul-Aug 2022) exhibit highest total demand across regions</li>
                         <li>Tasmania shows most stable demand pattern with minimal seasonal variation</li>
                         <li>Queensland and Victoria demonstrate strong correlation in demand patterns</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="content-section">
-                <div class="section-header">
-                    <h2>> TOP_ASSETS_REVENUE</h2>
-                </div>
-                <div class="viz-container">
-                    <img src="images/topassets_bymonth.png" alt="Top 3 Assets Revenue by Month" class="viz-image">
-                </div>
-                <div class="data-insights">
-                    <h3>> KEY_INSIGHTS:</h3>
-                    <ul>
-                        <li>Significant revenue spike observed in August 2023 (~160 $/kW-month)</li>
-                        <li>Consistent performance among top 3 assets with minimal spread</li>
-                        <li>Notable seasonal pattern with summer months showing highest returns</li>
-                        <li>Baseline revenue in non-summer months averages 5-10 $/kW-month</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="content-section">
-                <div class="section-header">
-                    <h2>> PRICE_DURATION_CURVES</h2>
-                </div>
-                <div class="viz-container">
-                    <img src="images/price_duration.png" alt="Price Duration Curves" class="viz-image">
-                </div>
-                <div class="data-insights">
-                    <h3>> ANALYSIS_RESULTS:</h3>
-                    <ul>
-                        <li>Price volatility concentrated in top 5% of hours</li>
-                        <li>Critical price events show 10x normal market conditions</li>
-                        <li>Base load prices remain stable throughout the year</li>
                     </ul>
                 </div>
             </div>
