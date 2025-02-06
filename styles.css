@@ -180,6 +180,22 @@ a {
 
 .terminal-content {
     padding: 2rem;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--terminal-text);
+}
+
+.terminal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terminal-content::-webkit-scrollbar-track {
+    background: var(--terminal-bg);
+}
+
+.terminal-content::-webkit-scrollbar-thumb {
+    background-color: var(--terminal-text);
+    border-radius: 4px;
 }
 
 /* ASCII Art */
@@ -363,4 +379,231 @@ a {
     color: teal;
     align-items: center;
     gap: 0.5rem;
+}
+
+/* Visualization Styles */
+.viz-section {
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    background: rgba(0, 255, 0, 0.03);
+}
+
+.viz-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.viz-container {
+    position: relative;
+    margin: 2rem 0;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--terminal-text);
+    box-shadow: inset 0 0 30px rgba(0, 255, 0, 0.1),
+                0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.viz-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+}
+
+.viz-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        transparent 50%,
+        rgba(0, 255, 0, 0.02) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+}
+
+.data-insights {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(0, 255, 0, 0.05);
+    border-left: 3px solid var(--terminal-text);
+}
+
+/* Multi-image Container Styles */
+.viz-container.multi-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-slider {
+    display: flex;
+    transition: transform 0.3s ease;
+    width: 100%;
+}
+
+.image-slider img {
+    min-width: 100%;
+    object-fit: contain;
+}
+
+.slider-nav {
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    z-index: 2;
+}
+
+.slider-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--terminal-text);
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot.active {
+    background: var(--terminal-text);
+}
+
+.slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--terminal-text);
+    color: var(--terminal-text);
+    font-family: var(--font-family-main);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.slider-button:hover {
+    background: rgba(0, 255, 0, 0.2);
+}
+
+.slider-button.prev {
+    left: 1rem;
+}
+
+.slider-button.next {
+    right: 1rem;
+}
+
+.image-counter {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--terminal-text);
+    padding: 0.25rem 0.5rem;
+    font-family: var(--font-family-main);
+    font-size: var(--font-size-small);
+    color: var(--terminal-text);
+    z-index: 2;
+}
+
+/* Common Section Styles */
+.content-section {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    background: rgba(0, 255, 0, 0.03);
+}
+
+.content-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+    padding-bottom: 0.5rem;
+    color: var(--terminal-text);
+}
+
+.content-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--terminal-text);
+}
+
+.content-section p {
+    margin-bottom: 1.5rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    background: rgba(0, 255, 0, 0.03);
+}
+
+.section-header h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.section-meta {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+/* Command Bar Styles */
+.command-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background: var(--terminal-bg);
+    border-top: 1px solid var(--terminal-text);
+}
+
+.command-item {
+    color: var(--terminal-text);
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.command-item:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .terminal-content {
+        padding: 2rem 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .terminal-content {
+        padding: 1.5rem;
+        font-size: 1.1rem;
+    }
+    
+    .content-section {
+        padding: 1rem;
+    }
+    
+    .section-header h1 {
+        font-size: 1.8rem;
+    }
 }
