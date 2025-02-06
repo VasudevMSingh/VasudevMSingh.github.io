@@ -6,11 +6,23 @@
     --terminal-border: #333333;
     --menu-hover: #003300;
     --terminal-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    --font-family-main: 'VT323', monospace;
+    --font-size-base: 1.5rem;
+    --font-weight-thin: 100;
+    --font-weight-normal: 200;
+    --font-weight-bold: 300;
+    --font-size-small: 1.2rem;
+    --font-size-large: 2rem;
+    --font-size-title: 2.5rem;
+    --line-height-base: 1.6;
 }
 
 /* Global Styles */
 body {
-    font-family: 'VT323', monospace;
+    font-family: var(--font-family-main);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-thin);
+    line-height: var(--line-height-base);
     background-color: #2b2b2b;
     margin: 0;
     padding: 2rem;
@@ -19,7 +31,118 @@ body {
     justify-content: center;
     align-items: center;
     color: var(--terminal-text);
-    line-height: 1.2;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-normal);
+    color: var(--terminal-text);
+}
+
+h1 {
+    font-size: var(--font-size-title);
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: var(--font-size-large);
+    margin: 2rem 0 1rem;
+}
+
+p {
+    font-weight: var(--font-weight-thin);
+    margin-bottom: 1.5rem;
+}
+
+a {
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-thin);
+    color: var(--terminal-text);
+    text-decoration: none;
+}
+
+/* Terminal Elements */
+.terminal-title {
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-base);
+    color: var(--terminal-text);
+}
+
+.command-prompt {
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-thin);
+    font-size: var(--font-size-base);
+}
+
+.menu-trigger,
+.menu-option,
+.command-item {
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-thin);
+    font-size: var(--font-size-small);
+}
+
+.file-info {
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-thin);
+    font-size: 0.9em;
+}
+
+/* Blog Specific */
+.blog-content {
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-thin);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+}
+
+.blog-title {
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-title);
+}
+
+.blog-meta {
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-thin);
+    font-size: var(--font-size-small);
+}
+
+/* About Page Specific */
+.about-content {
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-thin);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+}
+
+.about-header h1 {
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-title);
+}
+
+.about-header .subtitle {
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-thin);
+    font-size: 1.1rem;
+}
+
+.contact-label,
+.terminal-link {
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-thin);
+    font-size: var(--font-size-base);
+}
+
+.highlight {
+    font-weight: var(--font-weight-bold);
+}
+
+.data-highlight {
+    font-weight: var(--font-weight-bold);
 }
 
 /* Terminal Window Styles */
@@ -41,11 +164,6 @@ body {
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid var(--terminal-border);
-}
-
-.terminal-title {
-    font-size: 1.2rem;
-    color: var(--terminal-text);
 }
 
 .terminal-buttons {
@@ -78,11 +196,6 @@ body {
 }
 
 /* Command Prompt */
-.command-prompt {
-    margin-bottom: 2rem;
-    font-size: 1.2rem;
-}
-
 .prompt-marker {
     color: var(--terminal-text);
     margin-right: 0.5rem;
@@ -146,23 +259,6 @@ body {
     background-color: var(--menu-hover);
 }
 
-.file-info {
-    float: right;
-    opacity: 0.7;
-    font-size: 0.9em;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateX(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
 /* Responsive Layout */
 @media (max-width: 768px) {
     body {
@@ -214,19 +310,6 @@ body {
     flex: 0 0 200px;
     background-size: cover;
     background-position: center;
-}
-
-.blog-content {
-    flex: 1;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.blog-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
 }
 
 .blog-excerpt {
