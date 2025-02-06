@@ -3,57 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vasudev Singh - Portfolio</title>
+    <title>Vagabond - In Our Time</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
-    <section class="hero">
-        <div class="hero-slideshow">
-            <!-- Slides will be inserted here by JavaScript -->
-        </div>
-        <div class="hero-content">
-            <h1>Vasudev Singh</h1>
-            <p class="hero-subtitle">Energy Data Specialist</p>
-            <p class="hero-text">
-                Transforming energy markets through data-driven solutions and innovative technology.
-            </p>
-            <div class="hero-cta">
-                <a href="#contact" class="primary-btn">Get in Touch</a>
-                <a href="#projects" class="secondary-btn">View Projects</a>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-title">VAGABOND.EXE</div>
+            <div class="terminal-buttons">
+                <span class="terminal-button"></span>
+                <span class="terminal-button"></span>
+                <span class="terminal-button"></span>
             </div>
         </div>
-    </section>
-    <script src="main.js"></script>
-    <section class="blog-section">
-        <h2>Latest Insights</h2>
-        <div class="blog-carousel-container">
-            <button class="carousel-button prev" aria-label="Previous blogs">
-                <svg width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-                </svg>
-            </button>
-            
-            <div class="blog-carousel">
-                <div class="blog-card">
-                    <a href="./blog1.html">  <!-- Link to blog1.html -->
-                        <div class="blog-image" style="background-image: url('./images/blog1.png')">
-                            <div class="blog-overlay">
-                                <span class="blog-date">March 15, 2024</span>
-                                <h3>Energy Market Dynamics in 2024</h3>
-                                <span class="read-more">Read More →</span>
-                            </div>
-                        </div>
-                    </a>
+        <div class="terminal-content">
+            <div class="ascii-art">
+                <pre>
+ __      __                  _                     _ 
+ \ \    / /                 | |                   | |
+  \ \  / /_ _  __ _  __ _  | |__   ___  _ __   __| |
+   \ \/ / _` |/ _` |/ _` | | '_ \ / _ \| '_ \ / _` |
+    \  / (_| | (_| | (_| | | |_) | (_) | | | | (_| |
+     \/ \__,_|\__, |\__,_| |_.__/ \___/|_| |_|\__,_|
+               __/ |                                  
+              |___/                                   
+                </pre>
+            </div>
+
+            <div class="command-prompt">
+                <span class="prompt-marker">C:\></span>
+                <span class="typing-text">SELECT OPTION_</span>
+            </div>
+
+            <div class="menu-container">
+                <!-- About Me Option -->
+                <div class="menu-item">
+                    <div class="menu-trigger">[1] ABOUT.SYS</div>
+                    <div class="menu-dropdown">
+                        <a href="#" class="menu-option">> PROFILE.DAT</a>
+                        <a href="#" class="menu-option">> CONTACT.DAT</a>
+                    </div>
                 </div>
-                <!-- Add more blog cards as needed -->
+
+                <!-- Blog Option -->
+                <div class="menu-item">
+                    <div class="menu-trigger">[2] BLOG.SYS</div>
+                    <div class="menu-dropdown">
+                        <a href="blog1.html" class="menu-option">
+                            > ERCOT_BATTERY_2024.TXT
+                            <span class="file-info">11/24/24 | ENERGY</span>
+                        </a>
+                        <a href="blog2.html" class="menu-option">
+                            > AI_DISRUPTION.TXT
+                            <span class="file-info">01/03/25 | TECH</span>
+                        </a>
+                        <a href="blog3.html" class="menu-option">
+                            > NBA_TRADE.TXT
+                            <span class="file-info">02/04/25 | SPORTS</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Projects Option -->
+                <div class="menu-item">
+                    <div class="menu-trigger">[3] PROJECTS.SYS</div>
+                    <div class="menu-dropdown">
+                        <a href="#" class="menu-option">
+                            > ENERGY_VIZ.EXE
+                            <span class="file-info">DATA TOOLS</span>
+                        </a>
+                        <a href="#" class="menu-option">
+                            > MARKET_ANALYSIS.EXE
+                            <span class="file-info">ANALYTICS</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-    
-            <button class="carousel-button next" aria-label="Next blogs">
-                <svg width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
-                </svg>
-            </button>
         </div>
-    </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            
+            menuItems.forEach(item => {
+                const trigger = item.querySelector('.menu-trigger');
+                
+                trigger.addEventListener('click', function(e) {
+                    // Close all other dropdowns
+                    menuItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    // Toggle current dropdown
+                    item.classList.toggle('active');
+                    e.stopPropagation();
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.menu-item')) {
+                    menuItems.forEach(item => {
+                        item.classList.remove('active');
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vagabond - In Our Time</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#insights">Insights</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-slideshow">
+            <!-- Slides will be inserted here by JavaScript -->
+        </div>
+        <div class="hero-content">
+            <h1>Vagabond</h1>
+            <p class="hero-subtitle">Energy Insights, Data and Applications</p>
+        </div>
+    </section>
+
+    <section class="blog-section">
+        <h2>Latest Insights</h2>
+        <div class="blog-carousel-container">
+            <button class="carousel-button prev" aria-label="Previous blogs">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+            </button>
+            
+            <div class="blog-carousel">
+                <div class="blog-card">
+                    <a href="./blog1.html">  <!-- Link to blog1.html -->
+                        <div class="blog-image" style="background-image: url('./images/blog1.png')">
+                            <div class="blog-overlay">
+                                <span class="blog-date">November 14, 2024</span>
+                                <h3>Energy Market Dynamics in 2024</h3>
+                                <span class="read-more">Read More →</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="blog-card">
+                    <a href="./blog2.html">  <!-- Link to blog2.html -->
+                        <div class="blog-image" style="background-image: url('./images/YA_overlook.png')">
+                            <div class="blog-overlay">
+                                <span class="blog-date">January 3, 2025</span>
+                                <h3>The Great AI Disruption: Why We Need Purpose More Than Programmers</h3>
+                                <span class="read-more">Read More →</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="blog-card">
+                    <a href="./blog3.html">  <!-- Link to blog1.html -->
+                        <div class="blog-image" style="background-image: url('./images/luka.jpg')">
+                            <div class="blog-overlay">
+                                <span class="blog-date">February 04, 2025</span>
+                                <h3>NBA Trade Shockwave: Luka Doncic to Lakers</h3>
+                                <span class="read-more">Read More →</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Add more blog cards as needed -->
+            </div>
+    
+            <button class="carousel-button next" aria-label="Next blogs">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+                </svg>
+            </button>
+        </div>
+    </section>
+    <script src="main.js"></script>
+</body>
+</html>

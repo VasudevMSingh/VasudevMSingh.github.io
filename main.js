@@ -48,7 +48,7 @@ function initSlideshow() {
     }
     
     // Change slide every 5 seconds
-    setInterval(nextSlide, 5000);
+    setInterval(nextSlide, 10000);
 }
 
 function initBlogCarousel() {
