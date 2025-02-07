@@ -28,6 +28,7 @@ jobs:
       env:
         GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
         NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+        BALLDONTLIE_KEY: ${{ secrets.BALLDONTLIE_KEY }}
       run: |
         python scripts/fetch_news.py
         python scripts/fetch_nba.py

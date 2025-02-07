@@ -29,8 +29,16 @@ def save_nba_cache(cache_data):
 def get_team_stats(game_id):
     """Fetch detailed stats for a game"""
     try:
-        response = requests.get(f"{NBA_API_URL}/stats", params={"game_ids[]": game_id})
+        headers = {"Authorization": os.getenv("BALLDONTLIE_KEY")}
+        response = requests.get(
+            f"{NBA_API_URL}/stats", params={"game_ids[]": game_id}, headers=headers
+        )
         response.raise_for_status()
+
+        if response.status_code == 401:
+            print("Unauthorized - API key required or invalid")
+            return {}
+
         stats = response.json()["data"]
 
         # Group stats by team
@@ -55,8 +63,14 @@ def get_team_stats(game_id):
 def get_team_record(team_id):
     """Fetch team's current record"""
     try:
-        response = requests.get(f"{NBA_API_URL}/teams/{team_id}")
+        headers = {"Authorization": os.getenv("BALLDONTLIE_KEY")}
+        response = requests.get(f"{NBA_API_URL}/teams/{team_id}", headers=headers)
         response.raise_for_status()
+
+        if response.status_code == 401:
+            print("Unauthorized - API key required or invalid")
+            return "0-0"
+
         team_data = response.json()
         return f"{team_data['win_count']}-{team_data['loss_count']}"
     except Exception as e:
@@ -106,11 +120,18 @@ def fetch_recent_games():
     yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
 
     try:
-        # Fetch games from yesterday
+        headers = {"Authorization": os.getenv("BALLDONTLIE_KEY")}
         response = requests.get(
-            f"{NBA_API_URL}/games", params={"dates[]": yesterday, "per_page": 100}
+            f"{NBA_API_URL}/games",
+            params={"dates[]": yesterday, "per_page": 100},
+            headers=headers,
         )
         response.raise_for_status()
+
+        if response.status_code == 401:
+            print("Unauthorized - API key required or invalid")
+            return None
+
         games_data = response.json()
 
         # Format each game
