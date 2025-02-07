@@ -13,8 +13,6 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.GH_PAT }}
     
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -34,10 +32,8 @@ jobs:
         python scripts/fetch_nba.py
     
     - name: Commit and push if changed
-      env:
-        GH_PAT: ${{ secrets.GH_PAT }}
       run: |
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
         git add data/news.json data/nba_cache.json
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Update news feed and NBA scores" && git push https://$GH_PAT@github.com/$GITHUB_REPOSITORY.git) 
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update news feed and NBA scores" && git push) 
