@@ -1,37 +1,37 @@
 {
-  "lastUpdated": "2024-02-07T19:03:00Z",
+  "lastUpdated": "2025-02-07T13:26:10.291666+00:00",
   "sections": {
     "TECH_NEWS": [
       {
-        "title": "Sample Tech News 1: AI Breakthrough in Quantum Computing",
-        "url": "https://example.com/tech-news-1",
-        "source": "Tech Daily",
-        "publishedAt": "2024-02-07T18:00:00Z"
+        "title": "Meta CTO claims he predicted DeepSeek AI six months ago",
+        "url": "https://www.windowscentral.com/software-apps/meta-cto-reportedly-predicted-deepseek-ai-six-months-ago",
+        "source": "Windows Central",
+        "publishedAt": "2025-02-07T12:03:05Z"
       },
       {
-        "title": "Sample Tech News 2: New Programming Language Takes the World by Storm",
-        "url": "https://example.com/tech-news-2",
-        "source": "Code Weekly",
-        "publishedAt": "2024-02-07T17:30:00Z"
+        "title": "Billions for 'unproven' carbon capture technology will have 'very significant' impact on energy bills, MPs warn",
+        "url": "https://news.sky.com/story/billions-for-unproven-carbon-capture-technology-will-have-very-significant-impact-on-energy-bills-mps-warn-13304513",
+        "source": "Sky News",
+        "publishedAt": "2025-02-07T11:16:00Z"
       },
       {
-        "title": "Sample Tech News 3: Revolutionary Battery Technology Announced",
-        "url": "https://example.com/tech-news-3",
-        "source": "Future Tech",
-        "publishedAt": "2024-02-07T17:00:00Z"
+        "title": "Stock market today: Asian shares mixed as DeepSeek lifts Chinese tech stocks",
+        "url": "https://ca.finance.yahoo.com/news/stock-market-today-asian-shares-074141851.html",
+        "source": "Yahoo Canada Finance",
+        "publishedAt": "2025-02-07T07:41:41Z"
       },
       {
-        "title": "Sample Tech News 4: Major Cybersecurity Update Released",
-        "url": "https://example.com/tech-news-4",
-        "source": "Security Now",
-        "publishedAt": "2024-02-07T16:30:00Z"
+        "title": "Stock market today: Asian shares mixed as DeepSeek lifts Chinese tech stocks",
+        "url": "https://ca.finance.yahoo.com/news/stock-market-today-asian-shares-041855792.html",
+        "source": "Yahoo Canada Finance",
+        "publishedAt": "2025-02-07T04:18:55Z"
       },
       {
-        "title": "Sample Tech News 5: Space Technology Makes a Giant Leap",
-        "url": "https://example.com/tech-news-5",
-        "source": "Space Tech",
-        "publishedAt": "2024-02-07T16:00:00Z"
+        "title": "How Trump’s trade war leaves some ASX companies exposed",
+        "url": "https://www.afr.com/markets/equity-markets/how-trump-s-trade-war-leaves-some-asx-companies-exposed-20250207-p5labq",
+        "source": "The Australian Financial Review",
+        "publishedAt": "2025-02-07T02:41:39Z"
       }
     ]
   }
-} 
+}
