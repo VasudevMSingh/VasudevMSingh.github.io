@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-02-07T13:26:10.291666+00:00",
+  "lastUpdated": "2025-02-07T14:01:38.785778+00:00",
   "sections": {
     "TECH_NEWS": [
       {
@@ -9,29 +9,94 @@
         "publishedAt": "2025-02-07T12:03:05Z"
       },
       {
+        "title": "Bill Gates says AI will replace humans \"for most things.\"",
+        "url": "https://www.windowscentral.com/software-apps/bill-gates-says-ai-will-replace-humans-for-most-things",
+        "source": "Windows Central",
+        "publishedAt": "2025-02-07T12:00:00Z"
+      },
+      {
         "title": "Billions for 'unproven' carbon capture technology will have 'very significant' impact on energy bills, MPs warn",
         "url": "https://news.sky.com/story/billions-for-unproven-carbon-capture-technology-will-have-very-significant-impact-on-energy-bills-mps-warn-13304513",
         "source": "Sky News",
         "publishedAt": "2025-02-07T11:16:00Z"
       },
       {
-        "title": "Stock market today: Asian shares mixed as DeepSeek lifts Chinese tech stocks",
-        "url": "https://ca.finance.yahoo.com/news/stock-market-today-asian-shares-074141851.html",
-        "source": "Yahoo Canada Finance",
-        "publishedAt": "2025-02-07T07:41:41Z"
+        "title": "40 Under 40 Data Scientists Awards 2025 - Meet the Winners",
+        "url": "https://analyticsindiamag.com/ai-highlights/40-under-40-data-scientists-awards-2025-meet-the-winners/",
+        "source": "Analytics India Magazine",
+        "publishedAt": "2025-02-07T10:17:24Z"
       },
       {
-        "title": "Stock market today: Asian shares mixed as DeepSeek lifts Chinese tech stocks",
-        "url": "https://ca.finance.yahoo.com/news/stock-market-today-asian-shares-041855792.html",
-        "source": "Yahoo Canada Finance",
-        "publishedAt": "2025-02-07T04:18:55Z"
-      },
-      {
-        "title": "How Trump’s trade war leaves some ASX companies exposed",
-        "url": "https://www.afr.com/markets/equity-markets/how-trump-s-trade-war-leaves-some-asx-companies-exposed-20250207-p5labq",
-        "source": "The Australian Financial Review",
-        "publishedAt": "2025-02-07T02:41:39Z"
+        "title": "Microsoft Edge now has an AI-powered scareware blocker",
+        "url": "https://www.theverge.com/news/608123/microsoft-edge-scareware-blocker-feature",
+        "source": "The Verge",
+        "publishedAt": "2025-02-07T09:44:23Z"
       }
-    ]
+    ],
+    "SPORTS_NEWS": [
+      {
+        "title": "Bills QB Josh Allen wins NFL MVP award for 1st time, beating out Lamar Jackson",
+        "url": "https://au.sports.yahoo.com/bills-qb-josh-allen-wins-nfl-mvp-award-for-1st-time-beating-out-lamar-jackson-033900200.html",
+        "source": "Yahoo Sport Australia",
+        "publishedAt": "2025-02-07T13:19:44Z"
+      },
+      {
+        "title": "Plymouth Argyle vs Liverpool: Reds 'best in the world' says Miron Muslic",
+        "url": "https://www.plymouthherald.co.uk/sport/football/plymouth-argyle-vs-liverpool-reds-9925360",
+        "source": "Plymouth Live",
+        "publishedAt": "2025-02-07T13:10:23Z"
+      },
+      {
+        "title": "Women's Champions League draw: Chelsea to play Man City in quarter-finals with Arsenal facing Real Madrid",
+        "url": "https://www.skysports.com/football/news/37000/13304660/womens-champions-league-draw-chelsea-to-play-man-city-in-quarter-finals-with-arsenal-facing-real-madrid",
+        "source": "Sky Sports",
+        "publishedAt": "2025-02-07T13:07:00Z"
+      },
+      {
+        "title": "Jamie Carragher names Liverpool 'revelation' amid Arsenal legend comparison",
+        "url": "https://www.liverpoolecho.co.uk/sport/football/football-news/jamie-carragher-names-liverpool-revelation-30954977",
+        "source": "Liverpool Echo",
+        "publishedAt": "2025-02-07T13:00:00Z"
+      },
+      {
+        "title": "NBA trade deadline verdict: grading winners and losers after a chaotic week",
+        "url": "https://www.theguardian.com/sport/2025/feb/07/nba-trade-deadline-analysis",
+        "source": "The Guardian",
+        "publishedAt": "2025-02-07T12:49:06Z"
+      }
+    ],
+    "NBA_NEWS": [
+      {
+        "title": "NBA trade deadline verdict: grading winners and losers after a chaotic week",
+        "url": "https://www.theguardian.com/sport/2025/feb/07/nba-trade-deadline-analysis",
+        "source": "The Guardian",
+        "publishedAt": "2025-02-07T12:49:06Z"
+      },
+      {
+        "title": "Can post-Luka Doncic era Mavs make leap in West standings after wild NBA trade deadline?",
+        "url": "https://www.dallasnews.com/sports/mavericks/2025/02/06/dallas-mavericks-nba-trade-deadline-passes-post-luka-doncic-era-western-conference-leap/",
+        "source": "The Dallas Morning News",
+        "publishedAt": "2025-02-07T02:37:05Z"
+      },
+      {
+        "title": "NBA trade deadline team grades: Lakers, Cavs, Spurs score high marks for bold moves in action-filled market",
+        "url": "https://ca.sports.yahoo.com/news/nba-trade-deadline-team-grades-lakers-cavs-spurs-score-high-marks-for-bold-moves-in-action-filled-market-013108593.html",
+        "source": "Yahoo Canada Sports",
+        "publishedAt": "2025-02-07T01:31:09Z"
+      },
+      {
+        "title": "Trade Deadline BONANZA: Warriors, Lakers now CONTENDERS? Plus how Suns, Giannis, & Trae were ALL left empty-handed | The Kevin O'Connor Show",
+        "url": "https://au.sports.yahoo.com/trade-deadline-bonanza-warriors-lakers-now-contenders-plus-how-suns-giannis--trae-were-all-left-empty-handed--the-kevin-oconnor-show-012202068.html",
+        "source": "Yahoo Sport Australia",
+        "publishedAt": "2025-02-07T01:22:02Z"
+      },
+      {
+        "title": "The trade deadline in the NBA has come and gone. Time for the dust to settle",
+        "url": "https://www.theglobeandmail.com/sports/basketball/article-the-trade-deadline-in-the-nba-has-come-and-gone-time-for-the-dust-to/",
+        "source": "The Globe and Mail",
+        "publishedAt": "2025-02-07T00:42:17Z"
+      }
+    ],
+    "ENERGY_NEWS": []
   }
 }
