@@ -18,8 +18,10 @@
             </div>
         </div>
         <div class="terminal-content">
-            <div class="ascii-art">
-                <pre>
+            <!-- Center container for ASCII art -->
+            <div class="center-container">
+                <div class="ascii-art">
+                    <pre>
  __      __                  _                     _ 
  \ \    / /                 | |                   | |
   \ \  / /_ _  __ _  __ _  | |__   ___  _ __   __| |
@@ -28,72 +30,76 @@
      \/ \__,_|\__, |\__,_| |_.__/ \___/|_| |_|\__,_|
                __/ |                                  
               |___/                                   
-                </pre>
-            </div>
-
-            <div class="ticker-container">
-                <div class="ticker-line">
-                    <span class="prompt-marker">></span>
-                    <div class="ticker-wrapper">
-                        <span class="ticker-text">
-                            WELCOME TO VAGABOND     |     <a href="blog4.html" class="ticker-link">BOOKS: Born to Run, The Spy and the Traitor - Feb 2024</a>     |     <a href="blog3.html" class="ticker-link">SPORTS: NBA Trade Analysis - Luka to Lakers - Feb 2025</a>     |     <a href="blog2.html" class="ticker-link">OPINION: The Great AI Disruption - Jan 2025</a>     |     <a href="blog1.html" class="ticker-link">ENERGY: ERCOT Markets Analysis - Nov 2024</a>     |
-                        </span>
-                        <span class="ticker-text">
-                            WELCOME TO VAGABOND     |     <a href="blog4.html" class="ticker-link">BOOKS: Born to Run, The Spy and the Traitor - Feb 2024</a>     |     <a href="blog3.html" class="ticker-link">SPORTS: NBA Trade Analysis - Luka to Lakers - Feb 2025</a>     |     <a href="blog2.html" class="ticker-link">OPINION: The Great AI Disruption - Jan 2025</a>     |     <a href="blog1.html" class="ticker-link">ENERGY: ERCOT Markets Analysis - Nov 2024</a>     |
-                        </span>
-                    </div>
+                    </pre>
                 </div>
             </div>
 
-            <div class="command-prompt">
-                <span class="prompt-marker">C:\></span>
-                <span class="typing-text">SELECT OPTION_</span>
-            </div>
+            <!-- Main interaction area -->
+            <div class="interaction-area">
+                <!-- Left side: Menu -->
+                <div class="menu-side">
+                    <div class="command-prompt">
+                        <span class="prompt-marker">C:\></span>
+                        <span class="typing-text">SELECT OPTION_</span>
+                    </div>
 
-            <div class="menu-container">
-                <!-- About Me Option -->
-                <div class="menu-item">
-                    <div class="menu-trigger">[1] ABOUT.SYS</div>
-                    <div class="menu-dropdown">
-                        <a href="about.html" class="menu-option">> VASUDEV.DAT</a>
+                    <div class="menu-container">
+                        <!-- About Me Option -->
+                        <div class="menu-item">
+                            <div class="menu-trigger">[1] ABOUT.SYS</div>
+                            <div class="menu-dropdown">
+                                <a href="about.html" class="menu-option">> VASUDEV.DAT</a>
+                            </div>
+                        </div>
+
+                        <!-- Blog Option -->
+                        <div class="menu-item">
+                            <div class="menu-trigger">[2] BLOG.SYS</div>
+                            <div class="menu-dropdown">
+                                <a href="blog4.html" class="menu-option">
+                                    > BOOKS_2024.TXT
+                                    <span class="file-info">__ Feb' 2025 | BOOKS</span>
+                                </a>
+                                <a href="blog3.html" class="menu-option">
+                                    > LUKA_TRADE.TXT
+                                    <span class="file-info">__ Feb' 2025 | SPORTS</span>
+                                </a>
+                                <a href="blog2.html" class="menu-option">
+                                    > PURPOSE_OVER_PROGRAMMERS.TXT
+                                    <span class="file-info">__ Jan' 2025 | OPINION</span>
+                                </a>
+                                <a href="blog1.html" class="menu-option">
+                                    > ERCOT_MARKETS_2024.TXT
+                                    <span class="file-info">__ Nov' 2024 | ENERGY</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Projects Option -->
+                        <div class="menu-item">
+                            <div class="menu-trigger">[3] PROJECTS.SYS</div>
+                            <div class="menu-dropdown">
+                                <a href="energy_viz.html" class="menu-option">
+                                    > ENERGY_VIZ.EXE
+                                    <span class="file-info">-- ANALYTICS_AND_VISUALIZATIONS</span>
+                                </a>
+                                <a href="#" class="menu-option">
+                                    > NBA_VIZ.EXE
+                                    <span class="file-info">BASKETBALL_ANALYTICS</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Blog Option -->
-                <div class="menu-item">
-                    <div class="menu-trigger">[2] BLOG.SYS</div>
-                    <div class="menu-dropdown">
-                        <a href="blog4.html" class="menu-option">
-                            > BOOKS_2024.TXT
-                            <span class="file-info">__ Feb' 2025 | BOOKS</span>
-                        </a>
-                        <a href="blog3.html" class="menu-option">
-                            > LUKA_TRADE.TXT
-                            <span class="file-info">__ Feb' 2025 | SPORTS</span>
-                        </a>
-                        <a href="blog2.html" class="menu-option">
-                            > PURPOSE_OVER_PROGRAMMERS.TXT
-                            <span class="file-info">__ Jan' 2025 | OPINION</span>
-                        </a>
-                        <a href="blog1.html" class="menu-option">
-                            > ERCOT_MARKETS_2024.TXT
-                            <span class="file-info">__ Nov' 2024 | ENERGY</span>
-                        </a>
+                <!-- Right side: News -->
+                <div class="news-container">
+                    <div class="news-header">
+                        <span class="prompt-marker">></span>
+                        <span class="news-title">TECH_NEWS</span>
                     </div>
-                </div>
-
-                <!-- Projects Option -->
-                <div class="menu-item">
-                    <div class="menu-trigger">[3] PROJECTS.SYS</div>
-                    <div class="menu-dropdown">
-                        <a href="energy_viz.html" class="menu-option">
-                            > ENERGY_VIZ.EXE
-                            <span class="file-info">-- ANALYTICS_AND_VISUALIZATIONS</span>
-                        </a>
-                        <a href="#" class="menu-option">
-                            > NBA_VIZ.EXE
-                            <span class="file-info">BASKETBALL_ANALYTICS</span>
-                        </a>
+                    <div class="news-content">
+                        <!-- News items will be populated by JavaScript -->
                     </div>
                 </div>
             </div>
@@ -136,6 +142,25 @@
                     });
                 }
             });
+
+            // Fetch and display news
+            fetch('data/news.json')
+                .then(response => response.json())
+                .then(data => {
+                    const newsContent = document.querySelector('.news-content');
+                    const techNews = data.sections.TECH_NEWS;
+                    
+                    newsContent.innerHTML = techNews.map(article => `
+                        <div class="news-item">
+                            <a href="${article.url}" target="_blank" class="news-link">
+                                <span class="prompt-marker">></span>
+                                ${article.title}
+                                <span class="news-source">[${article.source}]</span>
+                            </a>
+                        </div>
+                    `).join('');
+                })
+                .catch(error => console.error('Error loading news:', error));
         });
     </script>
 </body>

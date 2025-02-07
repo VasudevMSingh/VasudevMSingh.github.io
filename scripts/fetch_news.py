@@ -5,13 +5,14 @@ from datetime import datetime, timezone
 
 
 def fetch_tech_news(api_key):
-    """Fetch technology news from NewsAPI"""
-    url = "https://newsapi.org/v2/top-headlines"
+    """Fetch technology news from Gnews"""
+    url = "https://gnews.io/api/v4/search"
     params = {
-        "apiKey": api_key,
-        "category": "technology",
-        "language": "en",
-        "pageSize": 5,  # Limit to 5 articles
+        "token": api_key,
+        "q": "technology",
+        "lang": "en",
+        "max": 5,  # Limit to 5 articles
+        "sortby": "publishedAt",
     }
 
     try:
@@ -39,9 +40,9 @@ def fetch_tech_news(api_key):
 
 def save_news():
     """Main function to fetch and save news"""
-    api_key = os.environ.get("NEWS_API_KEY")
+    api_key = os.environ.get("GNEWS_API_KEY")
     if not api_key:
-        raise ValueError("NEWS_API_KEY environment variable not set")
+        raise ValueError("GNEWS_API_KEY environment variable not set")
 
     # Create news object
     news_data = {
