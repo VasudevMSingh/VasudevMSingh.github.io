@@ -52,30 +52,22 @@ NEWS_FILTERS = {
     "ENERGY_NEWS": {
         "keywords": [
             # Market Operations
-            "ERCOT market",
-            "CAISO market",
-            "PJM market",
-            "MISO market",
-            "SPP market",
-            "NYISO market",
-            "ISO-NE market",
-            "AEMO market",
+            "ERCOT",
+            "CAISO",
+            "PJM",
+            "MISO",
+            "SPP",
+            "NYISO",
+            "ISO-NE",
+            "AEMO",
             # Storage and Grid
             "battery storage",
             "energy storage",
-            "grid reliability",
-            "power grid",
-            "grid congestion",
-            "transmission constraints",
             # Market Dynamics
-            "power prices",
             "electricity prices",
-            "energy markets",
-            "wholesale electricity",
             "capacity market",
             "ancillary services",
             # Renewable Integration
-            "renewable integration",
             "solar plus storage",
             "wind integration",
             "hybrid projects",
