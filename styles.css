@@ -25,7 +25,7 @@ body {
     line-height: var(--line-height-base);
     background-color: #2b2b2b;
     margin: 0;
-    padding: 2rem;
+    padding: 1rem;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -148,13 +148,15 @@ a {
 /* Terminal Window Styles */
 .terminal {
     background-color: var(--terminal-bg);
-    width: 90vw;
-    max-width: 1600px;
-    min-height: 80vh;
+    width: calc(100vw - 2rem);
+    height: calc(100vh - 2rem);
+    margin: 0;
     border: 2px solid var(--terminal-border);
     border-radius: 8px;
     box-shadow: var(--terminal-shadow);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .terminal-header {
@@ -606,4 +608,91 @@ a {
     .section-header h1 {
         font-size: 1.8rem;
     }
+}
+
+/* Terminal Footer */
+.terminal-footer {
+    background-color: var(--terminal-bg);
+    border-top: 1px solid var(--terminal-text);
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-size-small);
+    color: var(--terminal-text);
+    margin-top: auto;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.8;
+}
+
+.footer-right .terminal-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.footer-right .terminal-link:hover {
+    opacity: 1;
+    background: rgba(0, 255, 0, 0.1);
+    outline: 1px solid var(--terminal-text);
+}
+
+/* Ticker Styles */
+.ticker-container {
+    margin: 2rem 0;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    background: rgba(0, 255, 0, 0.03);
+    overflow: hidden;
+}
+
+.ticker-line {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--font-size-small);
+}
+
+.ticker-wrapper {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 60s linear infinite;
+}
+
+.ticker-text {
+    padding-right: 3rem;
+    color: var(--terminal-text);
+    opacity: 0.8;
+}
+
+.ticker-link {
+    color: var(--terminal-text);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 0.2rem 0.5rem;
+}
+
+.ticker-link:hover {
+    background: var(--menu-hover);
+    outline: 1px solid var(--terminal-text);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.ticker-wrapper:hover {
+    animation-play-state: paused;
 }
