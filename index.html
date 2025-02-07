@@ -96,10 +96,35 @@
                 <div class="news-container">
                     <div class="news-header">
                         <span class="prompt-marker">></span>
-                        <span class="news-title">TECH_NEWS</span>
+                        <span class="news-title">NEWS_FEED</span>
                     </div>
+                    
+                    <!-- Section Switcher -->
+                    <div class="section-switcher">
+                        <button class="section-btn active" data-section="TECH_NEWS">TECH</button>
+                        <button class="section-btn" data-section="NBA_NEWS">NBA</button>
+                        <button class="section-btn" data-section="SPORTS_NEWS">SPORTS</button>
+                        <button class="section-btn" data-section="ENERGY_NEWS">ENERGY</button>
+                    </div>
+
+                    <!-- News Content Container -->
                     <div class="news-content">
-                        <!-- News items will be populated by JavaScript -->
+                        <!-- News Articles Container -->
+                        <div class="news-items-wrapper" id="newsWrapper">
+                            <div class="news-items">
+                                <!-- News items will be populated by JavaScript -->
+                            </div>
+                            <div class="news-items">
+                                <!-- Will be populated with the same items -->
+                            </div>
+                        </div>
+
+                        <!-- NBA Scores Container (initially hidden) -->
+                        <div class="nba-scores-wrapper" id="nbaWrapper" style="display: none;">
+                            <div class="nba-scores">
+                                <!-- NBA scores will be populated by JavaScript -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -143,24 +168,122 @@
                 }
             });
 
-            // Fetch and display news
-            fetch('data/news.json')
-                .then(response => response.json())
-                .then(data => {
-                    const newsContent = document.querySelector('.news-content');
-                    const techNews = data.sections.TECH_NEWS;
-                    
-                    newsContent.innerHTML = techNews.map(article => `
-                        <div class="news-item">
-                            <a href="${article.url}" target="_blank" class="news-link">
-                                <span class="prompt-marker">></span>
-                                ${article.title}
-                                <span class="news-source">[${article.source}]</span>
-                            </a>
+            const newsWrapper = document.getElementById('newsWrapper');
+            const nbaWrapper = document.getElementById('nbaWrapper');
+            const sectionButtons = document.querySelectorAll('.section-btn');
+            let currentSection = 'TECH_NEWS';
+
+            // Function to format NBA score
+            function formatNBAScore(game) {
+                return `
+                    <div class="nba-game">
+                        <div class="game-header">
+                            <span class="game-status">${game.status}</span>
+                            <span class="game-period">Q${game.period}</span>
                         </div>
-                    `).join('');
-                })
-                .catch(error => console.error('Error loading news:', error));
+                        <div class="game-content">
+                            <div class="team-row away">
+                                <div class="team-info">
+                                    <span class="team-name">${game.visitor_team.abbreviation}</span>
+                                    <span class="team-record">(${game.visitor_team.record})</span>
+                                </div>
+                                <span class="team-score">${game.visitor_team.score}</span>
+                            </div>
+                            <div class="team-row home">
+                                <div class="team-info">
+                                    <span class="team-name">${game.home_team.abbreviation}</span>
+                                    <span class="team-record">(${game.home_team.record})</span>
+                                </div>
+                                <span class="team-score">${game.home_team.score}</span>
+                            </div>
+                            <div class="game-leaders">
+                                <div class="leader away">
+                                    <span class="leader-name">${game.visitor_team.top_scorer.name}</span>
+                                    <span class="leader-stats">${game.visitor_team.top_scorer.points}pts, ${game.visitor_team.top_scorer.rebounds}reb, ${game.visitor_team.top_scorer.assists}ast</span>
+                                </div>
+                                <div class="leader home">
+                                    <span class="leader-name">${game.home_team.top_scorer.name}</span>
+                                    <span class="leader-stats">${game.home_team.top_scorer.points}pts, ${game.home_team.top_scorer.rebounds}reb, ${game.home_team.top_scorer.assists}ast</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Function to display news articles
+            function displayNews(articles) {
+                const newsHTML = articles.map(article => `
+                    <div class="news-item">
+                        <a href="${article.url}" target="_blank" class="news-link">
+                            <span class="prompt-marker">></span>
+                            ${article.title}
+                            <span class="news-source">[${article.source}]</span>
+                        </a>
+                    </div>
+                `).join('');
+
+                // Update both containers for seamless scrolling
+                document.querySelectorAll('.news-items').forEach(container => {
+                    container.innerHTML = newsHTML;
+                });
+            }
+
+            // Function to display NBA scores
+            function displayNBAScores(games) {
+                if (!games || games.length === 0) {
+                    nbaWrapper.innerHTML = '<div class="no-games">No games from yesterday</div>';
+                    return;
+                }
+
+                const scoresHTML = games.map(formatNBAScore).join('');
+                const scoresContainer = nbaWrapper.querySelector('.nba-scores');
+                scoresContainer.innerHTML = scoresHTML;
+            }
+
+            // Function to switch sections
+            function switchSection(section) {
+                currentSection = section;
+                
+                // Update button states
+                sectionButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.section === section);
+                });
+
+                // Show/hide appropriate containers
+                if (section === 'NBA_NEWS') {
+                    newsWrapper.style.display = 'none';
+                    nbaWrapper.style.display = 'block';
+                    
+                    // Fetch and display NBA scores
+                    fetch('data/nba_cache.json')
+                        .then(response => response.json())
+                        .then(data => displayNBAScores(data.games))
+                        .catch(error => console.error('Error loading NBA scores:', error));
+                } else {
+                    newsWrapper.style.display = 'block';
+                    nbaWrapper.style.display = 'none';
+                    
+                    // Fetch and display news
+                    fetch('data/news.json')
+                        .then(response => response.json())
+                        .then(data => {
+                            const articles = data.sections[section] || [];
+                            displayNews(articles);
+                        })
+                        .catch(error => console.error('Error loading news:', error));
+                }
+            }
+
+            // Add click handlers to section buttons
+            sectionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    switchSection(button.dataset.section);
+                });
+            });
+
+            // Initial load
+            switchSection(currentSection);
         });
     </script>
 </body>

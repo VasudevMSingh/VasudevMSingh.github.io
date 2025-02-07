@@ -1,0 +1,160 @@
+{
+  "lastUpdated": "2024-02-07T19:30:00Z",
+  "games": [
+    {
+      "id": 1,
+      "status": "Final",
+      "period": 4,
+      "home_team": {
+        "name": "Los Angeles Lakers",
+        "score": 124,
+        "abbreviation": "LAL",
+        "record": "27-25",
+        "top_scorer": {
+          "name": "LeBron James",
+          "points": 35,
+          "rebounds": 8,
+          "assists": 12
+        }
+      },
+      "visitor_team": {
+        "name": "Denver Nuggets",
+        "score": 119,
+        "abbreviation": "DEN",
+        "record": "35-16",
+        "top_scorer": {
+          "name": "Nikola Jokic",
+          "points": 32,
+          "rebounds": 15,
+          "assists": 11
+        }
+      },
+      "time": "",
+      "date": "2024-02-06"
+    },
+    {
+      "id": 2,
+      "status": "Final/OT",
+      "period": 5,
+      "home_team": {
+        "name": "Milwaukee Bucks",
+        "score": 132,
+        "abbreviation": "MIL",
+        "record": "33-18",
+        "top_scorer": {
+          "name": "Giannis Antetokounmpo",
+          "points": 39,
+          "rebounds": 12,
+          "assists": 8
+        }
+      },
+      "visitor_team": {
+        "name": "Phoenix Suns",
+        "score": 130,
+        "abbreviation": "PHX",
+        "record": "29-21",
+        "top_scorer": {
+          "name": "Devin Booker",
+          "points": 36,
+          "rebounds": 5,
+          "assists": 10
+        }
+      },
+      "time": "",
+      "date": "2024-02-06"
+    },
+    {
+      "id": 3,
+      "status": "Final",
+      "period": 4,
+      "home_team": {
+        "name": "Golden State Warriors",
+        "score": 131,
+        "abbreviation": "GSW",
+        "record": "22-25",
+        "top_scorer": {
+          "name": "Stephen Curry",
+          "points": 37,
+          "rebounds": 4,
+          "assists": 8
+        }
+      },
+      "visitor_team": {
+        "name": "Philadelphia 76ers",
+        "score": 110,
+        "abbreviation": "PHI",
+        "record": "30-20",
+        "top_scorer": {
+          "name": "Tyrese Maxey",
+          "points": 28,
+          "rebounds": 3,
+          "assists": 7
+        }
+      },
+      "time": "",
+      "date": "2024-02-06"
+    },
+    {
+      "id": 4,
+      "status": "Final",
+      "period": 4,
+      "home_team": {
+        "name": "Brooklyn Nets",
+        "score": 98,
+        "abbreviation": "BKN",
+        "record": "20-30",
+        "top_scorer": {
+          "name": "Mikal Bridges",
+          "points": 24,
+          "rebounds": 5,
+          "assists": 4
+        }
+      },
+      "visitor_team": {
+        "name": "Dallas Mavericks",
+        "score": 119,
+        "abbreviation": "DAL",
+        "record": "28-23",
+        "top_scorer": {
+          "name": "Luka Doncic",
+          "points": 35,
+          "rebounds": 8,
+          "assists": 9
+        }
+      },
+      "time": "",
+      "date": "2024-02-06"
+    },
+    {
+      "id": 5,
+      "status": "Final",
+      "period": 4,
+      "home_team": {
+        "name": "Miami Heat",
+        "score": 116,
+        "abbreviation": "MIA",
+        "record": "27-24",
+        "top_scorer": {
+          "name": "Jimmy Butler",
+          "points": 29,
+          "rebounds": 6,
+          "assists": 8
+        }
+      },
+      "visitor_team": {
+        "name": "Orlando Magic",
+        "score": 107,
+        "abbreviation": "ORL",
+        "record": "26-24",
+        "top_scorer": {
+          "name": "Paolo Banchero",
+          "points": 25,
+          "rebounds": 7,
+          "assists": 5
+        }
+      },
+      "time": "",
+      "date": "2024-02-06"
+    }
+  ]
+} 
