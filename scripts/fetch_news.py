@@ -1,8 +1,16 @@
 import os
 import json
+import time
 import requests
 from datetime import datetime, timezone, timedelta
-from news_config import NEWS_FILTERS, CACHE_FILE, CACHE_EXPIRY_DAYS
+from news_config import (
+    NEWS_FILTERS,
+    CACHE_FILE,
+    CACHE_EXPIRY_DAYS,
+    NEWS_SOURCES,
+    NEWSAPI_URL,
+    GNEWS_API_URL,
+)
 
 
 def load_cache():
@@ -55,81 +63,130 @@ def filter_and_deduplicate(articles, keywords, max_articles):
     return filtered_articles
 
 
-def fetch_news_for_section(section, config, api_key):
-    """Fetch news for a specific section using its keywords"""
-    url = "https://gnews.io/api/v4/search"
+def fetch_from_newsapi(category, keywords):
+    api_key = os.getenv("NEWSAPI_KEY")
+    if not api_key:
+        print(f"NewsAPI key not found for {category}")
+        return []
 
-    # Join keywords with OR for the search query
-    query = " OR ".join(f'"{keyword}"' for keyword in config["keywords"])
+    articles = []
+    query = " OR ".join(f'"{kw}"' for kw in keywords)
+    source_config = NEWS_SOURCES.get(category, NEWS_SOURCES["default"])
 
     params = {
-        "token": api_key,
         "q": query,
+        "apiKey": api_key,
+        "language": "en",
+        "sortBy": "publishedAt",
+        "pageSize": NEWS_FILTERS[category]["max_articles"],
+    }
+
+    if "domains" in source_config:
+        params["domains"] = source_config["domains"]
+
+    try:
+        response = requests.get(NEWSAPI_URL, params=params)
+        if response.status_code == 200:
+            data = response.json()
+            articles = data.get("articles", [])
+            # Transform to match our format
+            articles = [
+                {
+                    "title": article["title"],
+                    "description": article["description"],
+                    "url": article["url"],
+                    "image": article.get("urlToImage", ""),
+                    "publishedAt": article["publishedAt"],
+                    "source": article["source"]["name"],
+                }
+                for article in articles
+                if article["title"] and article["description"]
+            ]
+    except Exception as e:
+        print(f"Error fetching from NewsAPI for {category}: {str(e)}")
+
+    return articles[: NEWS_FILTERS[category]["max_articles"]]
+
+
+def fetch_from_gnews(category, keywords):
+    api_key = os.getenv("GNEWS_API_KEY")
+    if not api_key:
+        print(f"GNews API key not found for {category}")
+        return []
+
+    articles = []
+    query = " OR ".join(f'"{kw}"' for kw in keywords)
+
+    params = {
+        "q": query,
+        "token": api_key,
         "lang": "en",
-        "max": 10,  # Fetch more than needed for better filtering
-        "sortby": "publishedAt",
+        "country": "us",
+        "max": NEWS_FILTERS[category]["max_articles"],
     }
 
     try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()
-        articles = response.json()["articles"]
-
-        # Filter and limit articles
-        return filter_and_deduplicate(
-            articles, config["keywords"], config["max_articles"]
-        )
+        response = requests.get(GNEWS_API_URL, params=params)
+        if response.status_code == 200:
+            data = response.json()
+            articles = data.get("articles", [])
     except Exception as e:
-        print(f"Error fetching {section}: {e}")
-        return []
+        print(f"Error fetching from GNews for {category}: {str(e)}")
+
+    return articles[: NEWS_FILTERS[category]["max_articles"]]
 
 
-def merge_with_cache(new_articles, cached_articles, min_articles):
-    """Merge new articles with cached ones if we don't have enough new articles"""
-    if len(new_articles) >= min_articles:
-        return new_articles
+def fetch_news():
+    # Load existing cache if it exists
+    cache = {}
+    if os.path.exists(CACHE_FILE):
+        with open(CACHE_FILE, "r") as f:
+            cache = json.load(f)
 
-    # Use cached articles to fill up to min_articles
-    needed = min_articles - len(new_articles)
-    return new_articles + cached_articles[:needed]
+    # Current time for cache validation
+    current_time = datetime.now()
 
+    # Process each news category
+    for category, config in NEWS_FILTERS.items():
+        print(f"Fetching {category}...")
 
-def save_news():
-    """Main function to fetch and save news"""
-    api_key = os.environ.get("GNEWS_API_KEY")
-    if not api_key:
-        raise ValueError("GNEWS_API_KEY environment variable not set")
-
-    # Load cached data
-    cache_data = load_cache()
-
-    # Prepare new news data
-    news_data = {"lastUpdated": datetime.now(timezone.utc).isoformat(), "sections": {}}
-
-    # Process each section
-    for section, config in NEWS_FILTERS.items():
-        # Fetch new articles
-        new_articles = fetch_news_for_section(section, config, api_key)
-
-        # Get cached articles for this section
-        cached_articles = cache_data.get("sections", {}).get(section, [])
-
-        # Merge with cache if needed
-        final_articles = merge_with_cache(
-            new_articles, cached_articles, config["min_articles"]
+        # Check if we need to update this category
+        category_cache = cache.get(category, {})
+        last_updated = datetime.fromisoformat(
+            category_cache.get("last_updated", "2000-01-01T00:00:00")
         )
+        cache_age = current_time - last_updated
 
-        news_data["sections"][section] = final_articles
+        if (
+            cache_age.days < CACHE_EXPIRY_DAYS
+            and len(category_cache.get("articles", [])) >= config["min_articles"]
+        ):
+            print(f"Using cached data for {category}")
+            continue
 
-    # Save both to cache and current news file
-    save_cache(news_data)
+        # Determine which API to use
+        source_config = NEWS_SOURCES.get(category, NEWS_SOURCES["default"])
+        if source_config["api"] == "newsapi":
+            articles = fetch_from_newsapi(category, config["keywords"])
+        else:
+            articles = fetch_from_gnews(category, config["keywords"])
 
-    # Save current news to the main news.json file
-    with open("data/news.json", "w", encoding="utf-8") as f:
-        json.dump(news_data, f, ensure_ascii=False, indent=2)
+        # Update cache if we got enough articles
+        if len(articles) >= config["min_articles"]:
+            cache[category] = {
+                "last_updated": current_time.isoformat(),
+                "articles": articles,
+            }
+            print(f"Updated {category} with {len(articles)} articles")
+        else:
+            print(f"Not enough articles found for {category}")
+
+    # Save updated cache
+    with open(CACHE_FILE, "w") as f:
+        json.dump(cache, f, indent=2)
 
 
 if __name__ == "__main__":
     # Create data directory if it doesn't exist
     os.makedirs("data", exist_ok=True)
-    save_news()
+    fetch_news()

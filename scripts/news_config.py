@@ -3,6 +3,20 @@ Configuration file for news fetching keywords and settings.
 Each category has its own set of keywords/phrases to filter news articles.
 """
 
+# News API Configuration
+NEWSAPI_URL = "https://newsapi.org/v2/everything"
+GNEWS_API_URL = "https://gnews.io/api/v4/search"
+
+NEWS_SOURCES = {
+    "ENERGY_NEWS": {
+        "api": "newsapi",
+        "domains": "reuters.com,bloomberg.com,cnbc.com,ft.com,wsj.com",
+    },
+    "default": {
+        "api": "gnews",
+    },
+}
+
 NEWS_FILTERS = {
     "TECH_NEWS": {
         "keywords": [
@@ -24,15 +38,12 @@ NEWS_FILTERS = {
     "SPORTS_NEWS": {
         "keywords": [
             "NBA",
-            "NFL",
-            "MLB",
-            "NHL",
-            "Premier League",
+            "Counter-Strike",
             "Champions League",
             "Formula 1",
             "tennis",
             "golf",
-            "Olympics",
+            "CS2",
         ],
         "max_articles": 5,
         "min_articles": 3,
@@ -54,16 +65,16 @@ NEWS_FILTERS = {
     "ENERGY_NEWS": {
         "keywords": [
             "renewable energy",
-            "ERCOT",
-            "CAISO",
-            "ENGIE",
-            "Vistra",
-            "Energy Storage",
-            "Battery Storage",
-            "Tolling Agreement",
-            "power market",
-            "electricity prices",
+            "ERCOT market",
+            "CAISO market",
+            "battery storage",
+            "power prices",
+            "electricity market",
+            "energy storage",
             "grid reliability",
+            "power grid",
+            "energy markets",
+            "wholesale electricity",
         ],
         "max_articles": 5,
         "min_articles": 2,

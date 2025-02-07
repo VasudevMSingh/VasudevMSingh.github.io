@@ -27,6 +27,7 @@ jobs:
     - name: Fetch news and NBA scores
       env:
         GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
+        NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
       run: |
         python scripts/fetch_news.py
         python scripts/fetch_nba.py
