@@ -12,43 +12,20 @@ NEWS_SOURCES = {
         "api": "newsapi",
         "domains": "reuters.com,bloomberg.com,cnbc.com,ft.com,wsj.com,spglobal.com,utilitydive.com,energyintel.com,powermag.com,renewablesnow.com,energy-storage.news,pv-tech.org,rechargenews.com",
     },
+    "TECH_NEWS": {
+        "api": "newsapi",
+        "domains": "techcrunch.com,theverge.com,wired.com,arstechnica.com,venturebeat.com,zdnet.com,cnet.com,engadget.com,thenextweb.com,protocol.com,vice.com/en/section/tech",
+    },
+    "NBA_NEWS": {
+        "api": "newsapi",
+        "domains": "espn.com,nba.com,basketballnews.com,hoopshype.com,bleacherreport.com,cbssports.com/nba,sports.yahoo.com/nba",
+    },
     "default": {
         "api": "gnews",
     },
 }
 
 NEWS_FILTERS = {
-    "TECH_NEWS": {
-        "keywords": [
-            "artificial intelligence",
-            "machine learning",
-            "quantum computing",
-            "blockchain",
-            "cybersecurity",
-            "programming",
-            "software",
-            "technology",
-            "tech industry",
-            "startup",
-            "innovation",
-        ],
-        "max_articles": 5,
-        "min_articles": 3,
-    },
-    "NBA_NEWS": {
-        "keywords": [
-            "NBA trade",
-            "NBA draft",
-            "NBA free agency",
-            "NBA playoffs",
-            "NBA finals",
-            "NBA all-star",
-            "NBA injury",
-            "NBA contract",
-        ],
-        "max_articles": 5,
-        "min_articles": 3,
-    },
     "ENERGY_NEWS": {
         "keywords": [
             # Market Operations
@@ -86,13 +63,52 @@ NEWS_FILTERS = {
         "max_articles": 8,
         "min_articles": 3,
     },
+    "TECH_NEWS": {
+        "keywords": [
+            # AI and Machine Learning
+            "artificial intelligence breakthrough",
+            "AI research",
+            "machine learning innovation",
+            "GPT-4",
+            "AI ethics",
+            # Enterprise Tech
+            "cloud computing",
+            "enterprise software",
+            "cybersecurity threat",
+            "data privacy",
+            # Emerging Tech
+            "quantum computing advance",
+            "blockchain technology",
+            "Web3 development",
+            # Industry News
+            "tech earnings",
+            "startup funding",
+            "tech acquisition",
+            "tech regulation",
+            # Innovation
+            "tech innovation",
+            "product launch",
+            "research breakthrough",
+        ],
+        "max_articles": 5,
+        "min_articles": 3,
+    },
+    "NBA_NEWS": {
+        "keywords": [
+            "NBA trade",
+            "NBA draft",
+            "NBA free agency",
+            "NBA playoffs",
+            "NBA finals",
+            "NBA all-star",
+            "NBA injury",
+            "NBA contract",
+        ],
+        "max_articles": 5,
+        "min_articles": 3,
+    },
 }
 
 # Cache settings
 CACHE_FILE = "data/news.json"
 CACHE_EXPIRY_DAYS = 3  # How long to keep articles before they expire
-
-# NBA API settings
-NBA_API_URL = "https://www.balldontlie.io/api/v1"
-NBA_CACHE_FILE = "data/nba_cache.json"
-NBA_CACHE_HOURS = 12  # How long to keep NBA scores before refreshing
