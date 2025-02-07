@@ -195,7 +195,8 @@
                 fetch('data/news.json')
                     .then(response => response.json())
                     .then(data => {
-                        const articles = data.sections[section] || [];
+                        const sectionData = data.sections[section] || {};
+                        const articles = sectionData.articles || [];
                         displayNews(articles);
                     })
                     .catch(error => console.error('Error loading news:', error));
