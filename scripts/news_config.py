@@ -10,7 +10,7 @@ GNEWS_API_URL = "https://gnews.io/api/v4/search"
 NEWS_SOURCES = {
     "ENERGY_NEWS": {
         "api": "newsapi",
-        "domains": "reuters.com,bloomberg.com,cnbc.com,ft.com,wsj.com",
+        "domains": "reuters.com,bloomberg.com,cnbc.com,ft.com,wsj.com,spglobal.com,utilitydive.com,energyintel.com,powermag.com,renewablesnow.com,energy-storage.news,pv-tech.org,rechargenews.com",
     },
     "default": {
         "api": "gnews",
@@ -35,19 +35,6 @@ NEWS_FILTERS = {
         "max_articles": 5,
         "min_articles": 3,
     },
-    "SPORTS_NEWS": {
-        "keywords": [
-            "NBA",
-            "Counter-Strike",
-            "Champions League",
-            "Formula 1",
-            "tennis",
-            "golf",
-            "CS2",
-        ],
-        "max_articles": 5,
-        "min_articles": 3,
-    },
     "NBA_NEWS": {
         "keywords": [
             "NBA trade",
@@ -64,20 +51,48 @@ NEWS_FILTERS = {
     },
     "ENERGY_NEWS": {
         "keywords": [
-            "renewable energy",
+            # Market Operations
             "ERCOT market",
             "CAISO market",
+            "PJM market",
+            "MISO market",
+            "SPP market",
+            "NYISO market",
+            "ISO-NE market",
+            "AEMO market",
+            # Storage and Grid
             "battery storage",
-            "power prices",
-            "electricity market",
             "energy storage",
             "grid reliability",
             "power grid",
+            "grid congestion",
+            "transmission constraints",
+            # Market Dynamics
+            "power prices",
+            "electricity prices",
             "energy markets",
             "wholesale electricity",
+            "capacity market",
+            "ancillary services",
+            # Renewable Integration
+            "renewable integration",
+            "solar plus storage",
+            "wind integration",
+            "hybrid projects",
+            # Companies and Projects
+            "Tesla Megapack",
+            "Fluence Energy",
+            "Energy Vault",
+            "Form Energy",
+            "ESS Inc",
+            # Regulatory and Policy
+            "FERC Order",
+            "energy policy",
+            "IRA energy",
+            "clean energy incentives",
         ],
-        "max_articles": 5,
-        "min_articles": 2,
+        "max_articles": 8,
+        "min_articles": 3,
     },
 }
 
