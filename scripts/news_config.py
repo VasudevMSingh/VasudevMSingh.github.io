@@ -97,7 +97,7 @@ NEWS_FILTERS = {
 }
 
 # Cache settings
-CACHE_FILE = "data/news_cache.json"
+CACHE_FILE = "data/news.json"
 CACHE_EXPIRY_DAYS = 3  # How long to keep articles before they expire
 
 # NBA API settings

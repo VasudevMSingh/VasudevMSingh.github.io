@@ -138,10 +138,12 @@ def fetch_from_gnews(category, keywords):
 
 def fetch_news():
     # Load existing cache if it exists
-    cache = {}
+    cache = {"sections": {}}  # Initialize with proper structure
     if os.path.exists(CACHE_FILE):
         with open(CACHE_FILE, "r") as f:
             cache = json.load(f)
+            if "sections" not in cache:
+                cache = {"sections": cache}  # Convert old format to new if needed
 
     # Current time for cache validation
     current_time = datetime.now()
@@ -151,7 +153,7 @@ def fetch_news():
         print(f"Fetching {category}...")
 
         # Check if we need to update this category
-        category_cache = cache.get(category, {})
+        category_cache = cache["sections"].get(category, {})
         last_updated = datetime.fromisoformat(
             category_cache.get("last_updated", "2000-01-01T00:00:00")
         )
@@ -173,17 +175,27 @@ def fetch_news():
 
         # Update cache if we got enough articles
         if len(articles) >= config["min_articles"]:
-            cache[category] = {
-                "last_updated": current_time.isoformat(),
-                "articles": articles,
-            }
+            cache["sections"][category] = articles
             print(f"Updated {category} with {len(articles)} articles")
         else:
             print(f"Not enough articles found for {category}")
 
+    # Remove any sections that are no longer in NEWS_FILTERS
+    sections_to_remove = [
+        section for section in cache["sections"] if section not in NEWS_FILTERS
+    ]
+    for section in sections_to_remove:
+        del cache["sections"][section]
+        print(f"Removed obsolete section: {section}")
+
+    # Add lastUpdated timestamp
+    cache["lastUpdated"] = current_time.isoformat()
+
     # Save updated cache
     with open(CACHE_FILE, "w") as f:
         json.dump(cache, f, indent=2)
+
+    return cache
 
 
 if __name__ == "__main__":
