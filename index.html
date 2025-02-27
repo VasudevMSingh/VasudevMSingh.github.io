@@ -6,6 +6,57 @@
     <title>Vagabond - Modern Day Ronin</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        /* ASCII Art Container Styles */
+        .center-container {
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(to bottom,
+                rgba(251, 247, 242, 0.95),
+                rgba(245, 237, 228, 0.98));
+            border: 1px solid rgba(25, 15, 10, 0.15);
+            border-radius: 4px;
+            padding: 2.5rem;
+            box-shadow: inset 0 0 30px rgba(25, 15, 10, 0.03),
+                        0 0 10px rgba(25, 15, 10, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Scanline effect */
+        .center-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(25, 15, 10, 0.02) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        .ascii-art {
+            color: var(--terminal-text);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            line-height: 1.2;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(25, 15, 10, 0.1);
+        }
+
+        .ascii-art pre {
+            margin: 0;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            transform: scale(1.1);
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
     <div class="terminal">
@@ -92,30 +143,25 @@
                     </div>
                 </div>
 
-                <!-- Right side: News -->
+                <!-- Right side: Updates -->
                 <div class="news-container">
                     <div class="news-header">
                         <span class="prompt-marker">></span>
-                        <span class="news-title">NEWS_FEED</span>
+                        <span class="news-title">UPDATES_FEED</span>
                     </div>
                     
                     <!-- Section Switcher -->
                     <div class="section-switcher">
-                        <button class="section-btn active" data-section="ENERGY_NEWS">ENERGY</button>
-                        <button class="section-btn" data-section="TECH_NEWS">TECH</button>
-                        <button class="section-btn" data-section="NBA_NEWS">NBA</button>
+                        <button class="section-btn active" data-section="ENERGY">ENERGY</button>
+                        <button class="section-btn" data-section="TECH">TECH</button>
+                        <button class="section-btn" data-section="NBA">NBA</button>
                     </div>
 
-                    <!-- News Content Container -->
+                    <!-- Updates Content Container -->
                     <div class="news-content">
-                        <!-- News Articles Container -->
-                        <div class="news-items-wrapper" id="newsWrapper">
-                            <div class="news-items">
-                                <!-- News items will be populated by JavaScript -->
-                            </div>
-                            <div class="news-items">
-                                <!-- Will be populated with the same items -->
-                            </div>
+                        <!-- Updates Container -->
+                        <div class="news-items" id="newsItems">
+                            <!-- Updates will be populated by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -160,26 +206,25 @@
                 }
             });
 
-            const newsWrapper = document.getElementById('newsWrapper');
+            // Updates feed functionality
+            const newsItems = document.getElementById('newsItems');
             const sectionButtons = document.querySelectorAll('.section-btn');
-            let currentSection = 'ENERGY_NEWS';
+            let currentSection = 'ENERGY';
 
-            // Function to display news articles
-            function displayNews(articles) {
-                const newsHTML = articles.map(article => `
+            // Function to display updates
+            function displayUpdates(items) {
+                const updatesHTML = items.map(item => `
                     <div class="news-item">
-                        <a href="${article.url}" target="_blank" class="news-link">
+                        <a href="${item.url}" class="news-link">
                             <span class="prompt-marker">></span>
-                            ${article.title}
-                            <span class="news-source">[${article.source}]</span>
+                            [${item.type}] ${item.title}
+                            <span class="news-source">[${item.date}]</span>
                         </a>
+                        <div class="news-description">${item.description}</div>
                     </div>
                 `).join('');
 
-                // Update both containers for seamless scrolling
-                document.querySelectorAll('.news-items').forEach(container => {
-                    container.innerHTML = newsHTML;
-                });
+                newsItems.innerHTML = updatesHTML || '<div class="news-item">No updates available.</div>';
             }
 
             // Function to switch sections
@@ -191,15 +236,17 @@
                     btn.classList.toggle('active', btn.dataset.section === section);
                 });
 
-                // Fetch and display news
-                fetch('data/news.json')
+                // Fetch and display updates
+                fetch('data/updates.json')
                     .then(response => response.json())
                     .then(data => {
-                        const sectionData = data.sections[section] || {};
-                        const articles = sectionData.articles || [];
-                        displayNews(articles);
+                        const items = data.sections[section] || [];
+                        displayUpdates(items);
                     })
-                    .catch(error => console.error('Error loading news:', error));
+                    .catch(error => {
+                        console.error('Error loading updates:', error);
+                        newsItems.innerHTML = '<div class="news-item">Error loading updates.</div>';
+                    });
             }
 
             // Add click handlers to section buttons

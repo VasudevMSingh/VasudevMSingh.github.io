@@ -1,31 +1,36 @@
 /* Theme Variables */
 :root {
-    --terminal-bg: #000000;
-    --terminal-text: #00ff00;
-    --terminal-header: #1a1a1a;
-    --terminal-border: #333333;
-    --menu-hover: #003300;
-    --terminal-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    --terminal-bg: #FBF7F2;
+    --terminal-text: rgba(25, 15, 10, 0.95);
+    --terminal-text-muted: rgba(25, 15, 10, 0.7);
+    --terminal-header: #F5EDE4;
+    --terminal-border: #E8DED2;
+    --menu-hover: rgba(25, 15, 10, 0.08);
+    --terminal-shadow: 0 0 20px rgba(25, 15, 10, 0.1);
+    --highlight-color: #5C2E0B;
+    --accent-color: rgba(92, 46, 11, 0.9);
     --font-family-main: 'VT323', monospace;
-    --font-size-base: 1.5rem;
-    --font-weight-thin: 100;
-    --font-weight-normal: 200;
-    --font-weight-bold: 300;
+    --font-size-base: 1.4rem;
+    --font-weight-thin: 300;
+    --font-weight-normal: 400;
+    --font-weight-bold: 500;
     --font-size-small: 1.2rem;
-    --font-size-large: 2rem;
-    --font-size-title: 2.5rem;
+    --font-size-large: 1.8rem;
+    --font-size-title: 2.2rem;
     --line-height-base: 1.6;
+    --border-radius: 8px;
+    --spacing-unit: 1rem;
 }
 
 /* Global Styles */
 body {
     font-family: var(--font-family-main);
     font-size: var(--font-size-base);
-    font-weight: var(--font-weight-thin);
+    font-weight: var(--font-weight-normal);
     line-height: var(--line-height-base);
-    background-color: #2b2b2b;
+    background-color: #F5EDE4;
     margin: 0;
-    padding: 1rem;
+    padding: var(--spacing-unit);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -51,13 +56,13 @@ h2 {
 }
 
 p {
-    font-weight: var(--font-weight-thin);
+    font-weight: var(--font-weight-normal);
     margin-bottom: 1.5rem;
 }
 
 a {
     font-family: var(--font-family-main);
-    font-weight: var(--font-weight-thin);
+    font-weight: var(--font-weight-normal);
     color: var(--terminal-text);
     text-decoration: none;
 }
@@ -72,28 +77,27 @@ a {
 
 .command-prompt {
     font-family: var(--font-family-main);
-    font-weight: var(--font-weight-thin);
+    font-weight: var(--font-weight-normal);
     font-size: var(--font-size-base);
 }
 
 .menu-trigger,
 .menu-option,
 .command-item {
-    font-family: var(--font-family-main);
-    font-weight: var(--font-weight-thin);
+    font-weight: var(--font-weight-normal);
     font-size: var(--font-size-small);
 }
 
 .file-info {
     font-family: var(--font-family-main);
-    font-weight: var(--font-weight-thin);
+    font-weight: var(--font-weight-normal);
     font-size: 0.9em;
 }
 
 /* Blog Specific */
 .blog-content {
     font-family: var(--font-family-main);
-    font-weight: var(--font-weight-thin);
+    font-weight: var(--font-weight-normal);
     font-size: var(--font-size-base);
     line-height: var(--line-height-base);
 }
@@ -106,14 +110,14 @@ a {
 
 .blog-meta {
     font-family: var(--font-family-main);
-    font-weight: var(--font-weight-thin);
+    font-weight: var(--font-weight-normal);
     font-size: var(--font-size-small);
 }
 
 /* About Page Specific */
 .about-content {
     font-family: var(--font-family-main);
-    font-weight: var(--font-weight-thin);
+    font-weight: var(--font-weight-normal);
     font-size: var(--font-size-base);
     line-height: var(--line-height-base);
 }
@@ -126,23 +130,25 @@ a {
 
 .about-header .subtitle {
     font-family: var(--font-family-main);
-    font-weight: var(--font-weight-thin);
+    font-weight: var(--font-weight-normal);
     font-size: 1.1rem;
 }
 
 .contact-label,
 .terminal-link {
     font-family: var(--font-family-main);
-    font-weight: var(--font-weight-thin);
+    font-weight: var(--font-weight-normal);
     font-size: var(--font-size-base);
 }
 
 .highlight {
     font-weight: var(--font-weight-bold);
+    color: var(--highlight-color);
 }
 
 .data-highlight {
     font-weight: var(--font-weight-bold);
+    color: var(--highlight-color);
 }
 
 /* Terminal Window Styles */
@@ -151,21 +157,22 @@ a {
     width: calc(100vw - 2rem);
     height: calc(100vh - 2rem);
     margin: 0;
-    border: 2px solid var(--terminal-border);
-    border-radius: 8px;
+    border: 1px solid var(--terminal-border);
+    border-radius: var(--border-radius);
     box-shadow: var(--terminal-shadow);
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    backdrop-filter: blur(10px);
 }
 
 .terminal-header {
     background-color: var(--terminal-header);
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid var(--terminal-border);
+    border-bottom: 1px solid var(--terminal-border);
 }
 
 .terminal-buttons {
@@ -187,6 +194,11 @@ a {
     gap: 2rem;
     flex: 1;
     overflow: hidden;
+    background: linear-gradient(
+        135deg,
+        rgba(251, 247, 242, 0.95),
+        rgba(245, 237, 228, 0.98)
+    );
 }
 
 .main-container {
@@ -203,8 +215,12 @@ a {
 }
 
 .terminal-content::-webkit-scrollbar-thumb {
-    background-color: var(--terminal-text);
+    background-color: rgba(25, 15, 10, 0.3);
     border-radius: 4px;
+}
+
+.terminal-content::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(25, 15, 10, 0.5);
 }
 
 /* ASCII Art */
@@ -246,25 +262,31 @@ a {
 }
 
 .menu-trigger {
-    padding: 0.5rem;
+    padding: 0.75rem 1rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    border-radius: var(--border-radius);
+    border: 1px solid transparent;
 }
 
 .menu-trigger:hover {
     background-color: var(--menu-hover);
+    border-color: var(--highlight-color);
 }
 
 .menu-dropdown {
     display: none;
     position: absolute;
     left: 2rem;
-    background-color: var(--terminal-bg);
+    background-color: rgba(251, 247, 242, 0.98);
     border: 1px solid var(--terminal-text);
     min-width: 400px;
     max-height: 80vh;
     overflow-y: auto;
     z-index: 1000;
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(25, 15, 10, 0.1);
 }
 
 .menu-item.active .menu-dropdown {
@@ -274,14 +296,16 @@ a {
 
 .menu-option {
     display: block;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     color: var(--terminal-text);
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    border-left: 2px solid transparent;
 }
 
 .menu-option:hover {
     background-color: var(--menu-hover);
+    border-left-color: var(--highlight-color);
 }
 
 /* Responsive Layout */
@@ -394,24 +418,24 @@ a {
 .viz-section {
     margin-bottom: 3rem;
     padding: 1.5rem;
-    border: 1px solid rgba(0, 255, 0, 0.2);
-    background: rgba(0, 255, 0, 0.03);
+    border: 1px solid rgba(25, 15, 10, 0.15);
+    background: rgba(25, 15, 10, 0.02);
 }
 
 .viz-header {
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+    border-bottom: 1px solid rgba(25, 15, 10, 0.1);
 }
 
 .viz-container {
     position: relative;
     margin: 2rem 0;
     padding: 1rem;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(230, 213, 192, 0.3);
     border: 1px solid var(--terminal-text);
-    box-shadow: inset 0 0 30px rgba(0, 255, 0, 0.1),
-                0 0 10px rgba(0, 255, 0, 0.2);
+    box-shadow: inset 0 0 30px rgba(25, 15, 10, 0.05),
+                0 0 10px rgba(25, 15, 10, 0.1);
 }
 
 .viz-image {
@@ -431,7 +455,7 @@ a {
     bottom: 0;
     background: linear-gradient(
         transparent 50%,
-        rgba(0, 255, 0, 0.02) 50%
+        rgba(25, 15, 10, 0.02) 50%
     );
     background-size: 100% 4px;
     pointer-events: none;
@@ -440,7 +464,7 @@ a {
 .data-insights {
     margin-top: 1rem;
     padding: 1rem;
-    background: rgba(0, 255, 0, 0.05);
+    background: rgba(25, 15, 10, 0.03);
     border-left: 3px solid var(--terminal-text);
 }
 
@@ -504,7 +528,7 @@ a {
 }
 
 .slider-button:hover {
-    background: rgba(0, 255, 0, 0.2);
+    background: rgba(25, 15, 10, 0.2);
 }
 
 .slider-button.prev {
@@ -532,14 +556,14 @@ a {
 .content-section {
     margin-bottom: 2.5rem;
     padding: 1.5rem;
-    border: 1px solid rgba(0, 255, 0, 0.2);
-    background: rgba(0, 255, 0, 0.03);
+    border: 1px solid rgba(25, 15, 10, 0.15);
+    background: rgba(25, 15, 10, 0.02);
 }
 
 .content-section h2 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+    border-bottom: 1px solid rgba(25, 15, 10, 0.1);
     padding-bottom: 0.5rem;
     color: var(--terminal-text);
 }
@@ -558,8 +582,8 @@ a {
     text-align: center;
     margin-bottom: 3rem;
     padding: 1rem;
-    border: 1px solid rgba(0, 255, 0, 0.2);
-    background: rgba(0, 255, 0, 0.03);
+    border: 1px solid rgba(25, 15, 10, 0.15);
+    background: rgba(25, 15, 10, 0.02);
 }
 
 .section-header h1 {
@@ -582,7 +606,7 @@ a {
     width: 100%;
     padding: 0.75rem 1.5rem;
     background: var(--terminal-bg);
-    border-top: 1px solid var(--terminal-text);
+    border-top: 1px solid rgba(25, 15, 10, 0.1);
 }
 
 .command-item {
@@ -603,12 +627,28 @@ a {
     gap: 2rem;
     flex: 1;
     overflow: hidden;
+    background: linear-gradient(
+        135deg,
+        rgba(251, 247, 242, 0.95),
+        rgba(245, 237, 228, 0.98)
+    );
 }
 
 /* Center Container for ASCII Art */
 .center-container {
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(
+        to bottom,
+        rgba(251, 247, 242, 0.9),
+        rgba(245, 237, 228, 0.95)
+    );
+    border: 1px solid rgba(25, 15, 10, 0.15);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: inset 0 0 30px rgba(25, 15, 10, 0.03);
+    position: relative;
+    overflow: hidden;
 }
 
 /* Interaction Area Layout */
@@ -631,21 +671,20 @@ a {
 /* News Container Styles */
 .news-container {
     width: 450px;
-    border-left: 1px solid var(--terminal-text);
-    padding-left: 1rem;
+    border-left: 1px solid rgba(25, 15, 10, 0.1);
+    padding-left: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    max-height: calc(100vh - 300px); /* Adjust height to leave space for footer */
-    overflow: hidden;
+    max-height: calc(100vh - 300px);
 }
 
 .news-header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--terminal-text);
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(25, 15, 10, 0.1);
 }
 
 .news-title {
@@ -654,70 +693,64 @@ a {
 }
 
 .news-content {
-    position: relative;
     flex: 1;
-    overflow: hidden;
-    min-height: 0; /* Important for proper scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 1rem; /* Add padding for scrollbar */
 }
 
-.news-items-wrapper {
-    position: absolute;
-    width: 100%;
-    animation: verticalScroll 30s linear infinite;
-    padding-right: 1rem;
+/* Scrollbar Styles for news content */
+.news-content::-webkit-scrollbar {
+    width: 8px;
 }
 
-.news-items-wrapper:hover {
-    animation-play-state: paused;
+.news-content::-webkit-scrollbar-track {
+    background: var(--terminal-bg);
+}
+
+.news-content::-webkit-scrollbar-thumb {
+    background-color: var(--terminal-text);
+    border-radius: 4px;
+}
+
+.news-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .news-item {
-    padding: 0.75rem 0;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+    padding: 0.75rem;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+
+.news-item:hover {
+    background-color: var(--menu-hover);
+    border-color: rgba(25, 15, 10, 0.1);
 }
 
 .news-item:last-child {
     border-bottom: none;
 }
 
-.news-link {
-    display: flex;
-    gap: 0.5rem;
-    align-items: flex-start;
-    color: var(--terminal-text);
-    text-decoration: none;
-    font-size: var(--font-size-small);
-    line-height: 1.4;
-}
-
-.news-source {
-    opacity: 0.7;
-    font-size: 0.9em;
-    margin-left: 0.5rem;
-}
-
-@keyframes verticalScroll {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-50%);
-    }
+/* Remove the animation styles since we're using regular scrolling */
+.news-items-wrapper {
+    position: relative;
+    width: 100%;
+    padding-right: 1rem;
 }
 
 /* Terminal Footer */
 .terminal-footer {
     background-color: var(--terminal-bg);
-    border-top: 1px solid var(--terminal-text);
-    padding: 0.75rem 1.5rem;
+    border-top: 1px solid rgba(25, 15, 10, 0.1);
+    padding: 1rem 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: var(--font-size-small);
-    color: var(--terminal-text);
-    margin-top: auto;
-    position: relative; /* Ensure footer stays above content */
-    z-index: 10;
+    color: var(--terminal-text-muted);
 }
 
 .footer-left {
@@ -737,7 +770,7 @@ a {
 
 .footer-right .terminal-link:hover {
     opacity: 1;
-    background: rgba(0, 255, 0, 0.1);
+    background: rgba(25, 15, 10, 0.08);
     outline: 1px solid var(--terminal-text);
 }
 
@@ -745,8 +778,8 @@ a {
 .ticker-container {
     margin: 2rem 0;
     padding: 0.75rem 1rem;
-    border: 1px solid rgba(0, 255, 0, 0.2);
-    background: rgba(0, 255, 0, 0.03);
+    border: 1px solid rgba(25, 15, 10, 0.1);
+    background: rgba(25, 15, 10, 0.03);
     overflow: hidden;
 }
 
@@ -818,7 +851,7 @@ a {
 
 .news-link {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.75rem;
     align-items: flex-start;
     color: var(--terminal-text);
     text-decoration: none;
@@ -830,6 +863,14 @@ a {
     opacity: 0.7;
     font-size: 0.9em;
     margin-left: 0.5rem;
+}
+
+.news-description {
+    margin-top: 0.5rem;
+    margin-left: 1.5rem;
+    font-size: 0.9em;
+    color: var(--terminal-text-muted);
+    line-height: 1.4;
 }
 
 /* Responsive adjustments */
@@ -853,7 +894,7 @@ a {
     display: flex;
     gap: 0.5rem;
     padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+    border-bottom: 1px solid rgba(25, 15, 10, 0.1);
     margin-bottom: 0.5rem;
 }
 
@@ -861,20 +902,23 @@ a {
     background: transparent;
     border: 1px solid var(--terminal-text);
     color: var(--terminal-text);
-    padding: 0.3rem 0.8rem;
+    padding: 0.5rem 1rem;
     font-family: var(--font-family-main);
     font-size: var(--font-size-small);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    border-radius: var(--border-radius);
 }
 
 .section-btn:hover {
-    background: rgba(0, 255, 0, 0.1);
+    background: var(--menu-hover);
 }
 
 .section-btn.active {
-    background: var(--terminal-text);
-    color: var(--terminal-bg);
+    background: rgba(25, 15, 10, 0.1);
+    border-color: var(--highlight-color);
+    color: var(--highlight-color);
+    font-weight: var(--font-weight-bold);
 }
 
 /* NBA Scores Styles */
@@ -885,8 +929,8 @@ a {
 }
 
 .nba-game {
-    background: rgba(0, 255, 0, 0.03);
-    border: 1px solid rgba(0, 255, 0, 0.2);
+    background: rgba(25, 15, 10, 0.02);
+    border: 1px solid rgba(25, 15, 10, 0.15);
     margin-bottom: 0.75rem;
     padding: 0.75rem;
 }
@@ -898,7 +942,7 @@ a {
     font-size: 0.8em;
     opacity: 0.8;
     padding-bottom: 0.25rem;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+    border-bottom: 1px solid rgba(25, 15, 10, 0.1);
 }
 
 .game-content {
@@ -923,6 +967,7 @@ a {
 .team-name {
     font-weight: var(--font-weight-bold);
     font-size: 1.1em;
+    color: var(--highlight-color);
 }
 
 .team-record {
@@ -933,12 +978,13 @@ a {
 .team-score {
     font-size: 1.2em;
     font-weight: var(--font-weight-bold);
+    color: var(--highlight-color);
 }
 
 .game-leaders {
     margin-top: 0.25rem;
     padding-top: 0.25rem;
-    border-top: 1px solid rgba(0, 255, 0, 0.1);
+    border-top: 1px solid rgba(25, 15, 10, 0.1);
     font-size: 0.8em;
 }
 
@@ -952,6 +998,7 @@ a {
 .leader-name {
     opacity: 0.9;
     font-weight: var(--font-weight-bold);
+    color: var(--highlight-color);
 }
 
 .leader-stats {
@@ -976,4 +1023,9 @@ a {
 .nba-scores-wrapper::-webkit-scrollbar-thumb {
     background-color: var(--terminal-text);
     border-radius: 3px;
+}
+
+/* Update links hover state */
+a:hover {
+    color: var(--highlight-color);
 }

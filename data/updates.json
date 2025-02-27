@@ -1,0 +1,46 @@
+{
+  "sections": {
+    "ENERGY": [
+      {
+        "type": "BLOG",
+        "title": "ERCOT Battery Monitor - 2024: Market Analysis and Revenue Trends",
+        "date": "Nov 2024",
+        "url": "blog1.html",
+        "description": "Analysis of ERCOT energy storage market transformation and revenue patterns in 2024"
+      },
+      {
+        "type": "PROJECT",
+        "title": "Energy Visualizations Dashboard",
+        "date": "Jan 2025",
+        "url": "energy_viz.html",
+        "description": "Interactive visualizations of energy market data and battery storage performance"
+      }
+    ],
+    "TECH": [
+      {
+        "type": "BLOG",
+        "title": "Purpose Over Programmers: The Great AI Disruption",
+        "date": "Jan 2025",
+        "url": "blog2.html",
+        "description": "Exploring the impact of AI on tech careers and the importance of purpose-driven work"
+      }
+    ],
+    "NBA": [
+      {
+        "type": "BLOG",
+        "title": "NBA Trade Shockwave: Luka Doncic to Lakers",
+        "date": "Feb 2025",
+        "url": "blog3.html",
+        "description": "Analysis of the shocking Luka Doncic trade and its impact on the NBA landscape"
+      },
+      {
+        "type": "PROJECT",
+        "title": "NBA Analytics Dashboard",
+        "date": "Feb 2025",
+        "url": "#",
+        "description": "Interactive dashboard for NBA statistics and player performance analysis"
+      }
+    ]
+  },
+  "lastUpdated": "2025-02-07"
+} 
