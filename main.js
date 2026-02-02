@@ -1,99 +1,127 @@
-const slides = [
-    {
-        url: './images/price_hourly.png',
-        alt: 'Energy Data Visualization'
-    },
-    {
-        url: './images/price_monthly.png',
-        alt: 'Power Grid Analysis'
-    },
-    {
-        url: './images/demand_hourly.png',
-        alt: 'Renewable Energy Project'
-    },
-    {
-        url: './images/demand_monthly.png',
-        alt: 'Renewable Energy Project'
-    },
-    {
-        url: './images/topassets_bymonth.png',
-        alt: 'Renewable Energy Project'
-    }
-];
+// Main JavaScript for Vasudev Singh Portfolio
 
-function initSlideshow() {
-    const slideshow = document.querySelector('.hero-slideshow');
-    
-    // Create slides
-    slides.forEach((slide, index) => {
-        const slideDiv = document.createElement('div');
-        slideDiv.className = `slide ${index === 0 ? 'active' : ''}`;
-        
-        const img = document.createElement('img');
-        img.src = slide.url;
-        img.alt = slide.alt;
-        img.loading = 'lazy'; // Lazy load all but first image
-        
-        slideDiv.appendChild(img);
-        slideshow.appendChild(slideDiv);
-    });
-    
-    let currentSlide = 0;
-    
-    function nextSlide() {
-        const slideElements = document.querySelectorAll('.slide');
-        slideElements[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % slides.length;
-        slideElements[currentSlide].classList.add('active');
-    }
-    
-    // Change slide every 5 seconds
-    setInterval(nextSlide, 10000);
-}
-
-function initBlogCarousel() {
-    const carousel = document.querySelector('.blog-carousel');
-    const prevButton = document.querySelector('.carousel-button.prev');
-    const nextButton = document.querySelector('.carousel-button.next');
-    
-    const cardWidth = carousel.querySelector('.blog-card').offsetWidth;
-    const cardsToShow = window.innerWidth > 1024 ? 3 : window.innerWidth > 768 ? 2 : 1;
-    
-    prevButton.addEventListener('click', () => {
-        carousel.scrollBy({
-            left: -cardWidth,
-            behavior: 'smooth'
-        });
-    });
-    
-    nextButton.addEventListener('click', () => {
-        carousel.scrollBy({
-            left: cardWidth,
-            behavior: 'smooth'
-        });
-    });
-    
-    // Optional: Hide arrows at the start/end of carousel
-    carousel.addEventListener('scroll', () => {
-        const scrollLeft = carousel.scrollLeft;
-        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-        
-        prevButton.style.opacity = scrollLeft === 0 ? '0.5' : '1';
-        nextButton.style.opacity = scrollLeft === maxScroll ? '0.5' : '1';
-    });
-}
-
-// Add this to your existing DOMContentLoaded listener
 document.addEventListener('DOMContentLoaded', () => {
-    initSlideshow();
-    initBlogCarousel();
-    if (window.lightbox) {
-        lightbox.option({
-            'resizeDuration': 300,
-            'wrapAround': true,
-            'albumLabel': 'Chart %1 of %2',
-            'fadeDuration': 300,
-            'positionFromTop': 50
+    // Initialize all components
+    initMobileMenu();
+    initUpdatesFeed();
+});
+
+/**
+ * Mobile Menu Toggle
+ */
+function initMobileMenu() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+
+    if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.site-header')) {
+                mainNav.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
+        });
+
+        // Close menu when clicking a nav link
+        mainNav.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
         });
     }
+}
+
+/**
+ * Updates Feed Functionality
+ */
+function initUpdatesFeed() {
+    const updatesGrid = document.getElementById('updatesGrid');
+    const sectionButtons = document.querySelectorAll('.section-btn');
+
+    if (!updatesGrid || sectionButtons.length === 0) return;
+
+    let currentSection = 'ENERGY';
+
+    // Display updates in grid format
+    function displayUpdates(items) {
+        if (!items || items.length === 0) {
+            updatesGrid.innerHTML = '<div class="update-item"><p class="update-title">No updates available.</p></div>';
+            return;
+        }
+
+        const updatesHTML = items.map(item => `
+            <div class="update-item">
+                <a href="${item.url}">
+                    <div class="update-meta">
+                        <span class="update-type">${item.type}</span>
+                        <span class="update-date">${item.date}</span>
+                    </div>
+                    <h3 class="update-title">${item.title}</h3>
+                    <p class="update-description">${item.description}</p>
+                </a>
+            </div>
+        `).join('');
+
+        updatesGrid.innerHTML = updatesHTML;
+    }
+
+    // Switch between sections
+    function switchSection(section) {
+        currentSection = section;
+
+        // Update button states
+        sectionButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.section === section);
+        });
+
+        // Fetch and display updates
+        fetch('data/updates.json')
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to fetch updates');
+                return response.json();
+            })
+            .then(data => {
+                const items = data.sections[section] || [];
+                displayUpdates(items);
+            })
+            .catch(error => {
+                console.error('Error loading updates:', error);
+                updatesGrid.innerHTML = '<div class="update-item"><p class="update-title">Error loading updates. Please try again later.</p></div>';
+            });
+    }
+
+    // Add click handlers to section buttons
+    sectionButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            switchSection(button.dataset.section);
+        });
+    });
+
+    // Initial load
+    switchSection(currentSection);
+}
+
+/**
+ * Smooth scroll for anchor links
+ */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+
+        const target = document.querySelector(href);
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
 });

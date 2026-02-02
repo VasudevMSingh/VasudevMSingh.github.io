@@ -3,278 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ERCOT Battery Monitor - Vagabond</title>
+    <title>The Great AI Disruption - Vasudev Singh</title>
+    <meta name="description" content="In the AI revolution, we don't need more programmers - we need more people driven by purpose rather than just profit.">
+
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The Great AI Disruption: Purpose Over Programmers">
+    <meta property="og:description" content="In the AI revolution, we don't need more programmers - we need more people driven by purpose rather than just profit.">
+    <meta property="og:image" content="images/price_monthly.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <style>
-        /* Reset body */
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #F5EDE4;
-        }
-
-        /* Make terminal fill the viewport */
-        .terminal {
-            width: 100vw;
-            height: 100vh;
-            margin: 0;
-            border: none;
-            border-radius: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Header stays at top */
-        .terminal-header {
-            padding: 0.75rem 1.5rem;
-            flex-shrink: 0;
-        }
-
-        /* Content area takes remaining space */
-        .terminal-content {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 2rem 6rem;
-            margin-bottom: 3rem; /* Space for command bar */
-        }
-
-        /* Fix chart containers */
-        .chart-container {
-            width: 100%;
-            height: 600px;
-            margin: 3rem 0;
-            position: relative;
-            display: block;
-            background-color: rgba(25, 15, 10, 0.03);
-            border: 1px solid var(--terminal-border);
-            padding: 2rem;
-            box-sizing: border-box;
-            box-shadow: inset 0 0 30px rgba(25, 15, 10, 0.03),
-                        0 0 10px rgba(25, 15, 10, 0.1);
-        }
-
-        /* Style the canvas elements directly */
-        canvas {
-            background: linear-gradient(
-                to bottom,
-                rgba(251, 247, 242, 0.95),
-                rgba(245, 237, 228, 0.98)
-            );
-            border: 1px solid rgba(25, 15, 10, 0.15);
-            border-radius: 4px;
-            padding: 1.5rem;
-            box-shadow: 0 0 15px rgba(25, 15, 10, 0.1);
-        }
-
-        /* Add a retro scan line effect to charts */
-        .chart-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                transparent 50%,
-                rgba(25, 15, 10, 0.02) 50%
-            );
-            background-size: 100% 4px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Add some spacing around charts for better readability */
-        .chart-container + p,
-        p + .chart-container {
-            margin-top: 1rem;
-        }
-
-        /* Command bar stays at bottom */
-        .command-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            padding: 0.75rem 1.5rem;
-        }
-
-        /* Blog-specific styles */
-        .blog-content {
-            color: var(--terminal-text);
-            font-size: 1.2rem;
-            line-height: 1.6;
-            max-width: 100%;
-            margin: 0 auto;
-        }
-
-        .blog-content h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .blog-content h2 {
-            font-size: 1.5rem;
-            margin: 2rem 0 1rem;
-            color: var(--terminal-text);
-        }
-
-        .blog-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .blog-meta {
-            text-align: center;
-            margin-bottom: 2rem;
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        .data-highlight {
-            color: var(--highlight-color);
-            font-weight: bold;
-        }
-
-        .footer-note {
-            margin-top: 3rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--terminal-text);
-            font-style: italic;
-            opacity: 0.7;
-        }
-
-        .command-item {
-            color: var(--terminal-text);
-            text-decoration: none;
-            font-size: 1rem;
-        }
-
-        .command-item:hover {
-            text-decoration: underline;
-        }
-
-        /* Terminal scrollbar */
-        .terminal-content::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .terminal-content::-webkit-scrollbar-track {
-            background: var(--terminal-bg);
-        }
-
-        .terminal-content::-webkit-scrollbar-thumb {
-            background-color: var(--terminal-text);
-            border-radius: 4px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 1200px) {
-            .chart-container {
-                height: 500px;
-            }
-            .terminal-content {
-                padding: 2rem 3rem;
-            }
-        }
-
-        /* Blog Section Styles */
-        .blog-section {
-            margin-bottom: 2.5rem;
-            padding: 1.5rem;
-            border: 1px solid rgba(25, 15, 10, 0.15);
-            background: rgba(25, 15, 10, 0.03);
-        }
-
-        .blog-section h2 {
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(25, 15, 10, 0.3);
-            padding-bottom: 0.5rem;
-        }
-
-        .blog-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 1rem;
-            border: 1px solid rgba(25, 15, 10, 0.15);
-            background: rgba(25, 15, 10, 0.03);
-        }
-
-        .highlight {
-            color: var(--highlight-color);
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
-    <div class="terminal">
-        <div class="terminal-header">
-            <div class="terminal-title">The Great AI Disruption: Why We Need Purpose More Than Programmers</div>
-            <div class="terminal-buttons">
-                <span class="terminal-button"></span>
-                <span class="terminal-button"></span>
-                <span class="terminal-button"></span>
-            </div>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <span class="logo-text">Vasudev Singh</span>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <a href="about.html" class="nav-link">About</a>
+                <a href="index.html#writing" class="nav-link">Writing</a>
+                <a href="energy_viz.html" class="nav-link">Data</a>
+                <a href="about.html#contact" class="nav-link">Contact</a>
+            </nav>
         </div>
-        <div class="terminal-content">
-            <article class="blog-content">
-                <div class="blog-header">
-                    <h1>The Great AI Disruption: Why We Need Purpose More Than Programmers</h1>
-                    <div class="blog-meta">
-                        <div>BY: VASUDEV MOHAN SINGH</div>
-                        <div>PUBLISHED: 01/20/2025</div>
-                        <div>CATEGORY: TECHNOLOGY | CAREER</div>
+    </header>
+
+    <main class="article-page">
+        <article class="article article-personal">
+            <!-- Article Header -->
+            <header class="article-header">
+                <div class="container-narrow">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span class="separator">/</span>
+                        <span>Writing</span>
+                    </nav>
+
+                    <div class="article-meta-top">
+                        <span class="category-tag category-tag-tech">Tech & Career</span>
+                    </div>
+
+                    <h1 class="article-title">The Great AI Disruption: Why We Need Purpose More Than Programmers</h1>
+
+                    <div class="article-meta">
+                        <span class="author">By Vasudev Singh</span>
+                        <span class="separator">|</span>
+                        <time datetime="2025-01-20">January 20, 2025</time>
+                        <span class="separator">|</span>
+                        <span class="read-time">6 min read</span>
                     </div>
                 </div>
+            </header>
 
-                <div class="blog-section">
-                    <h2>> INTRODUCTION</h2>
+            <!-- Article Content -->
+            <div class="article-content">
+                <div class="container-narrow">
+
+                    <h2>Introduction</h2>
                     <p>In the midst of the AI revolution and the seismic shifts rippling through the tech industry, there's a palpable anxiety among knowledge workers. Developers clutch their keyboards a bit tighter, consoling themselves with their deep technical expertise and problem-solving abilities. Designers watch in mounting concern as AI-generated content floods their once-exclusive domain, wondering if their creative instincts will soon be relegated to prompting the right algorithms.</p>
-                    
+
                     <p>But this isn't another piece about the impending obsolescence of tech jobs or the existential crisis facing creative professionals. Instead, I want to highlight a crucial silver lining that's being overlooked in all this technological tumult.</p>
-                </div>
 
-                <div class="blog-section">
-                    <h2>> PERSONAL_JOURNEY</h2>
-                    <p>Seven years ago, when I completed my Bachelor's in Engineering and announced my plans to pursue a Master's in Renewable Energy, I was met with a chorus of well-meaning but misguided advice: "Why not Computer Science? The jobs are abundant. It's the easy path to a comfortable life. Don't waste your Master's degree." Back then, I could only respond with a noncommittal smile and vague assurances about finding my way. When the pandemic hit in 2020 and the already limited opportunities in renewable energy seemed to evaporate, those earlier warnings felt prophetic.</p>
-                </div>
+                    <h2>My Personal Journey</h2>
+                    <p>Seven years ago, when I completed my Bachelor's in Engineering and announced my plans to pursue a Master's in Renewable Energy, I was met with a chorus of well-meaning but misguided advice: "Why not Computer Science? The jobs are abundant. It's the easy path to a comfortable life. Don't waste your Master's degree."</p>
 
-                <div class="blog-section">
-                    <h2>> CAREER_EVOLUTION</h2>
-                    <p>After years of perseverance and a fortunate break, I've carved out a unique niche for myself. I'm now an expert in Energy Markets and Clean Energy, with programming skills that complement my primary expertise. While I'm still navigating the ever-shifting career landscape, I finally have a clear response to those who questioned my path: I chose energy because it matters.</p>
-                </div>
+                    <p>Back then, I could only respond with a noncommittal smile and vague assurances about finding my way. When the pandemic hit in 2020 and the already limited opportunities in renewable energy seemed to evaporate, those earlier warnings felt prophetic.</p>
 
-                <div class="blog-section">
-                    <h2>> KEY_INSIGHT</h2>
-                    <p>Here's the critical point being missed in all the AI discourse: As automation increasingly handles the routine aspects of knowledge work, we don't need more programmers – we need more people driven by purpose rather than just profit. We need individuals who wake up thinking about solving climate change, improving healthcare access, or revolutionizing education. The world requires professionals who measure their success not just by their salary but by their impact on humanity's future.</p>
-                </div>
+                    <h2>Career Evolution</h2>
+                    <p>After years of perseverance and a fortunate break, I've carved out a unique niche for myself. I'm now an expert in Energy Markets and Clean Energy, with programming skills that complement my primary expertise. While I'm still navigating the ever-shifting career landscape, I finally have a clear response to those who questioned my path: <span class="highlight">I chose energy because it matters.</span></p>
 
-                <div class="blog-section">
-                    <h2>> FUTURE_PERSPECTIVE</h2>
-                    <p>The rise of AI might be the wake-up call we needed. As traditional tech roles become increasingly automated, perhaps more talented individuals will feel emboldened to pursue careers that directly address our world's most pressing challenges. Maybe the next generation of graduates won't automatically default to computer science because it's the "safe choice," but instead will choose paths that align with their values and society's needs.</p>
+                    <h2>The Key Insight</h2>
+                    <p>Here's the critical point being missed in all the AI discourse: As automation increasingly handles the routine aspects of knowledge work, we don't need more programmers – we need more people driven by purpose rather than just profit.</p>
 
+                    <p>We need individuals who wake up thinking about solving climate change, improving healthcare access, or revolutionizing education. The world requires professionals who measure their success not just by their salary but by their impact on humanity's future.</p>
+
+                    <h2>Looking Forward</h2>
+                    <p>The rise of AI might be the wake-up call we needed. As traditional tech roles become increasingly automated, perhaps more talented individuals will feel emboldened to pursue careers that directly address our world's most pressing challenges.</p>
+
+                    <p>Maybe the next generation of graduates won't automatically default to computer science because it's the "safe choice," but instead will choose paths that align with their values and society's needs.</p>
+
+                    <h2>Conclusion</h2>
                     <p>The future of work isn't just about adapting to AI – it's about rediscovering the fundamental purpose of our careers. As we transition into this new era, let's hope we see more people choosing paths not because they're lucrative or secure, but because they matter.</p>
-                </div>
 
-                <div class="blog-section">
-                    <h2>> CONCLUSION</h2>
                     <p>The world doesn't need another app developer as much as it needs people committed to solving our most critical challenges. The greatest opportunity in the AI revolution might not be technological at all – it might be the chance to redirect human talent toward the problems that truly need solving.</p>
-                </div>
-            </article>
-        </div>
-        <div class="command-bar">
-            <a href="blog1.html" class="command-item">[←] PREVIOUS POST</a>
-            <a href="index.html" class="command-item">[ESC] RETURN TO MAIN</a>
-            <a href="blog3.html" class="command-item">[→] NEXT POST</a>
-            <span class="command-item">[CTRL+P] PRINT</span>
-        </div>
-    </div>
 
-    <!-- Add Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="blogCharts.js"></script>
+                </div>
+            </div>
+
+            <!-- Article Footer -->
+            <footer class="article-footer">
+                <div class="container-narrow">
+                    <div class="article-tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">Career</span>
+                        <span class="tag">Technology</span>
+                        <span class="tag">Clean Energy</span>
+                        <span class="tag">Purpose</span>
+                    </div>
+
+                    <nav class="article-nav">
+                        <a href="blog1.html" class="nav-prev">
+                            <span class="nav-label">Previous</span>
+                            <span class="nav-title">ERCOT Battery Monitor 2024</span>
+                        </a>
+                        <a href="blog3.html" class="nav-next">
+                            <span class="nav-label">Next</span>
+                            <span class="nav-title">NBA Trade Shockwave</span>
+                        </a>
+                    </nav>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+                    <a href="https://instagram.com/_vasudevsingh005/" target="_blank">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
 </body>
 </html>

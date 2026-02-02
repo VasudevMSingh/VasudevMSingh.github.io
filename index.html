@@ -3,262 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vagabond - Modern Day Ronin</title>
+    <title>Vasudev Singh - Energy Analyst & Writer</title>
+    <meta name="description" content="Energy market analyst sharing insights on ERCOT, battery storage, technology trends, and basketball analytics.">
+
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Vasudev Singh - Energy Analyst & Writer">
+    <meta property="og:description" content="Energy market analyst sharing insights on ERCOT, battery storage, technology trends, and basketball analytics.">
+    <meta property="og:image" content="images/topassets_bymonth.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <style>
-        /* ASCII Art Container Styles */
-        .center-container {
-            text-align: center;
-            margin-bottom: 1rem;
-            background: linear-gradient(to bottom,
-                rgba(251, 247, 242, 0.95),
-                rgba(245, 237, 228, 0.98));
-            border: 1px solid rgba(25, 15, 10, 0.15);
-            border-radius: 4px;
-            padding: 2.5rem;
-            box-shadow: inset 0 0 30px rgba(25, 15, 10, 0.03),
-                        0 0 10px rgba(25, 15, 10, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Scanline effect */
-        .center-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                transparent 50%,
-                rgba(25, 15, 10, 0.02) 50%
-            );
-            background-size: 100% 4px;
-            pointer-events: none;
-        }
-
-        .ascii-art {
-            color: var(--terminal-text);
-            text-align: center;
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
-            line-height: 1.2;
-            font-weight: bold;
-            text-shadow: 1px 1px 1px rgba(25, 15, 10, 0.1);
-        }
-
-        .ascii-art pre {
-            margin: 0;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-            transform: scale(1.1);
-            display: inline-block;
-        }
-    </style>
 </head>
 <body>
-    <div class="terminal">
-        <div class="terminal-header">
-            <div class="terminal-title">VAGABOND.EXE</div>
-            <div class="terminal-buttons">
-                <span class="terminal-button"></span>
-                <span class="terminal-button"></span>
-                <span class="terminal-button"></span>
-            </div>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <span class="logo-text">Vasudev Singh</span>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <a href="about.html" class="nav-link">About</a>
+                <a href="#writing" class="nav-link">Writing</a>
+                <a href="energy_viz.html" class="nav-link">Data</a>
+                <a href="about.html#contact" class="nav-link">Contact</a>
+            </nav>
         </div>
-        <div class="terminal-content">
-            <!-- Center container for ASCII art -->
-            <div class="center-container">
-                <div class="ascii-art">
-                    <pre>
- __      __                  _                     _ 
- \ \    / /                 | |                   | |
-  \ \  / /_ _  __ _  __ _  | |__   ___  _ __   __| |
-   \ \/ / _` |/ _` |/ _` | | '_ \ / _ \| '_ \ / _` |
-    \  / (_| | (_| | (_| | | |_) | (_) | | | | (_| |
-     \/ \__,_|\__, |\__,_| |_.__/ \___/|_| |_|\__,_|
-               __/ |                                  
-              |___/                                   
-                    </pre>
+    </header>
+
+    <main>
+        <!-- Hero / Featured Article -->
+        <section class="hero-section">
+            <div class="container">
+                <article class="featured-article">
+                    <div class="featured-image">
+                        <img src="images/topassets_bymonth.png" alt="ERCOT Battery Market Analysis - Top Assets by Month">
+                    </div>
+                    <div class="featured-content">
+                        <div class="featured-meta">
+                            <span class="category-tag category-tag-energy">Energy Markets</span>
+                            <span class="article-card-date">November 2024</span>
+                        </div>
+                        <h1 class="featured-title">
+                            <a href="blog1.html">ERCOT Battery Monitor 2024: Market Analysis and Revenue Trends</a>
+                        </h1>
+                        <p class="featured-excerpt">
+                            The ERCOT energy storage market has experienced significant transformation in 2024,
+                            with revenue dropping from $18/kW-month to $7/kW-month. This analysis examines the key
+                            trends and their implications for battery storage operators.
+                        </p>
+                        <a href="blog1.html" class="read-more-link">Read Analysis</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Recent Writing + About Grid -->
+        <section class="content-grid" id="writing">
+            <div class="container grid-layout">
+                <!-- Recent Writing -->
+                <div class="recent-writing">
+                    <h2 class="section-title">Recent Writing</h2>
+                    <div class="article-list">
+                        <!-- Article 1 -->
+                        <article class="article-card">
+                            <div class="article-card-image">
+                                <img src="images/2023vs2024_index_small.png" alt="Books 2024">
+                            </div>
+                            <div class="article-card-content">
+                                <div class="article-card-meta">
+                                    <span class="category-tag category-tag-books">Books</span>
+                                    <span class="article-card-date">February 2025</span>
+                                </div>
+                                <h3 class="article-card-title">
+                                    <a href="blog4.html">Top Books I Read in 2024</a>
+                                </h3>
+                            </div>
+                        </article>
+
+                        <!-- Article 2 -->
+                        <article class="article-card">
+                            <div class="article-card-image">
+                                <img src="images/demand_monthly.png" alt="Luka Trade Analysis">
+                            </div>
+                            <div class="article-card-content">
+                                <div class="article-card-meta">
+                                    <span class="category-tag category-tag-sports">Sports</span>
+                                    <span class="article-card-date">February 2025</span>
+                                </div>
+                                <h3 class="article-card-title">
+                                    <a href="blog3.html">NBA Trade Shockwave: Luka Doncic to Lakers</a>
+                                </h3>
+                            </div>
+                        </article>
+
+                        <!-- Article 3 -->
+                        <article class="article-card">
+                            <div class="article-card-image">
+                                <img src="images/price_monthly.png" alt="AI Disruption">
+                            </div>
+                            <div class="article-card-content">
+                                <div class="article-card-meta">
+                                    <span class="category-tag category-tag-tech">Tech</span>
+                                    <span class="article-card-date">January 2025</span>
+                                </div>
+                                <h3 class="article-card-title">
+                                    <a href="blog2.html">The Great AI Disruption: Purpose Over Programmers</a>
+                                </h3>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- About Snippet -->
+                <aside class="about-snippet">
+                    <h2 class="section-title">About</h2>
+                    <p class="about-text">
+                        Energy analyst and project manager with 4+ years in energy markets research.
+                        Currently focused on US wholesale energy markets and battery storage optimization
+                        at a rapidly growing startup. I write about energy markets, technology trends,
+                        and basketball analytics.
+                    </p>
+                    <a href="about.html" class="about-link">More about me →</a>
+                </aside>
+            </div>
+        </section>
+
+        <!-- Data Spotlight -->
+        <section class="data-spotlight">
+            <div class="container">
+                <h2 class="section-title">Data Spotlight</h2>
+                <div class="data-preview">
+                    <div class="chart-preview">
+                        <img src="images/price_hourly.png" alt="ERCOT Price Data Visualization">
+                    </div>
+                    <div class="data-info">
+                        <h3>ERCOT Market Performance</h3>
+                        <p>Interactive visualizations of energy market data, battery storage metrics, and revenue analysis across the Texas grid.</p>
+                        <a href="energy_viz.html" class="data-link">Explore Dashboard</a>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Main interaction area -->
-            <div class="interaction-area">
-                <!-- Left side: Menu -->
-                <div class="menu-side">
-                    <div class="command-prompt">
-                        <span class="prompt-marker">C:\></span>
-                        <span class="typing-text">SELECT OPTION_</span>
-                    </div>
-
-                    <div class="menu-container">
-                        <!-- About Me Option -->
-                        <div class="menu-item">
-                            <div class="menu-trigger">[1] ABOUT.SYS</div>
-                            <div class="menu-dropdown">
-                                <a href="about.html" class="menu-option">> VASUDEV.DAT</a>
-                            </div>
-                        </div>
-
-                        <!-- Blog Option -->
-                        <div class="menu-item">
-                            <div class="menu-trigger">[2] BLOG.SYS</div>
-                            <div class="menu-dropdown">
-                                <a href="blog4.html" class="menu-option">
-                                    > BOOKS_2024.TXT
-                                    <span class="file-info">__ Feb' 2025 | BOOKS</span>
-                                </a>
-                                <a href="blog3.html" class="menu-option">
-                                    > LUKA_TRADE.TXT
-                                    <span class="file-info">__ Feb' 2025 | SPORTS</span>
-                                </a>
-                                <a href="blog2.html" class="menu-option">
-                                    > PURPOSE_OVER_PROGRAMMERS.TXT
-                                    <span class="file-info">__ Jan' 2025 | OPINION</span>
-                                </a>
-                                <a href="blog1.html" class="menu-option">
-                                    > ERCOT_MARKETS_2024.TXT
-                                    <span class="file-info">__ Nov' 2024 | ENERGY</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Projects Option -->
-                        <div class="menu-item">
-                            <div class="menu-trigger">[3] PROJECTS.SYS</div>
-                            <div class="menu-dropdown">
-                                <a href="energy_viz.html" class="menu-option">
-                                    > ENERGY_VIZ.EXE
-                                    <span class="file-info">-- ANALYTICS_AND_VISUALIZATIONS</span>
-                                </a>
-                                <a href="#" class="menu-option">
-                                    > NBA_VIZ.EXE
-                                    <span class="file-info">BASKETBALL_ANALYTICS</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right side: Updates -->
-                <div class="news-container">
-                    <div class="news-header">
-                        <span class="prompt-marker">></span>
-                        <span class="news-title">UPDATES_FEED</span>
-                    </div>
-                    
-                    <!-- Section Switcher -->
+        <!-- Updates Feed -->
+        <section class="updates-section">
+            <div class="container">
+                <div class="updates-header">
+                    <h2 class="section-title">Latest Updates</h2>
                     <div class="section-switcher">
-                        <button class="section-btn active" data-section="ENERGY">ENERGY</button>
-                        <button class="section-btn" data-section="TECH">TECH</button>
+                        <button class="section-btn active" data-section="ENERGY">Energy</button>
+                        <button class="section-btn" data-section="TECH">Tech</button>
                         <button class="section-btn" data-section="NBA">NBA</button>
                     </div>
+                </div>
+                <div class="updates-grid" id="updatesGrid">
+                    <!-- Updates will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
 
-                    <!-- Updates Content Container -->
-                    <div class="news-content">
-                        <!-- Updates Container -->
-                        <div class="news-items" id="newsItems">
-                            <!-- Updates will be populated by JavaScript -->
-                        </div>
-                    </div>
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+                    <a href="https://instagram.com/_vasudevsingh005/" target="_blank">Instagram</a>
                 </div>
             </div>
         </div>
-        <div class="terminal-footer">
-            <div class="footer-left">
-                <span class="prompt-marker">></span> VASUDEV_MOHAN_SINGH
-            </div>
-            <div class="footer-right">
-                <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank" class="terminal-link">@vasudevmohansingh <span class="blink">▐</span></a>
-            </div>
-        </div>
-    </div>
+    </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuItems = document.querySelectorAll('.menu-item');
-            
-            menuItems.forEach(item => {
-                const trigger = item.querySelector('.menu-trigger');
-                
-                trigger.addEventListener('click', function(e) {
-                    // Close all other dropdowns
-                    menuItems.forEach(otherItem => {
-                        if (otherItem !== item) {
-                            otherItem.classList.remove('active');
-                        }
-                    });
-                    // Toggle current dropdown
-                    item.classList.toggle('active');
-                    e.stopPropagation();
-                });
-            });
-
-            // Close dropdowns when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.menu-item')) {
-                    menuItems.forEach(item => {
-                        item.classList.remove('active');
-                    });
-                }
-            });
-
-            // Updates feed functionality
-            const newsItems = document.getElementById('newsItems');
-            const sectionButtons = document.querySelectorAll('.section-btn');
-            let currentSection = 'ENERGY';
-
-            // Function to display updates
-            function displayUpdates(items) {
-                const updatesHTML = items.map(item => `
-                    <div class="news-item">
-                        <a href="${item.url}" class="news-link">
-                            <span class="prompt-marker">></span>
-                            [${item.type}] ${item.title}
-                            <span class="news-source">[${item.date}]</span>
-                        </a>
-                        <div class="news-description">${item.description}</div>
-                    </div>
-                `).join('');
-
-                newsItems.innerHTML = updatesHTML || '<div class="news-item">No updates available.</div>';
-            }
-
-            // Function to switch sections
-            function switchSection(section) {
-                currentSection = section;
-                
-                // Update button states
-                sectionButtons.forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.section === section);
-                });
-
-                // Fetch and display updates
-                fetch('data/updates.json')
-                    .then(response => response.json())
-                    .then(data => {
-                        const items = data.sections[section] || [];
-                        displayUpdates(items);
-                    })
-                    .catch(error => {
-                        console.error('Error loading updates:', error);
-                        newsItems.innerHTML = '<div class="news-item">Error loading updates.</div>';
-                    });
-            }
-
-            // Add click handlers to section buttons
-            sectionButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    switchSection(button.dataset.section);
-                });
-            });
-
-            // Initial load
-            switchSection(currentSection);
-        });
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>

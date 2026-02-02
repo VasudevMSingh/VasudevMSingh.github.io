@@ -3,302 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ERCOT Battery Monitor - Vagabond</title>
+    <title>ERCOT Battery Monitor 2024 - Vasudev Singh</title>
+    <meta name="description" content="Analysis of ERCOT energy storage market transformation and revenue patterns in 2024. Revenue dropped from $18/kW-month to $7/kW-month.">
+
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ERCOT Battery Monitor 2024: Market Analysis and Revenue Trends">
+    <meta property="og:description" content="Analysis of ERCOT energy storage market transformation and revenue patterns in 2024.">
+    <meta property="og:image" content="images/topassets_bymonth.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <style>
-        /* Reset body */
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #F5EDE4;
-        }
-
-        /* Make terminal fill the viewport */
-        .terminal {
-            width: 100vw;
-            height: 100vh;
-            margin: 0;
-            border: none;
-            border-radius: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Header stays at top */
-        .terminal-header {
-            padding: 0.75rem 1.5rem;
-            flex-shrink: 0;
-        }
-
-        /* Content area takes remaining space */
-        .terminal-content {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 2rem 6rem;
-            margin-bottom: 3rem; /* Space for command bar */
-        }
-
-        /* Fix chart containers */
-        .chart-container {
-            width: 100%;
-            height: 600px;
-            margin: 3rem 0;
-            position: relative;
-            display: block;
-            background-color: rgba(25, 15, 10, 0.03);
-            border: 1px solid var(--terminal-border);
-            padding: 2rem;
-            box-sizing: border-box;
-            box-shadow: inset 0 0 30px rgba(25, 15, 10, 0.03),
-                        0 0 10px rgba(25, 15, 10, 0.1);
-        }
-
-        /* Style the canvas elements directly */
-        canvas {
-            background: linear-gradient(
-                to bottom,
-                rgba(251, 247, 242, 0.95),
-                rgba(245, 237, 228, 0.98)
-            );
-            border: 1px solid rgba(25, 15, 10, 0.15);
-            border-radius: 4px;
-            padding: 1.5rem;
-            box-shadow: 0 0 15px rgba(25, 15, 10, 0.1);
-        }
-
-        /* Add a retro scan line effect to charts */
-        .chart-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                transparent 50%,
-                rgba(25, 15, 10, 0.02) 50%
-            );
-            background-size: 100% 4px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Add some spacing around charts for better readability */
-        .chart-container + p,
-        p + .chart-container {
-            margin-top: 1rem;
-        }
-
-        /* Command bar stays at bottom */
-        .command-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            padding: 0.75rem 1.5rem;
-        }
-
-        /* Blog-specific styles */
-        .blog-content {
-            color: var(--terminal-text);
-            max-width: 100%;
-            margin: 0 auto;
-        }
-
-        .blog-content h1 {
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .blog-content h2 {
-            margin: 2rem 0 1rem;
-        }
-
-        .blog-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .blog-meta {
-            text-align: center;
-            margin-bottom: 2rem;
-            opacity: 0.8;
-        }
-
-        .data-highlight {
-            color: var(--highlight-color);
-            font-weight: bold;
-        }
-
-        .footer-note {
-            margin-top: 3rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--terminal-text);
-            font-style: italic;
-            opacity: 0.7;
-        }
-
-        .command-item {
-            color: var(--terminal-text);
-            text-decoration: none;
-            font-size: 1rem;
-        }
-
-        .command-item:hover {
-            text-decoration: underline;
-        }
-
-        /* Terminal scrollbar */
-        .terminal-content::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .terminal-content::-webkit-scrollbar-track {
-            background: var(--terminal-bg);
-        }
-
-        .terminal-content::-webkit-scrollbar-thumb {
-            background-color: var(--terminal-text);
-            border-radius: 4px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 1200px) {
-            .chart-container {
-                height: 500px;
-            }
-            .terminal-content {
-                padding: 2rem 3rem;
-            }
-        }
-
-        /* Blog Section Styles */
-        .blog-section {
-            margin-bottom: 2.5rem;
-            padding: 1.5rem;
-            border: 1px solid rgba(25, 15, 10, 0.15);
-            background: rgba(25, 15, 10, 0.03);
-        }
-
-        .blog-section h2 {
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(25, 15, 10, 0.3);
-            padding-bottom: 0.5rem;
-        }
-
-        .blog-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 1rem;
-            border: 1px solid rgba(25, 15, 10, 0.15);
-            background: rgba(25, 15, 10, 0.03);
-        }
-    </style>
 </head>
 <body>
-    <div class="terminal">
-        <div class="terminal-header">
-            <div class="terminal-title">ERCOT Battery Monitor - 2024: Market Analysis and Revenue Trends</div>
-            <div class="terminal-buttons">
-                <span class="terminal-button"></span>
-                <span class="terminal-button"></span>
-                <span class="terminal-button"></span>
-            </div>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <span class="logo-text">Vasudev Singh</span>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <a href="about.html" class="nav-link">About</a>
+                <a href="index.html#writing" class="nav-link">Writing</a>
+                <a href="energy_viz.html" class="nav-link">Data</a>
+                <a href="about.html#contact" class="nav-link">Contact</a>
+            </nav>
         </div>
-        <div class="terminal-content">
-            <article class="blog-content">
-                <div class="blog-header">
-                    <h1>ERCOT Battery Monitor - 2024: Market Analysis and Revenue Trends</h1>
-                    <div class="blog-meta">
-                        <div>BY: VASUDEV MOHAN SINGH</div>
-                        <div>PUBLISHED: 11/24/2024</div>
-                        <div>CATEGORY: ENERGY MARKETS | ANALYSIS</div>
-                    </div>
-                </div>
+    </header>
 
-                <div class="blog-section">
-                    <h2>> EXECUTIVE_SUMMARY</h2>
-                    <p>The ERCOT energy storage market has experienced significant transformation in 2024, characterized by notable
-                        shifts in revenue patterns and market dynamics. This analysis examines key trends and their implications for
-                        battery storage operators.</p>
-                </div>
+    <main class="article-page">
+        <article class="article article-analytical">
+            <!-- Article Header -->
+            <header class="article-header">
+                <div class="container-narrow">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span class="separator">/</span>
+                        <span>Writing</span>
+                    </nav>
 
-                <div class="blog-section">
-                    <h2>> REVENUE_ANALYSIS</h2>
-                    <p>The market has witnessed a substantial adjustment in revenue metrics compared to 2023. Standalone batteries
-                        in ERCOT have experienced a reduction in revenue from approximately <span class="data-highlight">$18 per kW-month</span> on average in
-                        2023 to a meagre <span class="data-highlight">$7 per kW-month</span> in 2024, representing a significant market recalibration.</p>
-
-                    <div class="chart-container">
-                        <canvas id="revenueChart"></canvas>
-                    </div>
-                    
-                    <p>The effect of peak demand months (Summers) also seems quite tempered in comparison to what we saw last year.
-                        Summer 2023 gave us some of the highest revenues we have seen since the Winter Storm URI, and the first
-                        Energy Emergency Alert since that fateful period as well.</p>
-                </div>
-
-                <div class="blog-section">
-                    <h2>> MARKET_FACTORS</h2>
-                    <p>Several factors have contributed to this this change:
-                        First, the ancillary services market has demonstrated increased price stability compared to the heightened volatility observed in 2023.
-                    </p>
-
-                    <div class="chart-container">
-                        <canvas id="priceChart"></canvas>
+                    <div class="article-meta-top">
+                        <span class="category-tag category-tag-energy">Energy Markets</span>
                     </div>
 
-                    <p>The introduction of ERCOT Contingency Reserve Services (ECRS) in June 2023, with limited resources available that were qualified to provide it, led to it being priced $26.5 per MWh higher on average than Spinning Reserve prices for 2023. This difference has come down to around a dollar in 2024.
-                    </p>
-                    <div class="chart-container">
-                        <canvas id="monthlyDemandChart"></canvas>
+                    <h1 class="article-title">ERCOT Battery Monitor 2024: Market Analysis and Revenue Trends</h1>
+
+                    <div class="article-meta">
+                        <span class="author">By Vasudev Singh</span>
+                        <span class="separator">|</span>
+                        <time datetime="2024-11-24">November 24, 2024</time>
+                        <span class="separator">|</span>
+                        <span class="read-time">8 min read</span>
                     </div>
                 </div>
+            </header>
 
-                <div class="blog-section">
-                    <h2>> PERFORMANCE_METRICS</h2>
-                    <p>The data consistently demonstrates superior performance metrics for 2-hour battery systems in the ERCOT
-                        market. Even amid 2024's adjusted market conditions, these systems maintain their competitive advantage over
-                        1-hour configurations.</p>
-
-                    <div class="chart-container">
-                        <canvas id="battcompChart"></canvas>
-                    </div>
+            <!-- Article Hero Image -->
+            <figure class="article-hero">
+                <div class="container">
+                    <img src="images/topassets_bymonth.png" alt="ERCOT Battery Market - Top Assets by Month">
                 </div>
+            </figure>
 
-                <div class="blog-section">
-                    <h2>> REVENUE_STREAMS</h2>
+            <!-- Article Content -->
+            <div class="article-content">
+                <div class="container-narrow">
+
+                    <!-- Key Takeaways -->
+                    <aside class="article-summary">
+                        <h2>Key Takeaways</h2>
+                        <ul>
+                            <li>Revenue dropped from <span class="data-highlight">$18/kW-month</span> (2023) to <span class="data-highlight">$7/kW-month</span> (2024)</li>
+                            <li>2-hour battery systems maintain competitive advantage over 1-hour configurations</li>
+                            <li>Energy-only revenue increased 22% compared to 2023 levels</li>
+                            <li>ECRS premium over Spinning Reserve has collapsed from $26.5/MWh to ~$1/MWh</li>
+                        </ul>
+                    </aside>
+
+                    <h2>Executive Summary</h2>
+                    <p>The ERCOT energy storage market has experienced significant transformation in 2024, characterized by notable shifts in revenue patterns and market dynamics. This analysis examines key trends and their implications for battery storage operators.</p>
+
+                    <h2>Revenue Analysis</h2>
+                    <p>The market has witnessed a substantial adjustment in revenue metrics compared to 2023. Standalone batteries in ERCOT have experienced a reduction in revenue from approximately <span class="data-highlight">$18 per kW-month</span> on average in 2023 to a meagre <span class="data-highlight">$7 per kW-month</span> in 2024, representing a significant market recalibration.</p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                        <figcaption>Figure 1: Revenue comparison 2023 vs 2024 ($/kW-month)</figcaption>
+                    </figure>
+
+                    <p>The effect of peak demand months (Summers) also seems quite tempered in comparison to what we saw last year. Summer 2023 gave us some of the highest revenues we have seen since the Winter Storm URI, and the first Energy Emergency Alert since that fateful period as well.</p>
+
+                    <h2>Market Factors</h2>
+                    <p>Several factors have contributed to this change. First, the ancillary services market has demonstrated increased price stability compared to the heightened volatility observed in 2023.</p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container">
+                            <canvas id="priceChart"></canvas>
+                        </div>
+                        <figcaption>Figure 2: ECRS vs RRS Price Comparison ($/MWh)</figcaption>
+                    </figure>
+
+                    <p>The introduction of ERCOT Contingency Reserve Services (ECRS) in June 2023, with limited resources available that were qualified to provide it, led to it being priced $26.5 per MWh higher on average than Spinning Reserve prices for 2023. This difference has come down to around a dollar in 2024.</p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container">
+                            <canvas id="monthlyDemandChart"></canvas>
+                        </div>
+                        <figcaption>Figure 3: Monthly Demand Comparison - 2023 vs 2024</figcaption>
+                    </figure>
+
+                    <h2>Performance Metrics</h2>
+                    <p>The data consistently demonstrates superior performance metrics for 2-hour battery systems in the ERCOT market. Even amid 2024's adjusted market conditions, these systems maintain their competitive advantage over 1-hour configurations.</p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container">
+                            <canvas id="battcompChart"></canvas>
+                        </div>
+                        <figcaption>Figure 4: 2-Hour vs 1-Hour Battery Revenue Comparison ($/kW-month)</figcaption>
+                    </figure>
+
+                    <h2>Revenue Streams</h2>
                     <p>A notable shift has occurred in revenue composition during this period. While ancillary services revenue has experienced a decline, energy-only revenue has demonstrated a 22% increase compared to 2023 levels. This transformation suggests an evolving market that rewards operational flexibility and strategic deployment of battery resources.</p>
 
-                    <div class="chart-container">
-                        <canvas id="stackedBarChart"></canvas>
-                    </div>
+                    <figure class="chart-figure">
+                        <div class="chart-container">
+                            <canvas id="stackedBarChart"></canvas>
+                        </div>
+                        <figcaption>Figure 5: Energy vs Ancillary Revenue Composition (%)</figcaption>
+                    </figure>
+
+                    <h2>Market Outlook</h2>
+                    <p>The ERCOT battery storage market continues to mature, transitioning from the high-volatility environment of 2023 to a more stabilized marketplace in 2024. While overall revenue opportunities have moderated, the market demonstrates increasing sophistication in terms of value recognition and operational efficiency.</p>
+
+                    <p><em>Note: All data presented is derived from comprehensive ERCOT market performance analysis.</em></p>
+
                 </div>
+            </div>
 
-                <div class="blog-section">
-                    <h2>> MARKET_OUTLOOK</h2>
-                    <p>The ERCOT battery storage market continues to mature, transitioning from the high-volatility environment of
-                        2023 to a more stabilized marketplace in 2024. While overall revenue opportunities have moderated, the
-                        market demonstrates increasing sophistication in terms of value recognition and operational efficiency.</p>
-
-                    <div class="footer-note">
-                        <p>Note: All data presented is derived from comprehensive ERCOT market performance analysis.</p>
+            <!-- Article Footer -->
+            <footer class="article-footer">
+                <div class="container-narrow">
+                    <div class="article-tags">
+                        <span class="tag">ERCOT</span>
+                        <span class="tag">Battery Storage</span>
+                        <span class="tag">Energy Markets</span>
+                        <span class="tag">Revenue Analysis</span>
                     </div>
-                </div>
-            </article>
-        </div>
-        <div class="command-bar">
-            <a href="index.html" class="command-item">[ESC] RETURN TO MAIN</a>
-            <a href="blog2.html" class="command-item">[→] NEXT POST</a>
-            <span class="command-item">[CTRL+P] PRINT</span>
-        </div>
-    </div>
 
-    <!-- Add Chart.js -->
+                    <nav class="article-nav">
+                        <div></div>
+                        <a href="blog2.html" class="nav-next">
+                            <span class="nav-label">Next</span>
+                            <span class="nav-title">The Great AI Disruption</span>
+                        </a>
+                    </nav>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+                    <a href="https://instagram.com/_vasudevsingh005/" target="_blank">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="blogCharts.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>

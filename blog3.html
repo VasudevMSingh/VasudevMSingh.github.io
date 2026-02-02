@@ -3,278 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ERCOT Battery Monitor - Vagabond</title>
+    <title>NBA Trade Shockwave: Luka Doncic to Lakers - Vasudev Singh</title>
+    <meta name="description" content="Analysis of the blockbuster Luka Doncic trade to the Los Angeles Lakers and its impact on the NBA landscape.">
+
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="NBA Trade Shockwave: Luka Doncic to Lakers">
+    <meta property="og:description" content="Analysis of the blockbuster Luka Doncic trade and its impact on the NBA landscape.">
+    <meta property="og:image" content="images/demand_monthly.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <style>
-        /* Reset body */
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #F5EDE4;
-        }
-
-        /* Make terminal fill the viewport */
-        .terminal {
-            width: 100vw;
-            height: 100vh;
-            margin: 0;
-            border: none;
-            border-radius: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Header stays at top */
-        .terminal-header {
-            padding: 0.75rem 1.5rem;
-            flex-shrink: 0;
-        }
-
-        /* Content area takes remaining space */
-        .terminal-content {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 2rem 6rem;
-            margin-bottom: 3rem; /* Space for command bar */
-        }
-
-        /* Fix chart containers */
-        .chart-container {
-            width: 100%;
-            height: 600px;
-            margin: 3rem 0;
-            position: relative;
-            display: block;
-            background-color: rgba(0, 255, 0, 0.03);
-            padding: 2rem;
-            box-sizing: border-box;
-            box-shadow: inset 0 0 30px rgba(0, 255, 0, 0.1),
-                        0 0 10px rgba(0, 255, 0, 0.2);
-        }
-
-        /* Style the canvas elements directly */
-        canvas {
-            background: linear-gradient(
-                to bottom,
-                rgba(0, 20, 0, 0.9),
-                rgba(0, 10, 0, 0.95)
-            );
-            border: 1px solid rgba(0, 255, 0, 0.3);
-            border-radius: 4px;
-            padding: 1.5rem;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
-        }
-
-        /* Add a retro scan line effect to charts */
-        .chart-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                transparent 50%,
-                rgba(0, 255, 0, 0.02) 50%
-            );
-            background-size: 100% 4px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Add some spacing around charts for better readability */
-        .chart-container + p,
-        p + .chart-container {
-            margin-top: 1rem;
-        }
-
-        /* Command bar stays at bottom */
-        .command-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            padding: 0.75rem 1.5rem;
-        }
-
-        /* Blog-specific styles */
-        .blog-content {
-            color: var(--terminal-text);
-            font-size: 1.2rem;
-            line-height: 1.6;
-            max-width: 100%;
-            margin: 0 auto;
-        }
-
-        .blog-content h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .blog-content h2 {
-            font-size: 1.5rem;
-            margin: 2rem 0 1rem;
-            color: var(--terminal-text);
-        }
-
-        .blog-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .blog-meta {
-            text-align: center;
-            margin-bottom: 2rem;
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        .data-highlight {
-            color: #00ff00;
-            font-weight: bold;
-        }
-
-        .footer-note {
-            margin-top: 3rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--terminal-text);
-            font-style: italic;
-            opacity: 0.7;
-        }
-
-        .command-item {
-            color: var(--terminal-text);
-            text-decoration: none;
-            font-size: 1rem;
-        }
-
-        .command-item:hover {
-            text-decoration: underline;
-        }
-
-        /* Terminal scrollbar */
-        .terminal-content::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .terminal-content::-webkit-scrollbar-track {
-            background: var(--terminal-bg);
-        }
-
-        .terminal-content::-webkit-scrollbar-thumb {
-            background-color: var(--terminal-text);
-            border-radius: 4px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 1200px) {
-            .chart-container {
-                height: 500px;
-            }
-            .terminal-content {
-                padding: 2rem 3rem;
-            }
-        }
-
-        /* Blog Section Styles */
-        .blog-section {
-            margin-bottom: 2.5rem;
-            padding: 1.5rem;
-            border: 1px solid rgba(25, 15, 10, 0.15);
-            background: rgba(25, 15, 10, 0.03);
-        }
-
-        .blog-section h2 {
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(25, 15, 10, 0.3);
-            padding-bottom: 0.5rem;
-        }
-
-        .blog-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 1rem;
-            border: 1px solid rgba(25, 15, 10, 0.15);
-            background: rgba(25, 15, 10, 0.03);
-        }
-
-        .highlight {
-            color: var(--highlight-color);
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
-    <div class="terminal">
-        <div class="terminal-header">
-            <div class="terminal-title">NBA Trade Shockwave: Luka Doncic to Lakers</div>
-            <div class="terminal-buttons">
-                <span class="terminal-button"></span>
-                <span class="terminal-button"></span>
-                <span class="terminal-button"></span>
-            </div>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <span class="logo-text">Vasudev Singh</span>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <a href="about.html" class="nav-link">About</a>
+                <a href="index.html#writing" class="nav-link">Writing</a>
+                <a href="energy_viz.html" class="nav-link">Data</a>
+                <a href="about.html#contact" class="nav-link">Contact</a>
+            </nav>
         </div>
-        <div class="terminal-content">
-            <article class="blog-content">
-                <div class="blog-header">
-                    <h1>NBA Trade Shockwave: Luka Doncic to Lakers</h1>
-                    <div class="blog-meta">
-                        <div>BY: VASUDEV MOHAN SINGH</div>
-                        <div>PUBLISHED: 02/05/2025</div>
-                        <div>CATEGORY: SPORTS | NBA</div>
+    </header>
+
+    <main class="article-page">
+        <article class="article article-analytical">
+            <!-- Article Header -->
+            <header class="article-header">
+                <div class="container-narrow">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span class="separator">/</span>
+                        <span>Writing</span>
+                    </nav>
+
+                    <div class="article-meta-top">
+                        <span class="category-tag category-tag-sports">Sports</span>
+                    </div>
+
+                    <h1 class="article-title">NBA Trade Shockwave: Luka Doncic to Lakers</h1>
+
+                    <div class="article-meta">
+                        <span class="author">By Vasudev Singh</span>
+                        <span class="separator">|</span>
+                        <time datetime="2025-02-05">February 5, 2025</time>
+                        <span class="separator">|</span>
+                        <span class="read-time">5 min read</span>
                     </div>
                 </div>
+            </header>
 
-                <div class="blog-section">
-                    <h2>> BREAKING_NEWS</h2>
+            <!-- Article Content -->
+            <div class="article-content">
+                <div class="container-narrow">
+
+                    <h2>Breaking News</h2>
                     <p>The sports world was turned upside down this past weekend when news broke that Luka Doncic was being traded to the Los Angeles Lakers, seemingly coming out of nowhere. Everyone immediately thought (many Mavericks fans prayed) that Shams Charania's Twitter account had been hacked, dismissing it as fake news. A few hours later, reality had sunk in, and an unprecedented media storm and uproar began.</p>
-                </div>
 
-                <div class="blog-section">
-                    <h2>> BOOKER_MILESTONE</h2>
-                    <p>Devin Booker learned of the trade while taking a breather on the bench as his Phoenix Suns faced off against the Portland Blazers. His reaction, caught on video by a courtside fan, has already made rounds across social circles. In that very same game, he had become the All-Time Leading Scorer for the Phoenix Suns, overtaking Walter "Sweet D" Davis's record. The four-time All-Star and two-time All-NBA Guard from the University of Kentucky has now scored 15,678 points for the Suns at the young age of 28. He already holds the record for most points in a single game in franchise history (70 points against the Boston Celtics in 2017). All in all, it was a historic night for Booker, who is considered one of the best Shooting Guards in the league today.</p>
-                </div>
+                    <h2>Booker's Milestone</h2>
+                    <p>Devin Booker learned of the trade while taking a breather on the bench as his Phoenix Suns faced off against the Portland Blazers. His reaction, caught on video by a courtside fan, has already made rounds across social circles. In that very same game, he had become the All-Time Leading Scorer for the Phoenix Suns, overtaking Walter "Sweet D" Davis's record.</p>
 
-                <div class="blog-section">
-                    <h2>> WIGGINS_PERFORMANCE</h2>
-                    <p>That same night, the Oklahoma City Thunder faced off against the Sacramento Kings in Oklahoma City. With the Thunder being the favorites, the final score of 144-104 in their favor came as no surprise. It's not that the Kings are underperformers; it's simply a testament to how dominant the NBA's best team has been this season. What should have made headlines, but was overshadowed, was the leading scorer for Oklahoma City. Aaron Wiggins, a 6-foot-6 Guard from the University of Maryland who has built a reputation as a solid role player, got his start and absolutely dominated. He finished with 41 points on 16-of-30 shooting from the field, including six three-pointers, plus 14 rebounds. It was a career night for any non-star NBA player, particularly one so young.</p>
-                </div>
+                    <p>The four-time All-Star and two-time All-NBA Guard from the University of Kentucky has now scored <span class="data-highlight">15,678 points</span> for the Suns at the young age of 28. He already holds the record for most points in a single game in franchise history (70 points against the Boston Celtics in 2017). All in all, it was a historic night for Booker, who is considered one of the best Shooting Guards in the league today.</p>
 
-                <div class="blog-section">
-                    <h2>> LUKA_ANALYSIS</h2>
-                    <p>There is much to unpack here, but it all starts with Luka "Wonderboy" Doncic. The 25-year-old Slovenian is a generational superstar. The five-time All-NBA, five-time All-Star Guard took the league by storm in his rookie year, running away with the Rookie of the Year accolades. He has more or less single-handedly led his team to the playoffs in four out of the past five years, with last season culminating in an NBA Finals appearance, where he earned the Western Conference MVP award for his stellar performance. A scoring phenomenon, he led the league in points per game and claimed the scoring title last year. His talent is undeniable, his winning mentality renowned, and his competitive fire feared by defenders worldwide.</p>
-                    
+                    <h2>Wiggins' Performance</h2>
+                    <p>That same night, the Oklahoma City Thunder faced off against the Sacramento Kings in Oklahoma City. With the Thunder being the favorites, the final score of 144-104 in their favor came as no surprise. It's not that the Kings are underperformers; it's simply a testament to how dominant the NBA's best team has been this season.</p>
+
+                    <p>What should have made headlines, but was overshadowed, was the leading scorer for Oklahoma City. Aaron Wiggins, a 6-foot-6 Guard from the University of Maryland who has built a reputation as a solid role player, got his start and absolutely dominated. He finished with <span class="data-highlight">41 points</span> on 16-of-30 shooting from the field, including six three-pointers, plus 14 rebounds. It was a career night for any non-star NBA player, particularly one so young.</p>
+
+                    <h2>The Luka Factor</h2>
+                    <p>There is much to unpack here, but it all starts with Luka "Wonderboy" Doncic. The 25-year-old Slovenian is a generational superstar. The five-time All-NBA, five-time All-Star Guard took the league by storm in his rookie year, running away with the Rookie of the Year accolades. He has more or less single-handedly led his team to the playoffs in four out of the past five years, with last season culminating in an NBA Finals appearance, where he earned the Western Conference MVP award for his stellar performance.</p>
+
+                    <p>A scoring phenomenon, he led the league in points per game and claimed the scoring title last year. His talent is undeniable, his winning mentality renowned, and his competitive fire feared by defenders worldwide.</p>
+
                     <p>Doncic's skills force every coach to reconstruct their playbook, searching for ways to contain his offensive arsenal. But it doesn't end there. Even if a team manages to slow down his scoring, Doncic creates magic with his passing. His court vision is so elite it seems supernatural, threading assists with remarkable ease and finesse. Perhaps most impressively, he elevates his game even further in the playoffs – just ask the LA Clippers, who have faced his postseason excellence firsthand.</p>
-                </div>
 
-                <div class="blog-section">
-                    <h2>> TRADE_IMPACT</h2>
-                    <p>The magnitude of this trade stems from multiple factors: the Mavericks' decision not to approach other teams, the complete silence about Doncic's availability, and the shocking statement from the Mavericks' General Manager describing him as "not fitting our long-term vision." However, the primary reason this news has dominated headlines is simple: it's Luka Doncic. His presence alone creates massive gravity for this story, overshadowing other remarkable achievements like Wiggins' career night and Booker's historic milestone.</p>
+                    <h2>Trade Impact</h2>
+                    <p>The magnitude of this trade stems from multiple factors: the Mavericks' decision not to approach other teams, the complete silence about Doncic's availability, and the shocking statement from the Mavericks' General Manager describing him as "not fitting our long-term vision."</p>
+
+                    <p>However, the primary reason this news has dominated headlines is simple: it's Luka Doncic. His presence alone creates massive gravity for this story, overshadowing other remarkable achievements like Wiggins' career night and Booker's historic milestone.</p>
 
                     <p>So if no one else will give them the attention they deserve, I will. Congratulations to Booker on a historic achievement – surely one of many more to come. Congratulations to Aaron Wiggins on a career-defining performance. And to Dallas Mavericks fans: may peaceful nights of sleep return to you soon.</p>
-                </div>
 
-                <div class="blog-section">
-                    <h2>> FOOTNOTE</h2>
-                    <div class="footer-note">
-                        <p>Note: All statistics and achievements mentioned are accurate as of February 5, 2025.</p>
+                    <p><em>Note: All statistics and achievements mentioned are accurate as of February 5, 2025.</em></p>
+
+                </div>
+            </div>
+
+            <!-- Article Footer -->
+            <footer class="article-footer">
+                <div class="container-narrow">
+                    <div class="article-tags">
+                        <span class="tag">NBA</span>
+                        <span class="tag">Basketball</span>
+                        <span class="tag">Trade Analysis</span>
+                        <span class="tag">Luka Doncic</span>
                     </div>
-                </div>
-            </article>
-        </div>
-        <div class="command-bar">
-            <a href="blog2.html" class="command-item">[←] PREVIOUS POST</a>
-            <a href="index.html" class="command-item">[ESC] RETURN TO MAIN</a>
-            <span class="command-item">[CTRL+P] PRINT</span>
-        </div>
-    </div>
 
-    <!-- Add Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="blogCharts.js"></script>
+                    <nav class="article-nav">
+                        <a href="blog2.html" class="nav-prev">
+                            <span class="nav-label">Previous</span>
+                            <span class="nav-title">The Great AI Disruption</span>
+                        </a>
+                        <a href="blog4.html" class="nav-next">
+                            <span class="nav-label">Next</span>
+                            <span class="nav-title">Top Books of 2024</span>
+                        </a>
+                    </nav>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+                    <a href="https://instagram.com/_vasudevsingh005/" target="_blank">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
 </body>
 </html>
