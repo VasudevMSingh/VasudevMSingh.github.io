@@ -41,10 +41,12 @@
     </header>
 
     <main>
-        <!-- Hero / Featured Article -->
+        <!-- Hero / Featured Article - Dynamically loaded from JSON -->
         <section class="hero-section">
             <div class="container">
-                <article class="featured-article">
+                <article class="featured-article" id="featuredArticle">
+                    <!-- Content loaded dynamically from data/posts.json -->
+                    <!-- Fallback content for no-JS or loading state -->
                     <div class="featured-image">
                         <img src="images/topassets_bymonth.png" alt="ERCOT Battery Market Analysis - Top Assets by Month">
                     </div>
@@ -70,11 +72,12 @@
         <!-- Recent Writing + About Grid -->
         <section class="content-grid" id="writing">
             <div class="container grid-layout">
-                <!-- Recent Writing -->
+                <!-- Recent Writing - Dynamically loaded from JSON -->
                 <div class="recent-writing">
                     <h2 class="section-title">Recent Writing</h2>
-                    <div class="article-list">
-                        <!-- Article 1 -->
+                    <div class="article-list" id="articleList">
+                        <!-- Content loaded dynamically from data/posts.json -->
+                        <!-- Fallback content for no-JS or loading state -->
                         <article class="article-card">
                             <div class="article-card-image">
                                 <img src="images/2023vs2024_index_small.png" alt="Books 2024">
@@ -90,7 +93,6 @@
                             </div>
                         </article>
 
-                        <!-- Article 2 -->
                         <article class="article-card">
                             <div class="article-card-image">
                                 <img src="images/demand_monthly.png" alt="Luka Trade Analysis">
@@ -106,7 +108,6 @@
                             </div>
                         </article>
 
-                        <!-- Article 3 -->
                         <article class="article-card">
                             <div class="article-card-image">
                                 <img src="images/price_monthly.png" alt="AI Disruption">
@@ -167,7 +168,7 @@
                     </div>
                 </div>
                 <div class="updates-grid" id="updatesGrid">
-                    <!-- Updates will be populated by JavaScript -->
+                    <!-- Updates will be populated by JavaScript from data/posts.json -->
                 </div>
             </div>
         </section>

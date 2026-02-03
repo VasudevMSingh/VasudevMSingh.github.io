@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST_TITLE - Vasudev Singh</title>
+    <meta name="description" content="POST_DESCRIPTION">
+
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="POST_TITLE">
+    <meta property="og:description" content="POST_DESCRIPTION">
+    <meta property="og:image" content="images/POST_IMAGE">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <span class="logo-text">Vasudev Singh</span>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <a href="about.html" class="nav-link">About</a>
+                <a href="index.html#writing" class="nav-link">Writing</a>
+                <a href="energy_viz.html" class="nav-link">Data</a>
+                <a href="about.html#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-page">
+        <!-- Use article-analytical for data posts, article-personal for opinion/lifestyle -->
+        <article class="article article-personal">
+            <!-- Article Header -->
+            <header class="article-header">
+                <div class="container-narrow">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span class="separator">/</span>
+                        <span>Writing</span>
+                    </nav>
+
+                    <div class="article-meta-top">
+                        <!-- Categories: energy, tech, sports, books -->
+                        <span class="category-tag category-tag-CATEGORY">CATEGORY_LABEL</span>
+                    </div>
+
+                    <h1 class="article-title">POST_TITLE</h1>
+
+                    <div class="article-meta">
+                        <span class="author">By Vasudev Singh</span>
+                        <span class="separator">|</span>
+                        <time datetime="YYYY-MM-DD">MONTH DD, YYYY</time>
+                        <span class="separator">|</span>
+                        <span class="read-time">X min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Optional: Article Hero Image (uncomment if needed) -->
+            <!--
+            <figure class="article-hero">
+                <div class="container">
+                    <img src="images/POST_IMAGE" alt="Image description">
+                </div>
+            </figure>
+            -->
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <div class="container-narrow">
+
+                    <h2>Section Title</h2>
+                    <p>Your content here...</p>
+
+                    <!-- For highlighted text -->
+                    <p>Use <span class="highlight">highlighted text</span> for emphasis.</p>
+
+                    <!-- For data points -->
+                    <p>Use <span class="data-highlight">$123.45</span> for data values.</p>
+
+                    <!-- For charts (if using Chart.js) -->
+                    <!--
+                    <figure class="chart-figure">
+                        <div class="chart-container">
+                            <canvas id="chartName"></canvas>
+                        </div>
+                        <figcaption>Figure X: Chart description</figcaption>
+                    </figure>
+                    -->
+
+                </div>
+            </div>
+
+            <!-- Article Footer -->
+            <footer class="article-footer">
+                <div class="container-narrow">
+                    <div class="article-tags">
+                        <span class="tag">Tag1</span>
+                        <span class="tag">Tag2</span>
+                        <span class="tag">Tag3</span>
+                    </div>
+
+                    <!-- Navigation loaded dynamically from data/posts.json -->
+                    <nav class="article-nav">
+                        <!-- Fallback content - will be replaced by JS -->
+                    </nav>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+                    <a href="https://instagram.com/_vasudevsingh005/" target="_blank">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- If using charts, uncomment: -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script src="main.js"></script>
+</body>
+</html>

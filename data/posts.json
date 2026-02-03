@@ -1,0 +1,107 @@
+{
+  "posts": [
+    {
+      "id": "blog1",
+      "slug": "blog1.html",
+      "title": "ERCOT Battery Monitor 2024: Market Analysis and Revenue Trends",
+      "shortTitle": "ERCOT Battery Monitor 2024",
+      "description": "The ERCOT energy storage market has experienced significant transformation in 2024, with revenue dropping from $18/kW-month to $7/kW-month. This analysis examines the key trends and their implications for battery storage operators.",
+      "excerpt": "Analysis of ERCOT energy storage market transformation and revenue patterns in 2024",
+      "date": "2024-11-24",
+      "dateDisplay": "November 2024",
+      "category": "energy",
+      "categoryLabel": "Energy Markets",
+      "image": "images/topassets_bymonth.png",
+      "imageAlt": "ERCOT Battery Market Analysis - Top Assets by Month",
+      "tags": ["ERCOT", "Battery Storage", "Energy Markets", "Revenue Analysis"],
+      "readTime": "8 min read",
+      "featured": true
+    },
+    {
+      "id": "blog2",
+      "slug": "blog2.html",
+      "title": "The Great AI Disruption: Purpose Over Programmers",
+      "shortTitle": "The Great AI Disruption",
+      "description": "Exploring the impact of AI on tech careers and the importance of purpose-driven work in an age of automation.",
+      "excerpt": "Exploring the impact of AI on tech careers and the importance of purpose-driven work",
+      "date": "2025-01-15",
+      "dateDisplay": "January 2025",
+      "category": "tech",
+      "categoryLabel": "Tech",
+      "image": "images/price_monthly.png",
+      "imageAlt": "AI Disruption",
+      "tags": ["AI", "Tech", "Careers", "Future of Work"],
+      "readTime": "6 min read",
+      "featured": false
+    },
+    {
+      "id": "blog3",
+      "slug": "blog3.html",
+      "title": "NBA Trade Shockwave: Luka Doncic to Lakers",
+      "shortTitle": "NBA Trade Shockwave",
+      "description": "Analysis of the shocking Luka Doncic trade and its impact on the NBA landscape.",
+      "excerpt": "Analysis of the shocking Luka Doncic trade and its impact on the NBA landscape",
+      "date": "2025-02-01",
+      "dateDisplay": "February 2025",
+      "category": "sports",
+      "categoryLabel": "Sports",
+      "image": "images/demand_monthly.png",
+      "imageAlt": "Luka Trade Analysis",
+      "tags": ["NBA", "Lakers", "Trade Analysis", "Basketball"],
+      "readTime": "5 min read",
+      "featured": false
+    },
+    {
+      "id": "blog4",
+      "slug": "blog4.html",
+      "title": "Top Books I Read in 2024",
+      "shortTitle": "Top Books 2024",
+      "description": "A curated list of the best books I read in 2024 - from ultramarathon adventures to Cold War espionage and cozy bookshop stories.",
+      "excerpt": "A curated list of the best books I read in 2024",
+      "date": "2025-02-06",
+      "dateDisplay": "February 2025",
+      "category": "books",
+      "categoryLabel": "Books",
+      "image": "images/2023vs2024_index_small.png",
+      "imageAlt": "Books 2024",
+      "tags": ["Books", "Reading", "Personal", "2024 Roundup"],
+      "readTime": "4 min read",
+      "featured": false
+    }
+  ],
+  "sections": {
+    "ENERGY": [
+      {
+        "type": "BLOG",
+        "postId": "blog1"
+      },
+      {
+        "type": "PROJECT",
+        "title": "Energy Visualizations Dashboard",
+        "date": "Jan 2025",
+        "url": "energy_viz.html",
+        "description": "Interactive visualizations of energy market data and battery storage performance"
+      }
+    ],
+    "TECH": [
+      {
+        "type": "BLOG",
+        "postId": "blog2"
+      }
+    ],
+    "NBA": [
+      {
+        "type": "BLOG",
+        "postId": "blog3"
+      },
+      {
+        "type": "PROJECT",
+        "title": "NBA Analytics Dashboard",
+        "date": "Feb 2025",
+        "url": "#",
+        "description": "Interactive dashboard for NBA statistics and player performance analysis"
+      }
+    ]
+  },
+  "lastUpdated": "2025-02-07"
+}
