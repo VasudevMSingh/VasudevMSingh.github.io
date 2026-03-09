@@ -1,8 +1,32 @@
 {
   "posts": [
     {
+      "id": "blog6",
+      "slug": "tb4-futures.html",
+      "title": "TB4 Spread Futures: ERCOT vs CAISO — Hedging the Battery Revolution",
+      "shortTitle": "TB4 Spread Futures",
+      "description": "An analysis of TB4 spread futures across ERCOT and CAISO trading hubs — exploring pricing premiums, forecasting accuracy, and hedging implications for battery storage operators navigating an increasingly arbitrage-driven market.",
+      "excerpt": "ERCOT's TB4 hubs averaged 48.5% premium over CAISO, but with proportionally higher volatility. Early lessons from TB4 futures for BESS operators.",
+      "date": "2025-09-01",
+      "dateDisplay": "September 2025",
+      "category": "energy",
+      "categoryLabel": "Energy Markets",
+      "image": "images/tb4_monthly_settlement.png",
+      "imageAlt": "TB4 Monthly Settlement Paths — ERCOT vs CAISO",
+      "tags": [
+        "ERCOT",
+        "CAISO",
+        "Battery Storage",
+        "Energy Futures",
+        "BESS",
+        "Risk Management"
+      ],
+      "readTime": "7 min read",
+      "featured": true
+    },
+    {
       "id": "blog1",
-      "slug": "blog1.html",
+      "slug": "ercot-batt-2024.html",
       "title": "ERCOT Battery Monitor 2024: Market Analysis and Revenue Trends",
       "shortTitle": "ERCOT Battery Monitor 2024",
       "description": "The ERCOT energy storage market has experienced significant transformation in 2024, with revenue dropping from $18/kW-month to $7/kW-month. This analysis examines the key trends and their implications for battery storage operators.",
@@ -13,13 +37,18 @@
       "categoryLabel": "Energy Markets",
       "image": "images/topassets_bymonth.png",
       "imageAlt": "ERCOT Battery Market Analysis - Top Assets by Month",
-      "tags": ["ERCOT", "Battery Storage", "Energy Markets", "Revenue Analysis"],
+      "tags": [
+        "ERCOT",
+        "Battery Storage",
+        "Energy Markets",
+        "Revenue Analysis"
+      ],
       "readTime": "8 min read",
-      "featured": true
+      "featured": false
     },
     {
       "id": "blog2",
-      "slug": "blog2.html",
+      "slug": "ai-disruption.html",
       "title": "The Great AI Disruption: Purpose Over Programmers",
       "shortTitle": "The Great AI Disruption",
       "description": "Exploring the impact of AI on tech careers and the importance of purpose-driven work in an age of automation.",
@@ -28,15 +57,20 @@
       "dateDisplay": "January 2025",
       "category": "tech",
       "categoryLabel": "Tech",
-      "image": "images/price_monthly.png",
+      "image": "images/YA_overlook.png",
       "imageAlt": "AI Disruption",
-      "tags": ["AI", "Tech", "Careers", "Future of Work"],
+      "tags": [
+        "AI",
+        "Tech",
+        "Careers",
+        "Future of Work"
+      ],
       "readTime": "6 min read",
       "featured": false
     },
     {
       "id": "blog3",
-      "slug": "blog3.html",
+      "slug": "nba-luka-trade.html",
       "title": "NBA Trade Shockwave: Luka Doncic to Lakers",
       "shortTitle": "NBA Trade Shockwave",
       "description": "Analysis of the shocking Luka Doncic trade and its impact on the NBA landscape.",
@@ -45,15 +79,20 @@
       "dateDisplay": "February 2025",
       "category": "sports",
       "categoryLabel": "Sports",
-      "image": "images/demand_monthly.png",
+      "image": "images/luka.jpg",
       "imageAlt": "Luka Trade Analysis",
-      "tags": ["NBA", "Lakers", "Trade Analysis", "Basketball"],
+      "tags": [
+        "NBA",
+        "Lakers",
+        "Trade Analysis",
+        "Basketball"
+      ],
       "readTime": "5 min read",
       "featured": false
     },
     {
       "id": "blog4",
-      "slug": "blog4.html",
+      "slug": "books-2024.html",
       "title": "Top Books I Read in 2024",
       "shortTitle": "Top Books 2024",
       "description": "A curated list of the best books I read in 2024 - from ultramarathon adventures to Cold War espionage and cozy bookshop stories.",
@@ -64,13 +103,22 @@
       "categoryLabel": "Books",
       "image": "images/2023vs2024_index_small.png",
       "imageAlt": "Books 2024",
-      "tags": ["Books", "Reading", "Personal", "2024 Roundup"],
+      "tags": [
+        "Books",
+        "Reading",
+        "Personal",
+        "2024 Roundup"
+      ],
       "readTime": "4 min read",
       "featured": false
     }
   ],
   "sections": {
     "ENERGY": [
+      {
+        "type": "BLOG",
+        "postId": "blog6"
+      },
       {
         "type": "BLOG",
         "postId": "blog1"
@@ -93,15 +141,8 @@
       {
         "type": "BLOG",
         "postId": "blog3"
-      },
-      {
-        "type": "PROJECT",
-        "title": "NBA Analytics Dashboard",
-        "date": "Feb 2025",
-        "url": "#",
-        "description": "Interactive dashboard for NBA statistics and player performance analysis"
       }
     ]
   },
-  "lastUpdated": "2025-02-07"
+  "lastUpdated": "2025-02-19"
 }

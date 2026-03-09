@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TB4 Spread Futures: ERCOT vs CAISO - The Merit Order</title>
+    <meta name="description"
+        content="An analysis of TB4 spread futures across ERCOT and CAISO trading hubs — exploring pricing premiums, forecasting accuracy, and hedging implications for battery storage operators.">
+
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="TB4 Spread Futures: ERCOT vs CAISO">
+    <meta property="og:description"
+        content="An analysis of TB4 spread futures across ERCOT and CAISO — exploring pricing premiums, forecasting accuracy, and hedging implications for BESS operators.">
+    <meta property="og:image" content="images/tb4_monthly_settlement.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <span class="logo-text">The Merit Order</span>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <a href="about.html" class="nav-link">About</a>
+                <a href="index.html#writing" class="nav-link">Writing</a>
+                <a href="energy_viz.html" class="nav-link">Data</a>
+                <a href="about.html#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-page">
+        <article class="article article-analytical">
+            <!-- Article Header -->
+            <header class="article-header">
+                <div class="container-narrow">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span class="separator">/</span>
+                        <span>Writing</span>
+                    </nav>
+
+                    <div class="article-meta-top">
+                        <span class="category-tag category-tag-energy">Energy Markets</span>
+                    </div>
+
+                    <h1 class="article-title">TB4 Spread Futures: ERCOT vs CAISO — Hedging the Battery Revolution</h1>
+
+                    <div class="article-meta">
+                        <span class="author">By Vasudev Singh</span>
+                        <span class="separator">|</span>
+                        <time datetime="2025-02-19">September 01, 2025</time>
+                        <span class="separator">|</span>
+                        <span class="read-time">7 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Article Hero Image -->
+            <figure class="article-hero">
+                <div class="container">
+                    <img src="images/tb4_monthly_settlement.png" alt="TB4 Monthly Settlement Paths — ERCOT vs CAISO">
+                </div>
+            </figure>
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <div class="container-narrow">
+
+                    <!-- Key Takeaways -->
+                    <aside class="article-summary">
+                        <h2>Key Takeaways</h2>
+                        <ul>
+                            <li>ERCOT TB4 hubs averaged <span class="data-highlight">$57.28/MWh</span>, a <span
+                                    class="data-highlight">48.5%</span> premium over CAISO NP15</li>
+                            <li>ERCOT West Hub led all hubs at <span class="data-highlight">$66.07/MWh</span> average
+                                settlement</li>
+                            <li>ERCOT's higher returns come with proportionally higher volatility (CoV 18–27% vs CAISO's
+                                14–15%)</li>
+                            <li>Rabbit Hill ESS earned <span class="data-highlight">$72,000</span> in two days during
+                                the Feb 19 congestion event</li>
+                            <li>CAISO SP15 showed the most consistent forecasting accuracy across all time horizons</li>
+                        </ul>
+                    </aside>
+
+                    <p>Battery storage is the fastest evolving instrument of revenue generation in US energy markets.
+                        Till December 2023, BESS revenue stacks were primarily skewed towards higher ancillary revenue
+                        percentages, but 2024 came around and showed a shift towards the predicted: higher battery
+                        penetration in the grids led to saturation in ancillary service revenues and energy arbitrage
+                        grew to more than 50% of the total revenue stack. This was forecasted and yet a major shift for
+                        the BESS marketspace.</p>
+
+                    <h2>Run Rabbit Run</h2>
+                    <p>The energy markets have a propensity to be defined by record-breaking peaks and volatility
+                        events, as evidenced by the most recent congestion emergency in ERCOT.</p>
+
+                    <p>On 19th February 2025, ERCOT experienced a congestion emergency due to the outage of the
+                        Sewaju-Leande 138kV transmission line. This caused prices to skyrocket in the Round Rock area
+                        with the highest impact on two pricing nodes — one of which is the settlement point for a <span
+                            class="data-highlight">9.9MW/10MWh</span> battery, <em>Rabbit Hill ESS</em>. Currently owned
+                        by Ormat Technologies, this battery ended up making more than <span
+                            class="data-highlight">$3,600/MWh per day</span> (a total of $72,000) from energy arbitrage
+                        in just two days, <span class="data-highlight">$50,000</span> of which came within a 30-minute
+                        window.</p>
+
+                    <!-- Figure 1: Rabbit Hill Event -->
+                    <figure class="chart-figure">
+                        <img src="images/tb4_rabbit_hill.png" alt="Rabbit Hill ESS congestion event price spike">
+                        <figcaption>Figure 1: Rabbit Hill ESS settlement node prices during the February 2025 ERCOT
+                            congestion event</figcaption>
+                    </figure>
+
+                    <p>With volatility still a major factor in a merchant market, and energy arbitrage increasingly
+                        becoming the majority of a battery's revenue stack, we look at one out of various energy futures
+                        contracts available to BESS operators as a risk mitigating mechanism in an extremely volatile
+                        market.</p>
+
+                    <h2>Future is Now</h2>
+                    <p>The Intercontinental Exchange (ICE) began publishing <span class="highlight">TB4 spread
+                            futures</span> for trading hubs in ERCOT and CAISO. Energy futures provide an excellent
+                        instrument for savvy investors to hedge their risk and secure baselines in a volatile market.
+                    </p>
+
+                    <p>Today we look at how these contracts have performed so far, explore differences between the ERCOT
+                        and CAISO hub futures, and gain insights on any viable strategies for BESS developers and
+                        operators.</p>
+
+                    <h2>Everything's Bigger in Texas</h2>
+                    <p>Texas lived up to its reputation for delivering higher returns, with ERCOT's four trading hubs
+                        averaging a settlement price of <span class="data-highlight">$57.28/MWh</span> in TB4 spreads,
+                        compared to CAISO's modest <span class="data-highlight">$44.56/MWh</span>. ERCOT West Hub
+                        emerged as the leader, settling at an impressive <span class="data-highlight">$66.07/MWh</span>
+                        average — a solid 21% premium over the rest of Texas and a whopping 51% average over CAISO.</p>
+
+                    <p>Overall, all ERCOT hubs settled at a much higher premium compared to CAISO hubs — a <span
+                            class="data-highlight">48.5% average premium</span> over NP15 and a 13% average premium over
+                        SP15.</p>
+
+                    <!-- Figure 2: Hub Comparison -->
+                    <figure class="chart-figure">
+                        <img src="images/tb4_hub_comparison.png"
+                            alt="TB4 average settlement prices — ERCOT vs CAISO hub comparison">
+                        <figcaption>Figure 2: Average TB4 settlement prices across ERCOT and CAISO trading hubs
+                        </figcaption>
+                    </figure>
+
+                    <p>And true to Texas, these higher premiums came with higher volatility. Individual ERCOT hubs
+                        exhibited a coefficient of variation ranging from <span class="data-highlight">18.6% to
+                            26.9%</span>, while CAISO's more predictable markets clustered around 14–15%. This
+                        volatility difference becomes particularly stark when viewed through a risk-adjusted lens.</p>
+
+                    <h2>Forecasting Accuracy Analysis</h2>
+                    <p>Despite a limited sample size, a close look at forecasting accuracy metrics reveals some
+                        insightful trends. The small data sample isn't particularly useful for generating forward
+                        outlooks, but it is quite helpful for peeking into the inner mechanisms of the energy forwards
+                        markets and highlighting stark differences between — as well as within — each ISO.</p>
+
+                    <!-- Figure 3: Forecasting Accuracy Table -->
+                    <figure class="chart-figure">
+                        <img src="images/tb4_forecast_accuracy.png"
+                            alt="Forecasting accuracy MAPE by hub and time horizon">
+                        <figcaption>Figure 3: Mean absolute percentage error (MAPE) across time horizons for each TB4
+                            hub contract</figcaption>
+                    </figure>
+
+                    <p><strong>Short-Term Leaders:</strong> ERCOT's North Hub emerged as the most accurate short-term
+                        forecaster with just <span class="data-highlight">12.57% error</span> at 0–1-month horizons,
+                        followed closely by Houston Hub at 14.29%. CAISO's SP15 delivered competitive 20.69% accuracy,
+                        while NP15 struggled with 34.94% errors even at short horizons.</p>
+
+                    <p><strong>Time Horizon Deterioration:</strong> The most dramatic accuracy decay occurred in CAISO's
+                        NP15 contract, with errors exploding from 34.94% to 71.58% as forecast horizons extended to 3–6
+                        months. In contrast, CAISO's SP15 showed remarkable stability, with errors rising modestly from
+                        20.69% to just 28.98%.</p>
+
+                    <p><strong>ERCOT's Mixed Performance:</strong> ERCOT contracts showed varied time horizon patterns,
+                        with most exhibiting moderate accuracy degradation. West Hub displayed unusual behaviour, with
+                        errors peaking at 1–3-month horizons (37.34%) before slightly improving at longer terms
+                        (35.64%).</p>
+
+                    <p><strong>The Consistency Winner:</strong> CAISO SP15 demonstrated the most consistent performance
+                        across all time horizons, suggesting more robust forward curve formation processes compared to
+                        other contracts.</p>
+
+                    <!-- Figure 4: Accuracy Degradation -->
+                    <figure class="chart-figure">
+                        <img src="images/tb4_accuracy_decay.png"
+                            alt="Forecast accuracy decay across time horizons — CAISO SP15 vs ERCOT hubs">
+                        <figcaption>Figure 4: Forecast error evolution across time horizons for each hub, revealing
+                            CAISO SP15's superior stability</figcaption>
+                    </figure>
+
+                    <p>The data suggests an accuracy degradation pattern in ERCOT markets as forecast horizons extend,
+                        while CAISO contracts showed relatively stable performance. This suggests CAISO's forward curve
+                        formation process may be more robust to temporal uncertainty than ERCOT's merchant-driven
+                        approach.</p>
+
+                    <h2>Springboarding into Summer</h2>
+                    <p>ERCOT reached its highest settlement prices for the month of May, as increasing cooling demands
+                        and typical spring maintenance schedules caused grid load to increase. ERCOT peaked at <span
+                            class="data-highlight">$75.85/MWh</span> while CAISO reached <span
+                            class="data-highlight">$41.97/MWh</span>. But June delivered a harsh reality check, with
+                        market corrections shorting the forwards by a large margin across all hubs.</p>
+
+                    <!-- Figure 5: Monthly Settlement Charts -->
+                    <figure class="chart-figure">
+                        <img src="images/tb4_monthly_settlement.png"
+                            alt="Monthly TB4 settlement paths with forecast spreads — June correction">
+                        <figcaption>Figure 5: Individual hub settlement paths showing forecast spreads and the sharp
+                            June correction across ERCOT hubs</figcaption>
+                    </figure>
+
+                    <p>The correction was particularly severe in ERCOT, where TB4 values plummeted <span
+                            class="data-highlight">46%</span> to $40.63/MWh, suggesting that forward curves may have
+                        overestimated summer performance. In comparison, CAISO's 16% decline to $35.39/MWh proved to be
+                        more manageable.</p>
+
+                    <p>Most striking is the systematic overestimation pattern evident across ERCOT hubs, where the
+                        majority of forecast points consistently sit above the settlement point — re-affirming
+                        optimistic summer projections that the market repeatedly failed to deliver. The sharp drop in
+                        June ERCOT settlement points confirms that even late-stage forecasts failed to anticipate the
+                        magnitude of this correction.</p>
+
+                    <h2>The Road Ahead</h2>
+                    <p>The TB4 futures market, though still in its infancy, has already revealed fundamental differences
+                        in how ERCOT and CAISO price energy volatility. ERCOT's higher returns come with proportional
+                        risks, while CAISO offers stability at the cost of upside capture. More importantly, the
+                        systematic forecast errors we've observed suggest these markets are still finding their pricing
+                        equilibrium.</p>
+
+                    <p>For BESS operators, the implications are clear: <span class="highlight">location matters more
+                            than ever</span>. The hedging value available in ERCOT during June's correction demonstrates
+                        the potential for sophisticated risk management, even if current contract liquidity limits
+                        direct implementation. Meanwhile, CAISO's persistent forecast biases create both opportunities
+                        and traps for operators depending too heavily on forward pricing signals.</p>
+
+                    <p>As battery deployment accelerates and energy arbitrage becomes the dominant revenue stream, the
+                        ability to understand and potentially hedge spread volatility will separate sophisticated
+                        operators from the pack. The Rabbit Hill example reminds us that while $72,000 windfalls make
+                        headlines, consistent risk-adjusted returns build sustainable businesses.</p>
+
+                    <p>The TB4 futures market may still be writing its first chapter, but the early lessons are already
+                        shaping how the next generation of energy storage operators will approach an increasingly
+                        complex and volatile landscape.</p>
+
+                </div>
+            </div>
+
+            <!-- Article Footer -->
+            <footer class="article-footer">
+                <div class="container-narrow">
+                    <div class="article-tags">
+                        <span class="tag">ERCOT</span>
+                        <span class="tag">CAISO</span>
+                        <span class="tag">Battery Storage</span>
+                        <span class="tag">Energy Futures</span>
+                        <span class="tag">BESS</span>
+                        <span class="tag">Risk Management</span>
+                    </div>
+
+                    <!-- Navigation loaded dynamically from data/posts.json -->
+                    <nav class="article-nav">
+                        <!-- Fallback for no-JS -->
+                        <a href="books-2024.html" class="nav-prev">
+                            <span class="nav-label">Previous</span>
+                            <span class="nav-title">Top Books 2024</span>
+                        </a>
+                        <div></div>
+                    </nav>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+                    <a href="https://instagram.com/_vasudevsingh005/" target="_blank">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
