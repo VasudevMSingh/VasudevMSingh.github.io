@@ -1,6 +1,30 @@
 {
   "posts": [
     {
+      "id": "blog7",
+      "slug": "iran-energy-impact.html",
+      "title": "How the Iran Conflict Affects the Global Energy Markets",
+      "shortTitle": "Iran & Global Energy Markets",
+      "description": "The Iran conflict erased the 2026 LNG surplus in seven days, exposing the structural fragility of Gulf energy dependence - and why the energy security case for distributed generation has never been stronger.",
+      "excerpt": "In seven days, a single geopolitical event restructured global energy markets in ways that will take years to fully price in.",
+      "date": "2026-03-10",
+      "dateDisplay": "March 2026",
+      "category": "energy",
+      "categoryLabel": "Energy Markets",
+      "image": "images/tanker.jpg",
+      "imageAlt": "LNG tanker on open water - global energy supply routes",
+      "tags": [
+        "Energy Markets",
+        "LNG",
+        "Iran",
+        "Geopolitics",
+        "Energy Security",
+        "Energy Transition"
+      ],
+      "readTime": "8 min read",
+      "featured": true
+    },
+    {
       "id": "blog6",
       "slug": "tb4-futures.html",
       "title": "TB4 Spread Futures: ERCOT vs CAISO — Hedging the Battery Revolution",
@@ -22,7 +46,7 @@
         "Risk Management"
       ],
       "readTime": "7 min read",
-      "featured": true
+      "featured": false
     },
     {
       "id": "blog1",
@@ -117,6 +141,10 @@
     "ENERGY": [
       {
         "type": "BLOG",
+        "postId": "blog7"
+      },
+      {
+        "type": "BLOG",
         "postId": "blog6"
       },
       {
@@ -144,5 +172,5 @@
       }
     ]
   },
-  "lastUpdated": "2025-02-19"
+  "lastUpdated": "2026-03-10"
 }
