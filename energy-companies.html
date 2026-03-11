@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E6VLPFK24"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-7E6VLPFK24');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Energy Companies Portfolio - Analysis</title>
@@ -41,11 +51,9 @@
             overflow-y: auto;
             padding: 2rem 6rem;
             margin-bottom: 3rem;
-            background: linear-gradient(
-                135deg,
-                rgba(251, 247, 242, 0.95),
-                rgba(245, 237, 228, 0.98)
-            );
+            background: linear-gradient(135deg,
+                    rgba(251, 247, 242, 0.95),
+                    rgba(245, 237, 228, 0.98));
         }
 
         /* Command bar stays at bottom */
@@ -63,6 +71,7 @@
             .terminal-content {
                 padding: 2rem 3rem;
             }
+
             .viz-container {
                 height: 500px;
             }
@@ -87,7 +96,7 @@
             padding: 2rem;
             box-sizing: border-box;
             box-shadow: inset 0 0 30px rgba(25, 15, 10, 0.03),
-                        0 0 10px rgba(25, 15, 10, 0.1);
+                0 0 10px rgba(25, 15, 10, 0.1);
         }
 
         .viz-image {
@@ -97,11 +106,9 @@
             margin: 0 auto;
             border: 1px solid rgba(25, 15, 10, 0.15);
             border-radius: var(--border-radius);
-            background: linear-gradient(
-                to bottom,
-                rgba(251, 247, 242, 0.95),
-                rgba(245, 237, 228, 0.98)
-            );
+            background: linear-gradient(to bottom,
+                    rgba(251, 247, 242, 0.95),
+                    rgba(245, 237, 228, 0.98));
         }
 
         .viz-container::before {
@@ -111,10 +118,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(
-                transparent 50%,
-                rgba(25, 15, 10, 0.02) 50%
-            );
+            background: linear-gradient(transparent 50%,
+                    rgba(25, 15, 10, 0.02) 50%);
             background-size: 100% 4px;
             pointer-events: none;
         }
@@ -132,6 +137,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="terminal">
         <div class="terminal-header">
@@ -152,79 +158,83 @@
                         <div>CATEGORY: ENERGY MARKETS | ANALYSIS</div>
                     </div>
                 </div>
-            <div class="content-section">
-                <div class="section-header">
-                    <h2>> WIND_PORTFOLIO_EVOLUTION</h2>
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2>> WIND_PORTFOLIO_EVOLUTION</h2>
+                    </div>
+                    <div class="viz-container">
+                        <img src="images/company_windYoY.png" alt="Wind Poertfolio Growth - RWE, Engie, NextEra"
+                            class="viz-image">
+                    </div>
+                    <div class="data-insights">
+                        <h3>> KEY_INSIGHTS:</h3>
+                        <ul>
+                            <li>Wind growth consistent with confidence in wind as a long term reliable energy source -
+                                dependent on the companies long term outlook</li>
+                            <li>RWE portfolio grew by 99% - from 9.45GW in 2020 to 18.8GW in 2024</li>
+                            <li>Engie portfolio grew by 77% - from 10.1GW to 17.83GW over the same period</li>
+                            <li>NextEra portfolio grew only 26% - from 13.3GW to 16.7GW</li>
+                            <li>Differences in growth percentages are mostly due to the company's long term outlooks on
+                                a certain energy source</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="viz-container">
-                    <img src="images/company_windYoY.png" alt="Wind Poertfolio Growth - RWE, Engie, NextEra" class="viz-image">
-                </div>
-                <div class="data-insights">
-                    <h3>> KEY_INSIGHTS:</h3>
-                    <ul>
-                        <li>Wind growth consistent with confidence in wind as a long term reliable energy source - dependent on the companies long term outlook</li>
-                        <li>RWE portfolio grew by 99% - from 9.45GW in 2020 to 18.8GW in 2024</li>
-                        <li>Engie portfolio grew by 77% - from 10.1GW to 17.83GW over the same period</li>
-                        <li>NextEra portfolio grew only 26% - from 13.3GW to 16.7GW</li>
-                        <li>Differences in growth percentages are mostly due to the company's long term outlooks on a certain energy source</li>                   
-                    </ul>
-                </div>
-            </div>
 
-        <div class="command-bar">
-            <a href="index.html" class="command-item">[ESC] RETURN TO MAIN</a>
-            <span class="command-item">[CTRL+P] PRINT ANALYSIS</span>
+                <div class="command-bar">
+                    <a href="index.html" class="command-item">[ESC] RETURN TO MAIN</a>
+                    <span class="command-item">[CTRL+P] PRINT ANALYSIS</span>
+                </div>
         </div>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sliders = document.querySelectorAll('.multi-image');
-            
-            sliders.forEach(slider => {
-                const imageSlider = slider.querySelector('.image-slider');
-                const images = imageSlider.querySelectorAll('img');
-                const prevBtn = slider.querySelector('.prev');
-                const nextBtn = slider.querySelector('.next');
-                const dots = slider.querySelectorAll('.dot');
-                const counter = slider.querySelector('.image-counter');
-                let currentIndex = 0;
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const sliders = document.querySelectorAll('.multi-image');
 
-                function updateSlider() {
-                    imageSlider.style.transform = `translateX(-${currentIndex * 100}%)`;
-                    dots.forEach((dot, index) => {
-                        dot.classList.toggle('active', index === currentIndex);
-                    });
-                    counter.textContent = `IMAGE ${currentIndex + 1}/${images.length}`;
-                }
+                sliders.forEach(slider => {
+                    const imageSlider = slider.querySelector('.image-slider');
+                    const images = imageSlider.querySelectorAll('img');
+                    const prevBtn = slider.querySelector('.prev');
+                    const nextBtn = slider.querySelector('.next');
+                    const dots = slider.querySelectorAll('.dot');
+                    const counter = slider.querySelector('.image-counter');
+                    let currentIndex = 0;
 
-                prevBtn.addEventListener('click', () => {
-                    currentIndex = (currentIndex - 1 + images.length) % images.length;
-                    updateSlider();
-                });
+                    function updateSlider() {
+                        imageSlider.style.transform = `translateX(-${currentIndex * 100}%)`;
+                        dots.forEach((dot, index) => {
+                            dot.classList.toggle('active', index === currentIndex);
+                        });
+                        counter.textContent = `IMAGE ${currentIndex + 1}/${images.length}`;
+                    }
 
-                nextBtn.addEventListener('click', () => {
-                    currentIndex = (currentIndex + 1) % images.length;
-                    updateSlider();
-                });
-
-                dots.forEach((dot, index) => {
-                    dot.addEventListener('click', () => {
-                        currentIndex = index;
+                    prevBtn.addEventListener('click', () => {
+                        currentIndex = (currentIndex - 1 + images.length) % images.length;
                         updateSlider();
                     });
-                });
 
-                // Keyboard navigation
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'ArrowLeft') {
-                        prevBtn.click();
-                    } else if (e.key === 'ArrowRight') {
-                        nextBtn.click();
-                    }
+                    nextBtn.addEventListener('click', () => {
+                        currentIndex = (currentIndex + 1) % images.length;
+                        updateSlider();
+                    });
+
+                    dots.forEach((dot, index) => {
+                        dot.addEventListener('click', () => {
+                            currentIndex = index;
+                            updateSlider();
+                        });
+                    });
+
+                    // Keyboard navigation
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowLeft') {
+                            prevBtn.click();
+                        } else if (e.key === 'ArrowRight') {
+                            nextBtn.click();
+                        }
+                    });
                 });
             });
-        });
-    </script>
+        </script>
 </body>
-</html> 
+
+</html>

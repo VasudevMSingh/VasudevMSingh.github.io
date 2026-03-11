@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E6VLPFK24"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-7E6VLPFK24');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vagabond - In Our Time</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <nav class="main-nav">
         <ul>
@@ -31,13 +42,13 @@
         <div class="blog-carousel-container">
             <button class="carousel-button prev" aria-label="Previous blogs">
                 <svg width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
                 </svg>
             </button>
-            
+
             <div class="blog-carousel">
                 <div class="blog-card">
-                    <a href="./blog1.html">  <!-- Link to blog1.html -->
+                    <a href="./blog1.html"> <!-- Link to blog1.html -->
                         <div class="blog-image" style="background-image: url('./images/blog1.png')">
                             <div class="blog-overlay">
                                 <span class="blog-date">November 14, 2024</span>
@@ -48,7 +59,7 @@
                     </a>
                 </div>
                 <div class="blog-card">
-                    <a href="./blog2.html">  <!-- Link to blog2.html -->
+                    <a href="./blog2.html"> <!-- Link to blog2.html -->
                         <div class="blog-image" style="background-image: url('./images/YA_overlook.png')">
                             <div class="blog-overlay">
                                 <span class="blog-date">January 3, 2025</span>
@@ -59,7 +70,7 @@
                     </a>
                 </div>
                 <div class="blog-card">
-                    <a href="./blog3.html">  <!-- Link to blog1.html -->
+                    <a href="./blog3.html"> <!-- Link to blog1.html -->
                         <div class="blog-image" style="background-image: url('./images/luka.jpg')">
                             <div class="blog-overlay">
                                 <span class="blog-date">February 04, 2025</span>
@@ -69,17 +80,18 @@
                         </div>
                     </a>
                 </div>
-                
+
                 <!-- Add more blog cards as needed -->
             </div>
-    
+
             <button class="carousel-button next" aria-label="Next blogs">
                 <svg width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+                    <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
                 </svg>
             </button>
         </div>
     </section>
     <script src="main.js"></script>
 </body>
+
 </html>
