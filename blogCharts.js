@@ -68,7 +68,7 @@ function createRevenueChart() {
                     padding: 12,
                     cornerRadius: 8,
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             return `${context.dataset.label}: $${context.raw.toFixed(2)} per kW-month`;
                         }
                     }
@@ -146,7 +146,7 @@ function createPriceChart() {
                     padding: 12,
                     cornerRadius: 8,
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             return `${context.dataset.label}: $${context.raw.toFixed(2)} per MWh`;
                         }
                     }
@@ -228,7 +228,7 @@ function createBattCompChart() {
                     padding: 12,
                     cornerRadius: 8,
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             return `${context.dataset.label}: $${context.raw.toFixed(2)} per kW-month`;
                         }
                     }
@@ -265,18 +265,18 @@ function createStackedBarChart() {
         type: 'bar',
         data: {
             labels: ['Jan-23', 'Feb-23', 'Mar-23', 'Apr-23', 'May-23', 'Jun-23', 'Jul-23', 'Aug-23',
-                     'Sep-23', 'Oct-23', 'Nov-23', 'Dec-23', 'Jan-24', 'Feb-24', 'Mar-24', 'Apr-24',
-                     'May-24', 'Jun-24', 'Jul-24', 'Aug-24'],
+                'Sep-23', 'Oct-23', 'Nov-23', 'Dec-23', 'Jan-24', 'Feb-24', 'Mar-24', 'Apr-24',
+                'May-24', 'Jun-24', 'Jul-24', 'Aug-24'],
             datasets: [{
                 label: 'Energy Revenue',
                 data: [18.6, 10.8, 30.2, 30.6, 35.2, 16.6, 16.8, 16.2, 27.4, 2.9, 13.4, 43.7,
-                       12.5, 49.4, 45.3, 50.4, 29.7, 35.9, 53.6, 62.9],
+                    12.5, 49.4, 45.3, 50.4, 29.7, 35.9, 53.6, 62.9],
                 backgroundColor: chartColors.accent,
                 borderRadius: 0
             }, {
                 label: 'Ancillary Revenue',
                 data: [81.4, 89.2, 69.8, 69.4, 64.8, 83.4, 83.2, 83.8, 72.6, 97.1, 86.6, 56.3,
-                       87.5, 50.6, 54.7, 49.6, 70.3, 64.1, 46.4, 37.1],
+                    87.5, 50.6, 54.7, 49.6, 70.3, 64.1, 46.4, 37.1],
                 backgroundColor: chartColors.accentLight,
                 borderRadius: 0
             }]
@@ -301,7 +301,7 @@ function createStackedBarChart() {
                     padding: 12,
                     cornerRadius: 8,
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             return `${context.dataset.label}: ${context.raw.toFixed(1)}%`;
                         }
                     }
@@ -480,7 +480,7 @@ async function fetchDataAndCreateChart() {
                         padding: 12,
                         cornerRadius: 8,
                         callbacks: {
-                            label: function(context) {
+                            label: function (context) {
                                 return `${context.dataset.label}: ${context.raw.toFixed(2)} GW`;
                             }
                         }
@@ -511,6 +511,77 @@ async function fetchDataAndCreateChart() {
     }
 }
 
+// LNG Waterfall chart
+function createWaterfallChart() {
+    const ctx = document.getElementById('waterfallChart');
+    if (!ctx) return;
+
+    new Chart(ctx.getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['2026 Surplus', 'Qatar Offline', 'Hormuz Stranded', 'US Spare Capacity', 'Net Position'],
+            datasets: [{
+                label: 'Global LNG Balance (mtpa)',
+                data: [
+                    [0, 36],
+                    [36, -41],
+                    [-41, -63],
+                    [-63, -56],
+                    [0, -56]
+                ],
+                backgroundColor: [
+                    chartColors.primary,      // +36 (Surplus)
+                    chartColors.accent,       // -77 (Qatar)
+                    chartColors.accent,       // -22 (Hormuz)
+                    chartColors.secondary,    // +7 (US Spare)
+                    chartColors.text          // -56 (Net)
+                ],
+                borderRadius: 4,
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(26, 26, 26, 0.9)',
+                    titleFont: { size: 13, weight: '600' },
+                    bodyFont: { size: 12 },
+                    padding: 12,
+                    cornerRadius: 8,
+                    callbacks: {
+                        label: function (context) {
+                            const raw = context.raw;
+                            const diff = raw[1] - raw[0];
+                            const sign = diff > 0 ? '+' : '';
+                            return `${sign}${diff} mtpa`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 11 } }
+                },
+                y: {
+                    grid: { color: chartColors.grid },
+                    ticks: { font: { size: 11 } },
+                    title: {
+                        display: true,
+                        text: 'Million Tonnes Per Annum (mtpa)',
+                        font: { size: 11, weight: '500' }
+                    }
+                }
+            }
+        }
+    });
+}
+
 // Initialize all charts when the document loads
 document.addEventListener('DOMContentLoaded', () => {
     createRevenueChart();
@@ -518,4 +589,5 @@ document.addEventListener('DOMContentLoaded', () => {
     createBattCompChart();
     createStackedBarChart();
     fetchDataAndCreateChart();
+    createWaterfallChart();
 });
