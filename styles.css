@@ -926,6 +926,131 @@ hr.ornament::before {
     margin-bottom: var(--space-2);
 }
 
+/* ========================================
+   CODE BLOCKS
+   Reusable across all blog pages.
+   Uses Prism.js for syntax highlighting.
+   Add class="language-python" (or other)
+   to <code> elements to activate.
+   ======================================== */
+
+/* Block code — <pre><code> */
+pre {
+    background: #2E2820;           /* dark warm-brown, echoes the site palette */
+    color: #D9CFBE;                /* warm off-white text */
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    padding: var(--space-6);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+    border-left: 3px solid var(--color-accent-light);
+    box-shadow: var(--shadow-md);
+    white-space: pre;
+}
+
+/* Let our pre styles win over Prism defaults */
+pre[class*="language-"] {
+    background: #2E2820;
+    margin: var(--space-6) 0;
+    padding: var(--space-6);
+    border-radius: var(--radius-md);
+}
+
+pre code,
+pre[class*="language-"] code[class*="language-"] {
+    background: none;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    white-space: pre;
+}
+
+/* Inline code — <code> inside prose */
+code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background: var(--color-bg-tertiary);
+    color: var(--color-accent);
+    padding: 0.15em 0.4em;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border-strong);
+}
+
+/* --------------------------------------------------
+   SYNTAX HIGHLIGHTING TOKENS  (warm editorial theme)
+   Designed to pair with Prism.js core.
+   -------------------------------------------------- */
+
+/* Keywords: for, in, if, return, def, class, import… */
+.token.keyword {
+    color: #D4916A;   /* warm amber-terracotta */
+    font-style: normal;
+}
+
+/* Strings and template literals */
+.token.string,
+.token.char {
+    color: #8CB892;   /* sage green — data-3 from palette */
+}
+
+/* Numbers, booleans */
+.token.number,
+.token.boolean {
+    color: #7DB5C8;   /* muted steel blue */
+}
+
+/* Comments */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #6B6358;   /* --color-text-muted equivalent */
+    font-style: italic;
+}
+
+/* Built-in functions and class names */
+.token.builtin,
+.token.class-name {
+    color: #C9A96E;   /* warm gold */
+}
+
+/* Function names */
+.token.function {
+    color: #B8C9A8;   /* light sage — differs from strings */
+}
+
+/* Operators, punctuation */
+.token.operator,
+.token.punctuation {
+    color: #A89F93;   /* warm mid-grey */
+}
+
+/* Variables and identifiers */
+.token.variable {
+    color: #D9CFBE;   /* base text — no extra emphasis */
+}
+
+/* Decorators, annotations */
+.token.decorator.annotation {
+    color: #D4916A;
+}
+
+/* Namespace / module */
+.token.namespace {
+    opacity: 0.8;
+}
+
+/* Important / regex */
+.token.important,
+.token.regex {
+    color: #E8A87C;   /* soft orange */
+}
+
 /* Pull Quote - for emphasis in articles */
 .pull-quote {
     font-family: var(--font-heading);
