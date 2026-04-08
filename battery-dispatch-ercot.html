@@ -2,376 +2,466 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Model Battery Dispatch Across ERCOT's DA and RT Markets - The Merit Order</title>
-    <meta name="description" content="A practical walkthrough of two-stage linear programming for battery storage dispatch optimization across ERCOT's Day-Ahead and Real-Time markets.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modelling Battery Dispatch in Energy Markets using Python - The Merit Order</title>
+  <meta name="description"
+    content="A practical walkthrough of two-stage linear programming for battery storage dispatch optimization across ERCOT's Day-Ahead and Real-Time markets.">
 
-    <!-- Open Graph / LinkedIn -->
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="How to Model Battery Dispatch Across ERCOT's DA and RT Markets">
-    <meta property="og:description" content="A practical walkthrough of two-stage linear programming for battery storage dispatch optimization across ERCOT's Day-Ahead and Real-Time markets.">
-    <meta property="og:image" content="images/battery-dispatch-hero.png">
+  <!-- Open Graph / LinkedIn -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Model Battery Dispatch Across ERCOT's DA and RT Markets">
+  <meta property="og:description"
+    content="A practical walkthrough of two-stage linear programming for battery storage dispatch optimization across ERCOT's Day-Ahead and Real-Time markets.">
+  <meta property="og:image" content="images/battery-dispatch-hero.png">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
 
-    <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css">
 
-    <!-- Prism.js syntax highlighting (no default theme — our styles.css handles tokens) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+  <!-- Prism.js syntax highlighting (no default theme - our styles.css handles tokens) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"
+    defer></script>
 </head>
 
 <body>
-    <!-- Site Header -->
-    <header class="site-header">
-        <div class="container">
-            <a href="index.html" class="site-logo">
-                <span class="logo-text">The Merit Order</span>
-            </a>
-            <button class="menu-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <nav class="main-nav">
-                <a href="about.html" class="nav-link">About</a>
-                <a href="index.html#writing" class="nav-link">Writing</a>
-                <a href="energy_viz.html" class="nav-link">Data</a>
-                <a href="about.html#contact" class="nav-link">Contact</a>
-            </nav>
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="site-logo">
+        <span class="logo-text">The Merit Order</span>
+      </a>
+      <button class="menu-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="main-nav">
+        <a href="about.html" class="nav-link">About</a>
+        <a href="index.html#writing" class="nav-link">Writing</a>
+        <a href="energy_viz.html" class="nav-link">Data</a>
+        <a href="about.html#contact" class="nav-link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="article-page">
+    <article class="article article-analytical">
+      <!-- Article Header -->
+      <header class="article-header">
+        <div class="container-narrow">
+          <nav class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="separator">/</span>
+            <span>Writing</span>
+          </nav>
+
+          <div class="article-meta-top">
+            <span class="category-tag category-tag-energy">Energy Markets</span>
+          </div>
+
+          <h1 class="article-title">Modelling Battery Dispatch in Energy Markets using Python</h1>
+
+          <div class="article-meta">
+            <span class="author">By Vasudev Singh</span>
+            <span class="separator">|</span>
+            <time datetime="2025-04-02">April 2025</time>
+            <span class="separator">|</span>
+            <span class="read-time">8 min read</span>
+          </div>
         </div>
-    </header>
+      </header>
 
-    <main class="article-page">
-        <article class="article article-analytical">
-            <!-- Article Header -->
-            <header class="article-header">
-                <div class="container-narrow">
-                    <nav class="breadcrumb">
-                        <a href="index.html">Home</a>
-                        <span class="separator">/</span>
-                        <span>Writing</span>
-                    </nav>
+      <!-- Article Content -->
+      <div class="article-content">
+        <div class="container-narrow">
 
-                    <div class="article-meta-top">
-                        <span class="category-tag category-tag-energy">Energy Markets</span>
-                    </div>
+          <!-- Key Takeaways -->
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Real-time flexibility added <span class="data-highlight">32–55%</span> on top of day-ahead revenue
+              depending on the month</li>
+            <li>A linear programming optimizer finds the globally optimal schedule - no heuristic gets close</li>
+            <li>Revenue is concentrated in a handful of high-spread days each month</li>
+            <li>Perfect foresight results are a ceiling, not a forecast - but they're the right place to start</li>
+          </ul>
 
-                    <h1 class="article-title">How to Model Battery Dispatch Across ERCOT's DA and RT Markets</h1>
+          <!-- Section 1 -->
+          <h2>The question</h2>
+          <p>Battery storage assets in ERCOT earn revenue by moving energy across time - charging when power is cheap,
+            discharging when it's expensive. Simple in theory. In practice, a battery has hard physical constraints:
+            limited power, limited energy, and the inability to charge and discharge simultaneously. These constraints
+            make dispatch a genuine optimization problem, not a trading intuition.</p>
 
-                    <div class="article-meta">
-                        <span class="author">By Vasudev Singh</span>
-                        <span class="separator">|</span>
-                        <time datetime="2025-04-02">April 2025</time>
-                        <span class="separator">|</span>
-                        <span class="read-time">8 min read</span>
-                    </div>
-                </div>
-            </header>
+          <p>This piece walks through how to model that problem using linear programming across ERCOT's two sequential
+            markets - the Day-Ahead Market and the Real-Time Market. The central questions are:</p>
 
-            <!-- Article Content -->
-            <div class="article-content">
-                <div class="container-narrow">
+          <ol>
+            <li>Given perfect price foresight, what is the theoretical maximum revenue a battery can earn?</li>
+            <li>How much additional value does real-time flexibility add on top of a day-ahead-only strategy?</li>
+          </ol>
 
-                    <!-- Key Takeaways -->
-                    <h2>Key Takeaways</h2>
-                    <ul>
-                        <li>Real-time flexibility added <span class="data-highlight">32–55%</span> on top of day-ahead revenue depending on the month</li>
-                        <li>A linear programming optimizer finds the globally optimal schedule — no heuristic gets close</li>
-                        <li>Revenue is concentrated in a handful of high-spread days each month</li>
-                        <li>Perfect foresight results are a ceiling, not a forecast — but they're the right place to start</li>
-                    </ul>
+          <p>The answers matter because they set the ceiling for any dispatch algorithm. Before building a forecast
+            model, you need to know what perfect dispatch looks like.</p>
 
-                    <!-- Section 1 -->
-                    <h2>The question</h2>
-                    <p>Battery storage assets in ERCOT earn revenue by moving energy across time — charging when power is cheap, discharging when it's expensive. Simple in theory. In practice, a battery has hard physical constraints: limited power, limited energy, and the inability to charge and discharge simultaneously. These constraints make dispatch a genuine optimization problem, not a trading intuition.</p>
+          <!-- Section 2 -->
+          <h2>A quick primer on ERCOT's market structure</h2>
+          <p>ERCOT - the Electric Reliability Council of Texas - is the wholesale electricity market covering most of
+            Texas. Unlike PJM or CAISO, ERCOT operates as an <span class="highlight">energy-only market</span> with no
+            traditional capacity market, which makes ancillary services and energy arbitrage the primary revenue streams
+            for battery operators.</p>
 
-                    <p>This piece walks through how to model that problem using linear programming across ERCOT's two sequential markets — the Day-Ahead Market and the Real-Time Market. The central questions are:</p>
+          <p>Every delivery hour in ERCOT clears twice across two separate markets:</p>
 
-                    <ol>
-                        <li>Given perfect price foresight, what is the theoretical maximum revenue a battery can earn?</li>
-                        <li>How much additional value does real-time flexibility add on top of a day-ahead-only strategy?</li>
-                    </ol>
+          <p><strong>The Day-Ahead Market (DAM)</strong> clears the evening before physical delivery. Generators and
+            load entities submit hourly bids, the market clears, and awarded positions settle financially at DAM prices.
+            For a battery, this is where you commit your hourly charge/discharge schedule.</p>
 
-                    <p>The answers matter because they set the ceiling for any dispatch algorithm. Before building a forecast model, you need to know what perfect dispatch looks like.</p>
+          <p><strong>The Real-Time Market (RTM)</strong> settles every 15 minutes against actual grid conditions. If
+            your physical output deviates from your DAM schedule, that deviation settles at real-time prices. RTM prices
+            are more volatile than DAM prices - they respond to actual wind output, unexpected load, and transmission
+            events in real time.</p>
 
-                    <!-- Section 2 -->
-                    <h2>A quick primer on ERCOT's market structure</h2>
-                    <p>ERCOT — the Electric Reliability Council of Texas — is the wholesale electricity market covering most of Texas. Unlike PJM or CAISO, ERCOT operates as an <span class="highlight">energy-only market</span> with no traditional capacity market, which makes ancillary services and energy arbitrage the primary revenue streams for battery operators.</p>
+          <p>This two-settlement structure is what makes battery dispatch interesting. The DAM gives you price
+            certainty. The RTM gives you flexibility. The optimizer's job is to use both.</p>
 
-                    <p>Every delivery hour in ERCOT clears twice across two separate markets:</p>
+          <!-- Section 3 -->
+          <h2>The method</h2>
+          <p>This model runs as a two-stage linear program - one stage per market.</p>
 
-                    <p><strong>The Day-Ahead Market (DAM)</strong> clears the evening before physical delivery. Generators and load entities submit hourly bids, the market clears, and awarded positions settle financially at DAM prices. For a battery, this is where you commit your hourly charge/discharge schedule.</p>
+          <p><strong>Stage 1</strong> optimizes hourly DAM positions using day-ahead prices only. The output is an
+            awarded schedule: which hours the battery charges, which hours it discharges, and how much.</p>
 
-                    <p><strong>The Real-Time Market (RTM)</strong> settles every 15 minutes against actual grid conditions. If your physical output deviates from your DAM schedule, that deviation settles at real-time prices. RTM prices are more volatile than DAM prices — they respond to actual wind output, unexpected load, and transmission events in real time.</p>
+          <p><strong>Stage 2</strong> takes that DAM schedule as fixed and optimizes actual 15-minute dispatch against
+            RTM prices. Any deviation from the DAM position settles at RTM prices. The output is the incremental PnL
+            earned from real-time flexibility.</p>
 
-                    <p>This two-settlement structure is what makes battery dispatch interesting. The DAM gives you price certainty. The RTM gives you flexibility. The optimizer's job is to use both.</p>
+          <p>Total daily revenue is the sum of both stages. DA revenue comes from the committed hourly schedule; RT PnL
+            comes from deviations - times when actual real-time prices made it worthwhile to do something different from
+            the DA plan.</p>
 
-                    <!-- Section 3 -->
-                    <h2>The method</h2>
-                    <p>This model runs as a two-stage linear program — one stage per market.</p>
+          <p>The end result tells you something important: not just how much the battery earned, but <em>where</em> it
+            earned it. Days where RT contributes heavily signal high DA-to-RT price divergence - typically driven by
+            wind forecast error or unexpected load events. That pattern reveals market structure, not just accounting.
+          </p>
 
-                    <p><strong>Stage 1</strong> optimizes hourly DAM positions using day-ahead prices only. The output is an awarded schedule: which hours the battery charges, which hours it discharges, and how much.</p>
+          <!-- Section 4 -->
+          <h2>Assumptions</h2>
+          <p>Before reading any further, understand what this model is and isn't.</p>
 
-                    <p><strong>Stage 2</strong> takes that DAM schedule as fixed and optimizes actual 15-minute dispatch against RTM prices. Any deviation from the DAM position settles at RTM prices. The output is the incremental PnL earned from real-time flexibility.</p>
+          <p><strong>Perfect foresight.</strong> Both stages assume prices are fully known in advance. In real
+            operation, DAM bids go in without knowing RTM prices, and RTM dispatch relies on forecasts. This model gives
+            the theoretical upper bound - what a perfect algorithm would have earned. Real revenues are lower.</p>
 
-                    <p>Total daily revenue is the sum of both stages. DA revenue comes from the committed hourly schedule; RT PnL comes from deviations — times when actual real-time prices made it worthwhile to do something different from the DA plan.</p>
+          <p><strong>Energy arbitrage only.</strong> This model does not include ancillary services - regulation,
+            spinning reserve, or ECRS. In practice, co-optimizing across energy and AS markets materially changes both
+            revenue and optimal dispatch strategy. That's a natural extension, not included here.</p>
 
-                    <p>The end result tells you something important: not just how much the battery earned, but <em>where</em> it earned it. Days where RT contributes heavily signal high DA-to-RT price divergence — typically driven by wind forecast error or unexpected load events. That pattern reveals market structure, not just accounting.</p>
+          <p><strong>No degradation cost.</strong> Battery cells degrade with use. A cycle limit is used as a proxy, but
+            a production model would penalize cycling directly in the objective function.</p>
 
-                    <!-- Section 4 -->
-                    <h2>Assumptions</h2>
-                    <p>Before reading any further, understand what this model is and isn't.</p>
+          <p><strong>One cycle per day.</strong> The optimizer is constrained to one full charge/discharge cycle per day
+            - a conservative operating assumption that reflects typical degradation-conscious practice.</p>
 
-                    <p><strong>Perfect foresight.</strong> Both stages assume prices are fully known in advance. In real operation, DAM bids go in without knowing RTM prices, and RTM dispatch relies on forecasts. This model gives the theoretical upper bound — what a perfect algorithm would have earned. Real revenues are lower.</p>
+          <p>These assumptions are deliberate. They keep the model clean and the results interpretable. The point is to
+            understand the structure of the opportunity, not to replicate a live trading system.</p>
 
-                    <p><strong>Energy arbitrage only.</strong> This model does not include ancillary services — regulation, spinning reserve, or ECRS. In practice, co-optimizing across energy and AS markets materially changes both revenue and optimal dispatch strategy. That's a natural extension, not included here.</p>
+          <!-- Section 5: Data -->
+          <h2>1. The setup</h2>
 
-                    <p><strong>No degradation cost.</strong> Battery cells degrade with use. A cycle limit is used as a proxy, but a production model would penalize cycling directly in the objective function.</p>
+          <p>The battery is configured as a 1 MW / 2 MWh asset - a 2-hour duration system. Small, but all results scale
+            linearly with size, so the patterns hold for any capacity.</p>
 
-                    <p><strong>One cycle per day.</strong> The optimizer is constrained to one full charge/discharge cycle per day — a conservative operating assumption that reflects typical degradation-conscious practice.</p>
-
-                    <p>These assumptions are deliberate. They keep the model clean and the results interpretable. The point is to understand the structure of the opportunity, not to replicate a live trading system.</p>
-
-                    <!-- Section 5: Data -->
-                    <h2>1. The setup</h2>
-
-                    <p>The battery is configured as a 1 MW / 2 MWh asset — a 2-hour duration system. Small, but all results scale linearly with size, so the patterns hold for any capacity.</p>
-
-<pre><code class="language-python">battery = {
-    'P_max':      1,      # MW  — maximum charge or discharge rate
-    'E_max':      2,      # MWh — usable energy capacity
+          <pre><code class="language-python">battery = {
+    'P_max':      1,      # MW  - maximum charge or discharge rate
+    'E_max':      2,      # MWh - usable energy capacity
     'eta':        0.92,   # one-way efficiency (~85% round-trip)
     'max_cycles': 1,      # maximum full cycles per day
 }</code></pre>
 
-                    <p>Data is hourly DAM settlement point prices and 15-minute RTM settlement point prices for a single ERCOT hub across Q1 2025 — January through March, roughly 90 days. DST-related duplicate hours are dropped before running the model. Any day without a complete 24-hour DAM series or full 96-interval RTM series is skipped.</p>
+          <p>Data is hourly DAM settlement point prices and 15-minute RTM settlement point prices for a single ERCOT hub
+            across Q1 2025 - January through March, roughly 90 days. DST-related duplicate hours are dropped before
+            running the model. Any day without a complete 24-hour DAM series or full 96-interval RTM series is skipped.
+          </p>
 
-                    <!-- Section 6: DAM -->
-                    <h2>2. The DAM optimizer</h2>
-                    <p>The DAM LP finds the globally optimal hourly schedule for a single day. Three sets of decision variables are defined for each of the 24 hours: charge power, discharge power, and state of charge.</p>
+          <!-- Section 6: DAM -->
+          <h2>2. The DAM optimizer</h2>
+          <p>The DAM LP finds the globally optimal hourly schedule for a single day. Three sets of decision variables
+            are defined for each of the 24 hours: charge power, discharge power, and state of charge.</p>
 
-<pre><code class="language-python">c   = {h: pl.LpVariable(f'c{h}', 0, P) for h in hours}
+          <pre><code class="language-python">c   = {h: pl.LpVariable(f'c{h}', 0, P) for h in hours}
 d   = {h: pl.LpVariable(f'd{h}', 0, P) for h in hours}
 soc = {h: pl.LpVariable(f'soc{h}', 0, E) for h in hours}</code></pre>
 
-                    <p>Each variable is bounded: charge and discharge are capped at the power rating; state of charge is capped at the energy capacity. The optimizer can freely choose any value within those bounds.</p>
+          <p>Each variable is bounded: charge and discharge are capped at the power rating; state of charge is capped at
+            the energy capacity. The optimizer can freely choose any value within those bounds.</p>
 
-                    <p>The objective is to maximise net revenue — discharge revenue minus charge cost across all 24 hours:</p>
+          <p>The objective is to maximise net revenue - discharge revenue minus charge cost across all 24 hours:</p>
 
-<pre><code class="language-python">prob += pl.lpSum((d[h] - c[h]) * da_prices[h] for h in hours)</code></pre>
+          <pre><code class="language-python">prob += pl.lpSum((d[h] - c[h]) * da_prices[h] for h in hours)</code></pre>
 
-                    <p>The SOC constraint is what separates this from a simple spread trade. Each hour's ending state of charge must physically follow from the previous hour, accounting for efficiency losses in both directions:</p>
+          <p>The SOC constraint is what separates this from a simple spread trade. Each hour's ending state of charge
+            must physically follow from the previous hour, accounting for efficiency losses in both directions:</p>
 
-<pre><code class="language-python">prob += soc[0] == c[0] * eta - d[0] / eta
+          <pre><code class="language-python">prob += soc[0] == c[0] * eta - d[0] / eta
 for h in range(1, 24):
     prob += soc[h] == soc[h-1] + c[h] * eta - d[h] / eta</code></pre>
 
-                    <p>This is the constraint that prevents the greedy answer. You can't discharge in hour 18 if you didn't charge enough in the hours before it. The optimizer sees all 24 hours simultaneously and finds the schedule that satisfies every constraint at once — not the locally optimal move each hour, but the globally best plan for the day.</p>
+          <p>This is the constraint that prevents the greedy answer. You can't discharge in hour 18 if you didn't charge
+            enough in the hours before it. The optimizer sees all 24 hours simultaneously and finds the schedule that
+            satisfies every constraint at once - not the locally optimal move each hour, but the globally best plan for
+            the day.</p>
 
-                    <!-- Section 7: RT -->
-                    <h2>3. The RTM optimizer</h2>
-                    <p>The RTM stage runs at 15-minute resolution — 96 intervals per day. The structure is identical to the DAM optimizer, but the DA schedule is now a fixed input, not a decision. The battery can deviate from that schedule; those deviations settle at RTM prices.</p>
+          <!-- Section 7: RT -->
+          <h2>3. The RTM optimizer</h2>
+          <p>The RTM stage runs at 15-minute resolution - 96 intervals per day. The structure is identical to the DAM
+            optimizer, but the DA schedule is now a fixed input, not a decision. The battery can deviate from that
+            schedule; those deviations settle at RTM prices.</p>
 
-                    <p>The incremental RT PnL is calculated interval by interval:</p>
+          <p>The incremental RT PnL is calculated interval by interval:</p>
 
-<pre><code class="language-python">for i in intervals:
+          <pre><code class="language-python">for i in intervals:
     h = i // 4                    # which hour does this interval belong to
     da_net     = da_sched['discharge'][h] - da_sched['charge'][h]
     actual_net = act_d[i] - act_c[i]
     rt_pnl    += (actual_net - da_net) * rt_prices[i] * 0.25</code></pre>
 
-                    <p><code>i // 4</code> maps each 15-minute interval back to its parent hour. <code>da_net</code> is what was committed in the DAM. <code>actual_net</code> is what actually happened. The deviation between the two, multiplied by the RTM price and 0.25 (to convert MW to MWh for a 15-minute window), gives the RT PnL for that interval.</p>
+          <p><code>i // 4</code> maps each 15-minute interval back to its parent hour. <code>da_net</code> is what was
+            committed in the DAM. <code>actual_net</code> is what actually happened. The deviation between the two,
+            multiplied by the RTM price and 0.25 (to convert MW to MWh for a 15-minute window), gives the RT PnL for
+            that interval.</p>
 
-                    <p>The optimizer only deviates from the DA plan when RTM prices make it worthwhile. If RTM prices track DAM closely, deviations are small and RT PnL is low. If RTM spikes or crashes relative to DAM — a wind event, a transmission constraint clearing — the RT optimizer captures that spread.</p>
+          <p>The optimizer only deviates from the DA plan when RTM prices make it worthwhile. If RTM prices track DAM
+            closely, deviations are small and RT PnL is low. If RTM spikes or crashes relative to DAM - a wind event, a
+            transmission constraint clearing - the RT optimizer captures that spread.</p>
 
-                    <!-- Section 8: Running -->
-                    <h2>4. Running it</h2>
-                    <p>The model runs day-by-day across Q1. For each date, it slices the day's prices, solves Stage 1, passes the DA schedule to Stage 2, and records DA revenue, RT PnL, and total revenue. The full quarter completes in a few minutes on a standard laptop.</p>
+          <!-- Section 8: Running -->
+          <h2>4. Running it</h2>
+          <p>The model runs day-by-day across Q1. For each date, it slices the day's prices, solves Stage 1, passes the
+            DA schedule to Stage 2, and records DA revenue, RT PnL, and total revenue. The full quarter completes in a
+            few minutes on a standard laptop.</p>
 
-                    <!-- Section 9: Results -->
-                    <h2>5. Results</h2>
-                    <p>Across Q1 2025, total revenue for a 1 MW / 2 MWh battery was approximately <span class="data-highlight">$43,763</span> — with significant variation across the quarter.</p>
+          <!-- Section 9: Results -->
+          <h2>5. Results</h2>
+          <p>Across Q1 2025, total revenue for a 1 MW / 2 MWh battery was approximately <span
+              class="data-highlight">$43,763</span> - with significant variation across the quarter.</p>
 
-                    <!-- CHART PLACEHOLDER: Monthly stacked bar - DA vs RT revenue -->
-                    <figure class="chart-figure">
-                        <div class="chart-container">
-                            <canvas id="monthlyRevenueChart"></canvas>
-                        </div>
-                        <figcaption>Figure 1: Monthly revenue split between DA and RT, with RT share % overlaid</figcaption>
-                    </figure>
-
-                    
-
-                    <table style="width:100%; border-collapse:collapse; margin: 1.5rem 0; font-size:0.95rem;">
-                        <thead>
-                            <tr style="border-bottom: 2px solid #e5e7eb;">
-                                <th style="text-align:left; padding:8px 0; color:#6b7280; font-weight:500;">Month</th>
-                                <th style="text-align:right; padding:8px 0; color:#6b7280; font-weight:500;">DA Revenue</th>
-                                <th style="text-align:right; padding:8px 0; color:#6b7280; font-weight:500;">RT PnL</th>
-                                <th style="text-align:right; padding:8px 0; color:#6b7280; font-weight:500;">Total</th>
-                                <th style="text-align:right; padding:8px 0; color:#6b7280; font-weight:500;">RT Share</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom: 1px solid #f3f4f6;">
-                                <td style="padding:10px 0;">Jan</td>
-                                <td style="text-align:right; padding:10px 0;">$8,678</td>
-                                <td style="text-align:right; padding:10px 0;">$10,619</td>
-                                <td style="text-align:right; padding:10px 0; font-weight:500;">$19,297</td>
-                                <td style="text-align:right; padding:10px 0; color:#1D9E75;">55%</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #f3f4f6;">
-                                <td style="padding:10px 0;">Feb</td>
-                                <td style="text-align:right; padding:10px 0;">$8,017</td>
-                                <td style="text-align:right; padding:10px 0;">$7,205</td>
-                                <td style="text-align:right; padding:10px 0; font-weight:500;">$15,223</td>
-                                <td style="text-align:right; padding:10px 0; color:#1D9E75;">47%</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px 0;">Mar</td>
-                                <td style="text-align:right; padding:10px 0;">$6,243</td>
-                                <td style="text-align:right; padding:10px 0;">$3,000</td>
-                                <td style="text-align:right; padding:10px 0; font-weight:500;">$9,243</td>
-                                <td style="text-align:right; padding:10px 0; color:#1D9E75;">33%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <p>The RT share decline from January to March is the headline finding. January's <span class="data-highlight">55%</span> RT uplift reflects significant DA-to-RT price divergence — conditions where the day-ahead market mispriced what actually happened in real time. By March, prices were more predictable, the DAM captured most of the opportunity, and RT flexibility added proportionally less.</p>
-
-                    <p>For ERCOT hubs with significant wind exposure, this is a familiar pattern. Winter wind is volatile and difficult to forecast. When wind output swings unexpectedly, RTM prices spike or crash relative to DAM — and a battery with real-time flexibility earns on that divergence.</p>
-
-                    <!-- CHART PLACEHOLDER: Daily revenue time series -->
-                    <figure class="chart-figure">
-                        <div class="chart-container">
-                            <canvas id="dailyRevenueChart"></canvas>
-                        </div>
-                        <figcaption>Figure 2: Daily total revenue across Q1 2025, coloured by RT share intensity</figcaption>
-                    </figure>
-
-                    <p><strong>Daily revenue is not evenly distributed.</strong> The distribution is right-skewed — most days earn modestly, but a handful of high-spread days account for a disproportionate share of quarterly revenue. This concentration matters for forecasting. P50 and P90 estimates need to account for it, and any underwriting model that assumes smooth daily earnings will be wrong in ways that matter.</p>
-
-                    <!-- CHART PLACEHOLDER: Revenue distribution histogram -->
-                    <figure class="chart-figure">
-                        <div class="chart-container">
-                            <canvas id="distributionChart"></canvas>
-                        </div>
-                        <figcaption>Figure 3: Distribution of daily revenues across Q1 2025</figcaption>
-                    </figure>
-
-                    <h2>What one good day looks like</h2>
-                    <p>The highest-revenue day in Q1 — 15 January 2025 at <span class="data-highlight">$2,600</span> illustrates how the two stages interact in practice.</p>
-
-                    <!-- CHART PLACEHOLDER: Single day dispatch anatomy (3-panel) -->
-                    <figure class="chart-figure">
-                        <div class="chart-container" style="height: 500px;">
-                            <canvas id="dispatchChart"></canvas>
-                        </div>
-                        <figcaption>Figure 4: Single-day dispatch anatomy — prices, DA schedule, and RT actual dispatch</figcaption>
-                    </figure>
-
-                    <p>The top panel shows DAM and RTM price profiles across the day. Early morning prices were at or near their daily lows — the DAM optimizer scheduled charging here. By late afternoon, prices spiked, and the battery discharged into the evening peak. The SOC profile confirms the battery respected its energy limits throughout.</p>
-
-                    <p>The RT panel shows where actual dispatch diverged from the DA schedule. At several 15-minute intervals, RTM prices spiked above DAM — the optimizer responded by discharging more than the DA position in those intervals, capturing the extra spread. In a couple of intervals, RTM prices went briefly negative and the battery absorbed additional energy.</p>
-
-                    <p>The key insight: the <span class="highlight">DA schedule is the backbone, RTM is where precision earns its keep</span>. The DA optimizer sets the broad strokes; the RT optimizer fills in the texture.</p>
-
-                    <!-- CHART PLACEHOLDER: DA spread vs revenue scatter -->
-                    <figure class="chart-figure">
-                        <div class="chart-container">
-                            <canvas id="spreadChart"></canvas>
-                        </div>
-                        <figcaption>Figure 5: DA price spread vs daily revenue — colour indicates RT share</figcaption>
-                    </figure>
-
-                    <p>Across all 90 days, DA price spread — the gap between the highest and lowest hourly DA prices — is the single strongest predictor of total daily revenue. Wide-spread days are almost always high-revenue days. The relationship is linear and strong.</p>
-
-                    <p>RT uplift adds value on top, particularly on days where the hourly spread understates intraday volatility at the 15-minute level. Those are the green dots that sit above the trendline — days where something unexpected happened in real time that the DA market didn't price in.</p>
-
-                    <!-- Section: What this doesn't model -->
-                    <h2>What this doesn't model</h2>
-                    <p>Two gaps are worth naming directly.</p>
-
-                    <p><strong>Ancillary services.</strong> An ERCOT battery co-optimizing across regulation up/down, spinning reserve, and energy simultaneously earns more than energy arbitrage alone — and the optimal dispatch strategy changes materially. This is the natural next step, and the subject of a follow-up piece.</p>
-
-                    <p><strong>Forecast quality.</strong> The gap between perfect foresight and real-world price forecasts is where the actual analytical challenge sits. A dispatch algorithm that degrades gracefully on imperfect forecasts is worth far more than one that requires perfect information. Quantifying that gap — and understanding how much of the theoretical ceiling is actually achievable — is the more interesting question.</p>
-
-                </div>
+          <!-- CHART PLACEHOLDER: Monthly stacked bar - DA vs RT revenue -->
+          <figure class="chart-figure">
+            <div class="chart-container">
+              <canvas id="monthlyRevenueChart"></canvas>
             </div>
+            <figcaption>Figure 1: Monthly revenue split between DA and RT, with RT share % overlaid</figcaption>
+          </figure>
 
-            <!-- Article Footer -->
-            <footer class="article-footer">
-                <div class="container-narrow">
-                    <div class="article-tags">
-                        <span class="tag">ERCOT</span>
-                        <span class="tag">Battery Storage</span>
-                        <span class="tag">Linear Programming</span>
-                        <span class="tag">Energy Markets</span>
-                        <span class="tag">Python</span>
-                        <span class="tag">Optimization</span>
-                    </div>
 
-                    <nav class="article-nav">
-                        <!-- Populated by main.js -->
-                    </nav>
-                </div>
-            </footer>
-        </article>
-    </main>
 
-    <!-- Site Footer -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-content">
-                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
-                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
-                    <a href="https://instagram.com/_vasudevsingh005/" target="_blank">Instagram</a>
-                </div>
+          <table style="width:100%; border-collapse:collapse; margin: 1.5rem 0; font-size:0.95rem;">
+            <thead>
+              <tr style="border-bottom: 2px solid #e5e7eb;">
+                <th style="text-align:left; padding:8px 0; color:#6b7280; font-weight:500;">Month</th>
+                <th style="text-align:right; padding:8px 0; color:#6b7280; font-weight:500;">DA Revenue</th>
+                <th style="text-align:right; padding:8px 0; color:#6b7280; font-weight:500;">RT PnL</th>
+                <th style="text-align:right; padding:8px 0; color:#6b7280; font-weight:500;">Total</th>
+                <th style="text-align:right; padding:8px 0; color:#6b7280; font-weight:500;">RT Share</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid #f3f4f6;">
+                <td style="padding:10px 0;">Jan</td>
+                <td style="text-align:right; padding:10px 0;">$8,678</td>
+                <td style="text-align:right; padding:10px 0;">$10,619</td>
+                <td style="text-align:right; padding:10px 0; font-weight:500;">$19,297</td>
+                <td style="text-align:right; padding:10px 0; color:#1D9E75;">55%</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f3f4f6;">
+                <td style="padding:10px 0;">Feb</td>
+                <td style="text-align:right; padding:10px 0;">$8,017</td>
+                <td style="text-align:right; padding:10px 0;">$7,205</td>
+                <td style="text-align:right; padding:10px 0; font-weight:500;">$15,223</td>
+                <td style="text-align:right; padding:10px 0; color:#1D9E75;">47%</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 0;">Mar</td>
+                <td style="text-align:right; padding:10px 0;">$6,243</td>
+                <td style="text-align:right; padding:10px 0;">$3,000</td>
+                <td style="text-align:right; padding:10px 0; font-weight:500;">$9,243</td>
+                <td style="text-align:right; padding:10px 0; color:#1D9E75;">33%</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>The RT share decline from January to March is the headline finding. January's <span
+              class="data-highlight">55%</span> RT uplift reflects significant DA-to-RT price divergence - conditions
+            where the day-ahead market mispriced what actually happened in real time. By March, prices were more
+            predictable, the DAM captured most of the opportunity, and RT flexibility added proportionally less.</p>
+
+          <p>For ERCOT hubs with significant wind exposure, this is a familiar pattern. Winter wind is volatile and
+            difficult to forecast. When wind output swings unexpectedly, RTM prices spike or crash relative to DAM - and
+            a battery with real-time flexibility earns on that divergence.</p>
+
+          <!-- CHART PLACEHOLDER: Daily revenue time series -->
+          <figure class="chart-figure">
+            <div class="chart-container">
+              <canvas id="dailyRevenueChart"></canvas>
             </div>
+            <figcaption>Figure 2: Daily total revenue across Q1 2025, coloured by RT share intensity</figcaption>
+          </figure>
+
+          <p><strong>Daily revenue is not evenly distributed.</strong> The distribution is right-skewed - most days earn
+            modestly, but a handful of high-spread days account for a disproportionate share of quarterly revenue. This
+            concentration matters for forecasting. P50 and P90 estimates need to account for it, and any underwriting
+            model that assumes smooth daily earnings will be wrong in ways that matter.</p>
+
+          <!-- CHART PLACEHOLDER: Revenue distribution histogram -->
+          <figure class="chart-figure">
+            <div class="chart-container">
+              <canvas id="distributionChart"></canvas>
+            </div>
+            <figcaption>Figure 3: Distribution of daily revenues across Q1 2025</figcaption>
+          </figure>
+
+          <h2>What one good day looks like</h2>
+          <p>The highest-revenue day in Q1 - 15 January 2025 at <span class="data-highlight">$2,600</span> illustrates
+            how the two stages interact in practice.</p>
+
+          <!-- CHART PLACEHOLDER: Single day dispatch anatomy (3-panel) -->
+          <figure class="chart-figure" style="padding-top: 10px;">
+            <h3 style="text-align: center; margin-bottom: 25px; font-family: var(--font-heading); font-size: 1.4rem;">
+              Single-day dispatch anatomy</h3>
+            <div style="display: flex; flex-direction: column; gap: 30px;">
+              <div class="chart-container" style="height: 220px; width: 100%;">
+                <canvas id="dispatchChart_prices"></canvas>
+              </div>
+              <div class="chart-container" style="height: 220px; width: 100%;">
+                <canvas id="dispatchChart_da"></canvas>
+              </div>
+              <div class="chart-container" style="height: 220px; width: 100%;">
+                <canvas id="dispatchChart_rt"></canvas>
+              </div>
+            </div>
+            <figcaption style="margin-top:20px;">Figure 4: Single-day dispatch anatomy - prices, DA schedule, and RT
+              actual dispatch</figcaption>
+          </figure>
+
+          <p>The top panel shows DAM and RTM price profiles across the day. Early morning prices were at or near their
+            daily lows - the DAM optimizer scheduled charging here. By late afternoon, prices spiked, and the battery
+            discharged into the evening peak. The SOC profile confirms the battery respected its energy limits
+            throughout.</p>
+
+          <p>The RT panel shows where actual dispatch diverged from the DA schedule. At several 15-minute intervals, RTM
+            prices spiked above DAM - the optimizer responded by discharging more than the DA position in those
+            intervals, capturing the extra spread. In a couple of intervals, RTM prices went briefly negative and the
+            battery absorbed additional energy.</p>
+
+          <p>The key insight: the <span class="highlight">DA schedule is the backbone, RTM is where precision earns its
+              keep</span>. The DA optimizer sets the broad strokes; the RT optimizer fills in the texture.</p>
+
+          <!-- CHART PLACEHOLDER: DA spread vs revenue scatter -->
+          <figure class="chart-figure">
+            <div class="chart-container">
+              <canvas id="spreadChart"></canvas>
+            </div>
+            <figcaption>Figure 5: DA price spread vs daily revenue - colour indicates RT share</figcaption>
+          </figure>
+
+          <p>Across all 90 days, DA price spread - the gap between the highest and lowest hourly DA prices - is the
+            single strongest predictor of total daily revenue. Wide-spread days are almost always high-revenue days. The
+            relationship is linear and strong.</p>
+
+          <p>RT uplift adds value on top, particularly on days where the hourly spread understates intraday volatility
+            at the 15-minute level. Those are the green dots that sit above the trendline - days where something
+            unexpected happened in real time that the DA market didn't price in.</p>
+
+          <!-- Section: What this doesn't model -->
+          <h2>What this doesn't model</h2>
+          <p>Two gaps are worth naming directly.</p>
+
+          <p><strong>Ancillary services.</strong> An ERCOT battery co-optimizing across regulation up/down, spinning
+            reserve, and energy simultaneously earns more than energy arbitrage alone - and the optimal dispatch
+            strategy changes materially. This is the natural next step, and the subject of a follow-up piece.</p>
+
+          <p><strong>Forecast quality.</strong> The gap between perfect foresight and real-world price forecasts is
+            where the actual analytical challenge sits. A dispatch algorithm that degrades gracefully on imperfect
+            forecasts is worth far more than one that requires perfect information. Quantifying that gap - and
+            understanding how much of the theoretical ceiling is actually achievable - is the more interesting question.
+          </p>
+
         </div>
-    </footer>
+      </div>
 
-    <script src="main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-    <script>
+      <!-- Article Footer -->
+      <footer class="article-footer">
+        <div class="container-narrow">
+          <div class="article-tags">
+            <span class="tag">ERCOT</span>
+            <span class="tag">Battery Storage</span>
+            <span class="tag">Linear Programming</span>
+            <span class="tag">Energy Markets</span>
+            <span class="tag">Python</span>
+            <span class="tag">Optimization</span>
+          </div>
+
+          <nav class="article-nav">
+            <!-- Populated by main.js -->
+          </nav>
+        </div>
+      </footer>
+    </article>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+          <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+          <a href="https://instagram.com/_vasudevsingh005/" target="_blank">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
     // ─── Palette ───────────────────────────────────────────────────────────────
     const C = {
-        da:        '#8B5A2B',   // warm brown  — DA revenue
-        rt:        '#2E5A3A',   // forest green — RT PnL
-        rtLine:    '#B8860B',   // gold          — RT share % line
-        grid:      'rgba(44,36,22,0.07)',
-        tick:      '#6B6358',
-        label:     '#4A4235',
-        mean:      '#5C2E0B',   // accent — mean line
-        scatter:   '#2E5A3A',
+      da: '#8B5A2B',   // warm brown  - DA revenue
+      rt: '#2E5A3A',   // forest green - RT PnL
+      rtLine: '#B8860B',   // gold          - RT share % line
+      grid: 'rgba(44,36,22,0.07)',
+      tick: '#6B6358',
+      label: '#4A4235',
+      mean: '#5C2E0B',   // accent - mean line
+      scatter: '#2E5A3A',
     };
 
     Chart.defaults.font.family = "'Inter', sans-serif";
-    Chart.defaults.color       = C.tick;
+    Chart.defaults.color = C.tick;
 
     // ─── Shared axis defaults ──────────────────────────────────────────────────
     function gridOpts() {
-        return { color: C.grid, drawBorder: false };
+      return { color: C.grid, drawBorder: false };
     }
-    function tickOpts(prefix='', suffix='') {
-        return {
-            color: C.tick,
-            font: { size: 11 },
-            callback: v => prefix + (Math.abs(v) >= 1000 ? (v/1000).toFixed(1)+'k' : v) + suffix
-        };
+    function tickOpts(prefix = '', suffix = '') {
+      return {
+        color: C.tick,
+        font: { size: 11 },
+        callback: v => prefix + (Math.abs(v) >= 1000 ? (v / 1000).toFixed(1) + 'k' : v) + suffix
+      };
     }
 
     // ══════════════════════════════════════════════════════════════════════════
-    // CHART 1 — Monthly stacked bar + RT share % line
+    // CHART 1 - Monthly stacked bar + RT share % line
     // ══════════════════════════════════════════════════════════════════════════
     fetch('data/files/chart1_monthly.json')
       .then(r => r.json())
@@ -420,7 +510,7 @@ for h in range(1, 24):
                   label: ctx => {
                     const v = ctx.parsed.y;
                     if (ctx.dataset.label === 'RT Share %') return `RT Share: ${v.toFixed(1)}%`;
-                    return `${ctx.dataset.label}: $${v.toLocaleString(undefined,{maximumFractionDigits:0})}`;
+                    return `${ctx.dataset.label}: $${v.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
                   }
                 }
               }
@@ -434,7 +524,7 @@ for h in range(1, 24):
               },
               yRight: {
                 position: 'right', grid: { display: false },
-                ticks: { ...tickOpts('','%'), callback: v => v + '%' },
+                ticks: { ...tickOpts('', '%'), callback: v => v + '%' },
                 title: { display: true, text: 'RT Share (%)', color: C.label, font: { size: 12 } },
                 min: 0, max: 100,
               }
@@ -444,28 +534,28 @@ for h in range(1, 24):
       });
 
     // ══════════════════════════════════════════════════════════════════════════
-    // CHART 2 — Daily revenue bar coloured by RT share intensity
+    // CHART 2 - Daily revenue bar coloured by RT share intensity
     // ══════════════════════════════════════════════════════════════════════════
     fetch('data/files/chart2_daily.json')
       .then(r => r.json())
       .then(d => {
         // Map RT share [0,1] → green intensity
-        function rtColor(share, alpha=0.85) {
-            const s = Math.min(Math.max(share, 0), 1);
-            // low RT share → warm brown; high RT share → forest green
-            const r = Math.round(139 + (46-139)*s);
-            const g = Math.round(90 + (90-90)*s);
-            const b = Math.round(43 + (58-43)*s);
-            // Actually: blend from DA brown (#8B5A2B) → RT green (#2E5A3A)
-            const R = Math.round(0x8B + (0x2E - 0x8B)*s);
-            const G = Math.round(0x5A + (0x5A - 0x5A)*s);
-            const B = Math.round(0x2B + (0x3A - 0x2B)*s);
-            return `rgba(${R},${G},${B},${alpha})`;
+        function rtColor(share, alpha = 0.85) {
+          const s = Math.min(Math.max(share, 0), 1);
+          // low RT share → warm brown; high RT share → forest green
+          const r = Math.round(139 + (46 - 139) * s);
+          const g = Math.round(90 + (90 - 90) * s);
+          const b = Math.round(43 + (58 - 43) * s);
+          // Actually: blend from DA brown (#8B5A2B) → RT green (#2E5A3A)
+          const R = Math.round(0x8B + (0x2E - 0x8B) * s);
+          const G = Math.round(0x5A + (0x5A - 0x5A) * s);
+          const B = Math.round(0x2B + (0x3A - 0x2B) * s);
+          return `rgba(${R},${G},${B},${alpha})`;
         }
 
         const labels = d.dates.map(dt => {
-            const [,m,day] = dt.split('-');
-            return `${['','Jan','Feb','Mar'][+m]} ${+day}`;
+          const [, m, day] = dt.split('-');
+          return `${['', 'Jan', 'Feb', 'Mar'][+m]} ${+day}`;
         });
 
         new Chart(document.getElementById('dailyRevenueChart'), {
@@ -476,7 +566,7 @@ for h in range(1, 24):
               label: 'Daily Revenue',
               data: d.total_revenue,
               backgroundColor: d.rt_share.map(s => rtColor(s)),
-              borderColor:     d.rt_share.map(s => rtColor(s, 1)),
+              borderColor: d.rt_share.map(s => rtColor(s, 1)),
               borderWidth: 0,
               borderRadius: 2,
             }]
@@ -489,10 +579,10 @@ for h in range(1, 24):
               tooltip: {
                 callbacks: {
                   label: ctx => {
-                    const i   = ctx.dataIndex;
+                    const i = ctx.dataIndex;
                     const rev = ctx.parsed.y;
-                    const rt  = (d.rt_share[i]*100).toFixed(1);
-                    return [`Revenue: $${rev.toLocaleString(undefined,{maximumFractionDigits:0})}`, `RT share: ${rt}%`];
+                    const rt = (d.rt_share[i] * 100).toFixed(1);
+                    return [`Revenue: $${rev.toLocaleString(undefined, { maximumFractionDigits: 0 })}`, `RT share: ${rt}%`];
                   },
                   title: ctx => d.dates[ctx[0].dataIndex]
                 }
@@ -518,7 +608,7 @@ for h in range(1, 24):
       });
 
     // ══════════════════════════════════════════════════════════════════════════
-    // CHART 3 — Distribution histogram of daily revenues
+    // CHART 3 - Distribution histogram of daily revenues
     // ══════════════════════════════════════════════════════════════════════════
     fetch('data/files/chart3_dist.json')
       .then(r => r.json())
@@ -531,11 +621,11 @@ for h in range(1, 24):
 
         const counts = Array(bins.length).fill(0);
         d.total_revenues.forEach(v => {
-            const idx = Math.min(Math.floor(v / binWidth), bins.length-1);
-            counts[idx]++;
+          const idx = Math.min(Math.floor(v / binWidth), bins.length - 1);
+          counts[idx]++;
         });
 
-        const binLabels = bins.map(lo => `$${lo}–${lo+binWidth}`);
+        const binLabels = bins.map(lo => `$${lo}–${lo + binWidth}`);
 
         // Highlight the mean bar
         const meanBin = Math.floor(d.mean_total / binWidth);
@@ -586,13 +676,13 @@ for h in range(1, 24):
               ctx.beginPath();
               ctx.setLineDash([5, 4]);
               ctx.strokeStyle = C.mean;
-              ctx.lineWidth   = 2;
+              ctx.lineWidth = 2;
               ctx.moveTo(xPos, y.top);
               ctx.lineTo(xPos, y.bottom);
               ctx.stroke();
               ctx.setLineDash([]);
               ctx.fillStyle = C.mean;
-              ctx.font      = 'bold 11px Inter, sans-serif';
+              ctx.font = 'bold 11px Inter, sans-serif';
               ctx.textAlign = 'center';
               ctx.fillText(`Mean $${Math.round(d.mean_total)}`, xPos, y.top - 6);
               ctx.restore();
@@ -602,132 +692,172 @@ for h in range(1, 24):
       });
 
     // ══════════════════════════════════════════════════════════════════════════
-    // CHART 4 — Single-day dispatch anatomy (3-panel stacked)
+    // CHART 4 - Single-day dispatch anatomy (3-panel stacked)
     // ══════════════════════════════════════════════════════════════════════════
     fetch('data/files/chart4_dispatch.json')
       .then(r => r.json())
       .then(d => {
-        const hours   = Array.from({length:24}, (_,i) => `${String(i).padStart(2,'0')}:00`);
-        // RT prices are 15-min (96 intervals); downsample to hourly avg for top panel
-        const rtHourly = Array.from({length:24}, (_,h) => {
-            const slice = d.rt_prices.slice(h*4, h*4+4);
-            return slice.reduce((a,b)=>a+b,0)/slice.length;
-        });
+        // Shared X configuration across the 3 panels
+        const xOpts = {
+          type: 'linear', min: -0.5, max: 23.5,
+          grid: gridOpts(),
+          ticks: {
+            stepSize: 2,
+            color: C.tick, font: { size: 10 },
+            callback: v => v >= 0 && v <= 24 ? v : ''
+          }
+        };
 
-        const canvas = document.getElementById('dispatchChart');
-        // Use a single chart with 3 y-axes and two dataset groups
-        new Chart(canvas, {
-          type: 'bar',
+        // Panel 1: Prices
+        new Chart(document.getElementById('dispatchChart_prices'), {
+          type: 'line',
           data: {
-            labels: hours,
             datasets: [
-              // Panel A — DA prices (line, yPrices)
               {
-                type: 'line', label: 'DA Price ($/MWh)',
-                data: d.da_prices,
-                yAxisID: 'yPrices',
-                borderColor: '#8B5A2B',
-                backgroundColor: 'rgba(139,90,43,0.0)',
-                borderWidth: 2, pointRadius: 2.5,
-                tension: 0.3, fill: false, order: 1,
+                label: 'DA price',
+                data: d.da_prices.flatMap((y, i) => [{ x: i, y }, { x: i + 1, y }]),
+                borderColor: '#175B9E', borderWidth: 2, pointRadius: 0, fill: false
               },
-              // Panel A — RT prices (line, yPrices)
               {
-                type: 'line', label: 'RT Price avg ($/MWh)',
-                data: rtHourly,
-                yAxisID: 'yPrices',
-                borderColor: '#2E5A3A',
-                backgroundColor: 'rgba(46,90,58,0.0)',
-                borderDash: [5,3],
-                borderWidth: 2, pointRadius: 2,
-                tension: 0.3, fill: false, order: 1,
-              },
-              // Panel B — DA net schedule (bar, ySchedule)
-              {
-                type: 'bar', label: 'DA Net (MW)',
-                data: d.da_net,
-                yAxisID: 'ySchedule',
-                backgroundColor: d.da_net.map(v => v > 0 ? 'rgba(139,90,43,0.75)' : 'rgba(92,46,11,0.45)'),
-                borderWidth: 0, borderRadius: 2,
-                order: 3,
-              },
-              // Panel B — RT actual net (bar, ySchedule)
-              {
-                type: 'bar', label: 'RT Actual Net (MW)',
-                data: d.rt_net.filter((_,i) => i % 4 === 0),  // one per hour (first interval)
-                yAxisID: 'ySchedule',
-                backgroundColor: d.rt_net.filter((_,i) => i%4===0).map(v => v > 0 ? 'rgba(46,90,58,0.75)' : 'rgba(29,158,117,0.45)'),
-                borderWidth: 0, borderRadius: 2,
-                order: 3,
-              },
+                label: 'RT price (15-min)',
+                data: d.rt_prices.map((y, i) => ({ x: i / 4 + 0.125, y })),
+                borderColor: '#87CEBA', borderWidth: 1.5, pointRadius: 0, fill: false
+              }
             ]
           },
           options: {
-            responsive: true,
-            maintainAspectRatio: false,
+            responsive: true, maintainAspectRatio: false,
             interaction: { mode: 'index', intersect: false },
             plugins: {
-              legend: {
-                position: 'top',
-                labels: { color: C.label, boxWidth: 14, font: { size: 11 } }
-              },
-              tooltip: {
-                callbacks: {
-                  label: ctx => {
-                    const v = ctx.parsed.y;
-                    if (ctx.dataset.yAxisID === 'yPrices')
-                        return `${ctx.dataset.label}: $${v.toFixed(0)}/MWh`;
-                    return `${ctx.dataset.label}: ${v.toFixed(2)} MW`;
-                  }
-                }
-              }
+              legend: { position: 'top', align: 'start', labels: { boxWidth: 12, font: { size: 11 } } },
+              title: { display: true, text: `Wednesday ${d.date} - price profile`, font: { size: 14, weight: 'bold' }, color: '#000' }
             },
             scales: {
-              x: { grid: gridOpts(), ticks: { color: C.tick, font: { size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } },
-              yPrices: {
-                position: 'left', grid: gridOpts(),
-                title: { display: true, text: 'Price ($/MWh)', color: C.label, font: { size: 11 } },
-                ticks: tickOpts('$'),
-              },
-              ySchedule: {
-                position: 'right', grid: { display: false },
-                title: { display: true, text: 'Net Dispatch (MW)', color: C.label, font: { size: 11 } },
-                ticks: { color: C.tick, font: { size: 11 }, callback: v => v > 0 ? `+${v}` : v },
-              }
+              x: xOpts,
+              y: { title: { display: true, text: 'Price ($/MWh)', color: C.label, font: { size: 11 } }, grid: gridOpts(), ticks: tickOpts('$') }
             }
+          }
+        });
+
+        // Calculate SOC lines ensuring starting points are somewhat sensible
+        const daSocPts = [{ x: 0, y: Math.max(0, Math.min(100, d.soc_da[0] + (d.da_net[0] * 50))) }].concat(
+          d.soc_da.map((y, i) => ({ x: i + 1, y }))
+        );
+        const rtSocPts = [{ x: 0, y: Math.max(0, Math.min(100, d.soc_rt[0] + (d.rt_net[0] * 12.5))) }].concat(
+          d.soc_rt.map((y, i) => ({ x: (i + 1) * 0.25, y }))
+        );
+
+        // Shared Y configurations for bottom two panels
+        const yScheduleOpts = {
+          position: 'left', grid: gridOpts(),
+          title: { display: true, text: 'Net position (MW)', color: C.label, font: { size: 11 } },
+          ticks: { color: C.tick, font: { size: 11 }, callback: v => v > 0 ? `+${v}` : v },
+          min: -1, max: 1
+        };
+        const ySocOpts = {
+          position: 'right', grid: { display: false },
+          title: { display: true, text: 'SOC (%)', color: '#995914', font: { size: 11 } },
+          ticks: { color: '#995914', font: { size: 11 } },
+          min: 0, max: 100
+        };
+
+        const ySocLegend = {
+          position: 'top', align: 'end',
+          labels: { boxWidth: 12, font: { size: 11 }, filter: item => item.text === 'SOC %' }
+        };
+
+        // Panel 2: DA Dispatch
+        new Chart(document.getElementById('dispatchChart_da'), {
+          type: 'bar',
+          data: {
+            datasets: [
+              {
+                type: 'bar', label: 'DA Net (MW)',
+                data: d.da_net.map((y, i) => ({ x: i + 0.5, y })),
+                backgroundColor: d.da_net.map(y => y > 0 ? '#175B9E' : '#88B7E5'),
+                barPercentage: 1.0, categoryPercentage: 0.9,
+                yAxisID: 'ySchedule'
+              },
+              {
+                type: 'line', label: 'SOC %',
+                data: daSocPts,
+                borderColor: '#995914', borderDash: [5, 4], borderWidth: 2, pointRadius: 0, fill: false,
+                yAxisID: 'ySOC'
+              }
+            ]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+              legend: ySocLegend,
+              title: { display: true, text: 'DA dispatch schedule (positive = discharge, negative = charge)', font: { size: 14, weight: 'bold' }, color: '#000' }
+            },
+            scales: { x: xOpts, ySchedule: yScheduleOpts, ySOC: ySocOpts }
+          }
+        });
+
+        // Panel 3: RT Dispatch
+        new Chart(document.getElementById('dispatchChart_rt'), {
+          type: 'bar',
+          data: {
+            datasets: [
+              {
+                type: 'bar', label: 'RT Actual Net (MW)',
+                data: d.rt_net.map((y, i) => ({ x: i * 0.25 + 0.125, y })),
+                backgroundColor: d.rt_net.map(y => y > 0 ? '#0A956A' : '#6DCDB0'),
+                barPercentage: 1.0, categoryPercentage: 0.8,
+                yAxisID: 'ySchedule'
+              },
+              {
+                type: 'line', label: 'SOC %',
+                data: rtSocPts,
+                borderColor: '#995914', borderDash: [5, 4], borderWidth: 2, pointRadius: 0, fill: false,
+                yAxisID: 'ySOC'
+              }
+            ]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+              legend: ySocLegend,
+              title: { display: true, text: 'RT actual dispatch (15-min) - how actual execution differed from DA plan', font: { size: 14, weight: 'bold' }, color: '#000' }
+            },
+            scales: { x: { ...xOpts, title: { display: true, text: 'Hour of day', color: C.label } }, ySchedule: yScheduleOpts, ySOC: ySocOpts }
           }
         });
       });
 
     // ══════════════════════════════════════════════════════════════════════════
-    // CHART 5 — DA spread vs revenue scatter, coloured by RT share
+    // CHART 5 - DA spread vs revenue scatter, coloured by RT share
     // ══════════════════════════════════════════════════════════════════════════
     fetch('data/files/chart5_scatter.json')
       .then(r => r.json())
       .then(d => {
         function rtToColor(share) {
-            const s = Math.min(Math.max(share, 0), 1);
-            const R = Math.round(0x8B + (0x1D - 0x8B)*s);
-            const G = Math.round(0x5A + (0x9E - 0x5A)*s);
-            const B = Math.round(0x2B + (0x75 - 0x2B)*s);
-            return `rgba(${R},${G},${B},0.8)`;
+          const s = Math.min(Math.max(share, 0), 1);
+          const R = Math.round(0x8B + (0x1D - 0x8B) * s);
+          const G = Math.round(0x5A + (0x9E - 0x5A) * s);
+          const B = Math.round(0x2B + (0x75 - 0x2B) * s);
+          return `rgba(${R},${G},${B},0.8)`;
         }
 
         const points = d.da_spread.map((x, i) => ({
-            x, y: d.total_revenue[i], rt: d.rt_share[i]
+          x, y: d.total_revenue[i], rt: d.rt_share[i]
         }));
 
         // Simple linear regression for trendline
-        const n   = points.length;
-        const xm  = points.reduce((s,p)=>s+p.x,0)/n;
-        const ym  = points.reduce((s,p)=>s+p.y,0)/n;
-        const num = points.reduce((s,p)=>s+(p.x-xm)*(p.y-ym),0);
-        const den = points.reduce((s,p)=>s+(p.x-xm)**2,0);
-        const slope = num/den, intercept = ym - slope*xm;
+        const n = points.length;
+        const xm = points.reduce((s, p) => s + p.x, 0) / n;
+        const ym = points.reduce((s, p) => s + p.y, 0) / n;
+        const num = points.reduce((s, p) => s + (p.x - xm) * (p.y - ym), 0);
+        const den = points.reduce((s, p) => s + (p.x - xm) ** 2, 0);
+        const slope = num / den, intercept = ym - slope * xm;
         const xMin = Math.min(...d.da_spread), xMax = Math.max(...d.da_spread);
         const trendData = [
-            { x: xMin, y: slope*xMin + intercept },
-            { x: xMax, y: slope*xMax + intercept }
+          { x: xMin, y: slope * xMin + intercept },
+          { x: xMax, y: slope * xMax + intercept }
         ];
 
         new Chart(document.getElementById('spreadChart'), {
@@ -745,7 +875,7 @@ for h in range(1, 24):
                 type: 'line', label: 'Trendline',
                 data: trendData,
                 borderColor: 'rgba(92,46,11,0.5)',
-                borderDash: [6,4],
+                borderDash: [6, 4],
                 borderWidth: 2,
                 pointRadius: 0, fill: false,
               }
@@ -762,9 +892,9 @@ for h in range(1, 24):
                     if (ctx.datasetIndex === 1) return null;
                     const i = ctx.dataIndex;
                     return [
-                        `DA Spread: $${d.da_spread[i].toFixed(0)}/MWh`,
-                        `Revenue: $${d.total_revenue[i].toLocaleString(undefined,{maximumFractionDigits:0})}`,
-                        `RT share: ${(d.rt_share[i]*100).toFixed(1)}%`
+                      `DA Spread: $${d.da_spread[i].toFixed(0)}/MWh`,
+                      `Revenue: $${d.total_revenue[i].toLocaleString(undefined, { maximumFractionDigits: 0 })}`,
+                      `RT share: ${(d.rt_share[i] * 100).toFixed(1)}%`
                     ];
                   }
                 }
@@ -785,7 +915,7 @@ for h in range(1, 24):
           }
         });
       });
-    </script>
+  </script>
 </body>
 
 </html>
