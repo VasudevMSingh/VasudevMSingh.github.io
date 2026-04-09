@@ -129,7 +129,8 @@
             events in real time.</p>
 
           <p>This two-settlement structure is what makes battery dispatch interesting. The DAM gives you price
-            certainty. The RTM gives you flexibility. The optimizer's job is to use both.</p>
+            certainty and the RTM gives you flexibility on top of it. It's the optimizer's job to use both and maximise
+            revenue.</p>
 
           <!-- Section 3 -->
           <h2>The method</h2>
@@ -146,9 +147,9 @@
             comes from deviations - times when actual real-time prices made it worthwhile to do something different from
             the DA plan.</p>
 
-          <p>The end result tells you something important: not just how much the battery earned, but <em>where</em> it
+          <p>The end result tells you not just how much the battery earned, but <em>where</em> it
             earned it. Days where RT contributes heavily signal high DA-to-RT price divergence - typically driven by
-            wind forecast error or unexpected load events. That pattern reveals market structure, not just accounting.
+            forecast errors or unexpected load events.
           </p>
 
           <!-- Section 4 -->
@@ -206,7 +207,8 @@ soc = {h: pl.LpVariable(f'soc{h}', 0, E) for h in hours}</code></pre>
 
           <pre><code class="language-python">prob += pl.lpSum((d[h] - c[h]) * da_prices[h] for h in hours)</code></pre>
 
-          <p>The SOC constraint is what separates this from a simple spread trade. Each hour's ending state of charge
+          <p>The <strong>SOC constraint</strong> is what separates this from a simple spread trade. Each hour's ending
+            state of charge
             must physically follow from the previous hour, accounting for efficiency losses in both directions:</p>
 
           <pre><code class="language-python">prob += soc[0] == c[0] * eta - d[0] / eta
@@ -245,7 +247,7 @@ for h in range(1, 24):
           <h2>4. Running it</h2>
           <p>The model runs day-by-day across Q1. For each date, it slices the day's prices, solves Stage 1, passes the
             DA schedule to Stage 2, and records DA revenue, RT PnL, and total revenue. The full quarter completes in a
-            few minutes on a standard laptop.</p>
+            few seconds on a standard laptop.</p>
 
           <!-- Section 9: Results -->
           <h2>5. Results</h2>
