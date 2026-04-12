@@ -1,44 +1,37 @@
-# Personal Portfolio - Vasudev Singh
+# The Merit Order — vasudevmsingh.github.io
 
-A modern, interactive portfolio website showcasing my work in energy data analysis, renewable markets, and technology innovation.
+A personal publication covering US wholesale energy markets, battery storage analytics, and the occasional detour into tech and basketball.
 
-## 🌟 Features
+## What's here
 
-- Interactive hero section with dynamic text animation
-- Real-time energy data visualization  
-- Horizontally scrollable project showcase
-- Animated statistics and skill representations
-- Responsive design for all device sizes
-- Modern UI/UX with smooth transitions
-- Interactive skill bubbles with proficiency indicators
+- Long-form articles on ERCOT, CAISO, and ISO market mechanics
+- Data-driven analysis of battery storage revenue and dispatch optimization
+- Interactive energy market visualizations
+- Writing on technology and sports
 
-## 🛠️ Tech Stack
+## Tech
 
-- HTML5
-- CSS3 (Modern features including Grid, Flexbox)
-- Vanilla JavaScript
-- Canvas for data visualization 
-- Google Fonts (Inter)
+- HTML5 / CSS3 / Vanilla JavaScript
+- Dynamic content via `data/posts.json`
+- Google Analytics (GA4)
+- Hosted on GitHub Pages
 
-## 🎨 Design Philosophy
+## Structure
 
-The website focuses on visual storytelling and interactive elements while maintaining professional elegance. Key aspects include:
+```
+/
+├── index.html              # Homepage
+├── about.html              # About page
+├── energy_viz.html         # Interactive data dashboard
+├── data/
+│   └── posts.json          # Content registry for all posts
+├── images/                 # Article images and charts
+├── styles.css
+├── main.js
+├── sitemap.xml
+└── robots.txt
+```
 
-- Clean, minimalist design
-- Data-driven visualizations
-- Visual hierarchy emphasizing key information
-- Smooth animations and transitions
-- Intuitive navigation
+## Contact
 
-## 📱 Responsive Design
-
-The portfolio is fully responsive and optimized for:
-- Desktop displays
-- Tablets  
-- Mobile devices
-
-## 🚀 Getting Started
-
-1. Clone the repository
-```bash
-git clone https://github.com/yourusername/portfolio.git
+[LinkedIn](https://www.linkedin.com/in/vasudevmohansingh/)
