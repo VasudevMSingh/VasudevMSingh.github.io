@@ -122,13 +122,16 @@ body::before {
 /* ========================================
    RESET & BASE
    ======================================== */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
 html {
     scroll-behavior: smooth;
-    font-size: 15px; /* Scale down from default 16px for less "zoomed in" feel */
+    font-size: 15px;
+    /* Scale down from default 16px for less "zoomed in" feel */
 }
 
 body {
@@ -159,7 +162,8 @@ a:hover {
     color: var(--color-accent-hover);
 }
 
-ul, ol {
+ul,
+ol {
     padding-left: 1.5rem;
 }
 
@@ -170,7 +174,12 @@ li {
 /* ========================================
    TYPOGRAPHY
    ======================================== */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-heading);
     font-weight: var(--font-bold);
     line-height: var(--leading-tight);
@@ -178,10 +187,21 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 0 1rem 0;
 }
 
-h1 { font-size: var(--text-4xl); }
-h2 { font-size: var(--text-2xl); }
-h3 { font-size: var(--text-xl); }
-h4 { font-size: var(--text-lg); }
+h1 {
+    font-size: var(--text-4xl);
+}
+
+h2 {
+    font-size: var(--text-2xl);
+}
+
+h3 {
+    font-size: var(--text-xl);
+}
+
+h4 {
+    font-size: var(--text-lg);
+}
 
 p {
     margin: 0 0 1.5rem 0;
@@ -273,6 +293,9 @@ hr.ornament::before {
 
 .site-logo {
     text-decoration: none;
+    display: block;
+    line-height: 0;
+    margin-left: -60px;
 }
 
 .logo-text {
@@ -936,7 +959,7 @@ hr.ornament::before {
 }
 
 /* Drop Cap - First paragraph of article */
-.article-content > p:first-of-type::first-letter,
+.article-content>p:first-of-type::first-letter,
 .article-content .drop-cap::first-letter {
     float: left;
     font-family: var(--font-heading);
@@ -988,8 +1011,10 @@ hr.ornament::before {
 
 /* Block code — <pre><code> */
 pre {
-    background: #2E2820;           /* dark warm-brown, echoes the site palette */
-    color: #D9CFBE;                /* warm off-white text */
+    background: #2E2820;
+    /* dark warm-brown, echoes the site palette */
+    color: #D9CFBE;
+    /* warm off-white text */
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     line-height: 1.7;
@@ -1040,20 +1065,23 @@ code {
 
 /* Keywords: for, in, if, return, def, class, import… */
 .token.keyword {
-    color: #D4916A;   /* warm amber-terracotta */
+    color: #D4916A;
+    /* warm amber-terracotta */
     font-style: normal;
 }
 
 /* Strings and template literals */
 .token.string,
 .token.char {
-    color: #8CB892;   /* sage green — data-3 from palette */
+    color: #8CB892;
+    /* sage green — data-3 from palette */
 }
 
 /* Numbers, booleans */
 .token.number,
 .token.boolean {
-    color: #7DB5C8;   /* muted steel blue */
+    color: #7DB5C8;
+    /* muted steel blue */
 }
 
 /* Comments */
@@ -1061,30 +1089,35 @@ code {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-    color: #6B6358;   /* --color-text-muted equivalent */
+    color: #6B6358;
+    /* --color-text-muted equivalent */
     font-style: italic;
 }
 
 /* Built-in functions and class names */
 .token.builtin,
 .token.class-name {
-    color: #C9A96E;   /* warm gold */
+    color: #C9A96E;
+    /* warm gold */
 }
 
 /* Function names */
 .token.function {
-    color: #B8C9A8;   /* light sage — differs from strings */
+    color: #B8C9A8;
+    /* light sage — differs from strings */
 }
 
 /* Operators, punctuation */
 .token.operator,
 .token.punctuation {
-    color: #A89F93;   /* warm mid-grey */
+    color: #A89F93;
+    /* warm mid-grey */
 }
 
 /* Variables and identifiers */
 .token.variable {
-    color: #D9CFBE;   /* base text — no extra emphasis */
+    color: #D9CFBE;
+    /* base text — no extra emphasis */
 }
 
 /* Decorators, annotations */
@@ -1100,7 +1133,8 @@ code {
 /* Important / regex */
 .token.important,
 .token.regex {
-    color: #E8A87C;   /* soft orange */
+    color: #E8A87C;
+    /* soft orange */
 }
 
 /* Pull Quote - for emphasis in articles */
@@ -1458,11 +1492,9 @@ code {
 
 /* Personal content - warmer, more journal-like */
 .article-personal .article-content {
-    background: linear-gradient(
-        to bottom,
-        var(--color-paper) 0%,
-        var(--color-bg-primary) 100%
-    );
+    background: linear-gradient(to bottom,
+            var(--color-paper) 0%,
+            var(--color-bg-primary) 100%);
     padding: var(--space-8);
     margin: 0 calc(-1 * var(--space-8));
     border-radius: var(--radius-md);
@@ -1490,12 +1522,10 @@ code {
 }
 
 /* Subtle faint ruled lines for personal content */
-.article-personal .article-content > p {
-    background-image: linear-gradient(
-        to bottom,
-        transparent calc(var(--leading-relaxed) * 1em - 1px),
-        var(--color-rule) calc(var(--leading-relaxed) * 1em)
-    );
+.article-personal .article-content>p {
+    background-image: linear-gradient(to bottom,
+            transparent calc(var(--leading-relaxed) * 1em - 1px),
+            var(--color-rule) calc(var(--leading-relaxed) * 1em));
     background-size: 100% calc(var(--leading-relaxed) * 1em);
 }
 
@@ -1636,6 +1666,7 @@ code {
    PRINT STYLES
    ======================================== */
 @media print {
+
     .site-header,
     .site-footer,
     .article-nav,
