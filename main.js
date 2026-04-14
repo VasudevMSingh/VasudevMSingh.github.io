@@ -105,19 +105,31 @@ function renderFeaturedArticle() {
 /**
  * Render Recent Writing Section from JSON
  */
+let currentArticlePage = 1;
+const ARTICLES_PER_PAGE = 5;
+
 function renderRecentWriting() {
     const articleList = document.getElementById('articleList');
+    const paginationContainer = document.getElementById('articlePagination');
     if (!articleList) return;
 
-    // Get recent posts (excluding featured, sorted by date, limit 3)
+    // Get recent posts (excluding featured, sorted by date)
     const recentPosts = siteData.posts
         .filter(p => !p.featured)
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .slice(0, 3);
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
 
     if (recentPosts.length === 0) return;
 
-    articleList.innerHTML = recentPosts.map(post => `
+    const totalPages = Math.ceil(recentPosts.length / ARTICLES_PER_PAGE);
+
+    if (currentArticlePage > totalPages) currentArticlePage = totalPages;
+    if (currentArticlePage < 1) currentArticlePage = 1;
+
+    const startIndex = (currentArticlePage - 1) * ARTICLES_PER_PAGE;
+    const endIndex = startIndex + ARTICLES_PER_PAGE;
+    const currentPosts = recentPosts.slice(startIndex, endIndex);
+
+    articleList.innerHTML = currentPosts.map(post => `
         <article class="article-card">
             <div class="article-card-image">
                 <img src="${post.image}" alt="${post.imageAlt}">
@@ -130,10 +142,54 @@ function renderRecentWriting() {
                 <h3 class="article-card-title">
                     <a href="${post.slug}">${post.title}</a>
                 </h3>
+                <p class="article-card-excerpt">${post.description}</p>
             </div>
         </article>
     `).join('');
+
+    // Render pagination
+    if (paginationContainer) {
+        if (totalPages > 1) {
+            let paginationHTML = '<div class="pagination-buttons">';
+            
+            if (currentArticlePage > 1) {
+                paginationHTML += `<button onclick="changeArticlePage(${currentArticlePage - 1})" class="pagination-btn">Previous</button>`;
+            } else {
+                paginationHTML += `<button class="pagination-btn disabled" disabled>Previous</button>`;
+            }
+            
+            paginationHTML += `<span class="pagination-info">Page ${currentArticlePage} of ${totalPages}</span>`;
+            
+            if (currentArticlePage < totalPages) {
+                paginationHTML += `<button onclick="changeArticlePage(${currentArticlePage + 1})" class="pagination-btn">Next</button>`;
+            } else {
+                paginationHTML += `<button class="pagination-btn disabled" disabled>Next</button>`;
+            }
+            
+            paginationHTML += '</div>';
+            paginationContainer.innerHTML = paginationHTML;
+        } else {
+            paginationContainer.innerHTML = '';
+        }
+    }
 }
+
+window.changeArticlePage = function(page) {
+    currentArticlePage = page;
+    renderRecentWriting();
+    const writingSection = document.getElementById('writing');
+    if (writingSection) {
+        // Offset to avoid sticking under header, header is ~80px usually but let's just scroll to view
+        const headerOffset = 100;
+        const elementPosition = writingSection.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
+    }
+};
+
 
 /**
  * Updates Feed Functionality

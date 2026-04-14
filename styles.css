@@ -536,6 +536,58 @@ hr.ornament::before {
     color: var(--color-accent);
 }
 
+.article-card-excerpt {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+    margin-top: var(--space-2);
+    margin-bottom: 0;
+}
+
+/* Pagination */
+.pagination-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+}
+
+.pagination-btn {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-primary);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.pagination-btn:hover:not(:disabled) {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.pagination-btn.disabled,
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--color-bg-secondary);
+}
+
+.pagination-info {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+}
+
 /* About Snippet */
 .about-snippet {
     padding-left: var(--space-8);

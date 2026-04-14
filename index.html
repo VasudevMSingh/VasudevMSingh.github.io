@@ -34,6 +34,14 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts — required for logo to render in DM Serif Display -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Libre+Franklin:wght@300&display=swap"
+        rel="stylesheet">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logos/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logos/favicon-16.png">
 
 </head>
 
@@ -42,7 +50,16 @@
     <header class="site-header">
         <div class="container">
             <a href="index.html" class="site-logo">
-                <span class="logo-text">The Merit Order</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 155 56" width="155" height="56" role="img"
+                    aria-label="The Merit Order">
+                    <text x="1" y="13" font-family="'Libre Franklin', 'Arial Narrow', Arial, sans-serif" font-size="8"
+                        font-weight="300" letter-spacing="4.2" fill="#b02418">THE</text>
+                    <text x="0" y="40" font-family="'DM Serif Display', Georgia, 'Times New Roman', serif"
+                        font-size="24" fill="#1a1210" textLength="155" lengthAdjust="spacingAndGlyphs">Merit
+                        Order</text>
+                    <rect x="0" y="46" width="155" height="2.5" fill="#1a1210" />
+                    <rect x="0" y="51.5" width="155" height="0.8" fill="#1a1210" />
+                </svg>
             </a>
             <button class="menu-toggle" aria-label="Toggle menu">
                 <span></span>
@@ -100,6 +117,26 @@
                         <!-- Fallback content for no-JS or loading state -->
                         <article class="article-card">
                             <div class="article-card-image">
+                                <img src="images/retrotimes_index.png"
+                                    alt="The retro terminal era of this website — VAGABOND.EXE">
+                            </div>
+                            <div class="article-card-content">
+                                <div class="article-card-meta">
+                                    <span class="category-tag category-tag-energy">Energy</span>
+                                    <span class="article-card-date">April 2026</span>
+                                </div>
+                                <h3 class="article-card-title">
+                                    <a href="energy-data-design-philosophy.html">Design Principles for Energy Data
+                                        Products</a>
+                                </h3>
+                                <p class="article-card-excerpt">If a chart does not tell me what it is about in 10
+                                    seconds, it has failed. A set of design principles for energy data products — on
+                                    restraint, clarity, and letting data be the hero.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card">
+                            <div class="article-card-image">
                                 <img src="images/tanker.jpg" alt="Iran Conflict and Global Energy Markets">
                             </div>
                             <div class="article-card-content">
@@ -108,9 +145,33 @@
                                     <span class="article-card-date">March 2026</span>
                                 </div>
                                 <h3 class="article-card-title">
-                                    <a href="iran-energy-impact.html">How the Iran Conflict Affects the Global
-                                        Energy Markets</a>
+                                    <a href="iran-energy-impact.html">How the Iran Conflict Affects the Global Energy
+                                        Markets</a>
                                 </h3>
+                                <p class="article-card-excerpt">The Iran conflict erased the 2026 LNG surplus in seven
+                                    days, exposing the structural fragility of Gulf energy dependence - and why the
+                                    energy security case for distributed generation has never been stronger.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card">
+                            <div class="article-card-image">
+                                <img src="images/tb4_monthly_settlement.png"
+                                    alt="TB4 Monthly Settlement Paths - ERCOT vs CAISO">
+                            </div>
+                            <div class="article-card-content">
+                                <div class="article-card-meta">
+                                    <span class="category-tag category-tag-energy">Energy Markets</span>
+                                    <span class="article-card-date">September 2025</span>
+                                </div>
+                                <h3 class="article-card-title">
+                                    <a href="tb4-futures.html">TB4 Spread Futures: ERCOT vs CAISO - Hedging the Battery
+                                        Revolution</a>
+                                </h3>
+                                <p class="article-card-excerpt">An analysis of TB4 spread futures across ERCOT and CAISO
+                                    trading hubs - exploring pricing premiums, forecasting accuracy, and hedging
+                                    implications for battery storage operators navigating an increasingly
+                                    arbitrage-driven market.</p>
                             </div>
                         </article>
 
@@ -127,6 +188,10 @@
                                     <a href="ercot-batt-2024.html">ERCOT Battery Monitor 2024: Market Analysis and
                                         Revenue Trends</a>
                                 </h3>
+                                <p class="article-card-excerpt">The ERCOT energy storage market has experienced
+                                    significant transformation in 2024, with revenue dropping from $18/kW-month to
+                                    $7/kW-month. This analysis examines the key trends and their implications for
+                                    battery storage operators.</p>
                             </div>
                         </article>
 
@@ -142,6 +207,8 @@
                                 <h3 class="article-card-title">
                                     <a href="nba-luka-trade.html">NBA Trade Shockwave: Luka Doncic to Lakers</a>
                                 </h3>
+                                <p class="article-card-excerpt">Analysis of the shocking Luka Doncic trade and its
+                                    impact on the NBA landscape.</p>
                             </div>
                         </article>
 
@@ -157,9 +224,29 @@
                                 <h3 class="article-card-title">
                                     <a href="ai-disruption.html">The Great AI Disruption: Purpose Over Programmers</a>
                                 </h3>
+                                <p class="article-card-excerpt">Exploring the impact of AI on tech careers and the
+                                    importance of purpose-driven work in an age of automation.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card">
+                            <div class="article-card-image">
+                                <img src="images/2023vs2024_index_small.png" alt="Books 2024">
+                            </div>
+                            <div class="article-card-content">
+                                <div class="article-card-meta">
+                                    <span class="category-tag category-tag-books">Books</span>
+                                    <span class="article-card-date">February 2025</span>
+                                </div>
+                                <h3 class="article-card-title">
+                                    <a href="books-2024.html">Top Books I Read in 2024</a>
+                                </h3>
+                                <p class="article-card-excerpt">A curated list of the best books I read in 2024 - from
+                                    ultramarathon adventures to Cold War espionage and cozy bookshop stories.</p>
                             </div>
                         </article>
                     </div>
+                    <div id="articlePagination"></div>
                 </div>
 
                 <!-- About Snippet -->

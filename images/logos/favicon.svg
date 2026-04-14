@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  The Merit Order — Favicon (SVG)
+  Works natively in all modern browsers.
+
+  Add to your HTML <head>:
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 32 32"
+  width="32"
+  height="32"
+  role="img"
+  aria-label="The Merit Order favicon"
+>
+  <defs>
+    <style><![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+    ]]></style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="32" height="32" rx="3" fill="#1a1210"/>
+
+  <!-- M lettermark -->
+  <text
+    x="16"
+    y="24"
+    font-family="'DM Serif Display', Georgia, 'Times New Roman', serif"
+    font-size="22"
+    fill="#f4ede0"
+    text-anchor="middle"
+  >M</text>
+
+</svg>
