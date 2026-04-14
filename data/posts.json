@@ -1,6 +1,28 @@
 {
   "posts": [
     {
+      "id": "blog9",
+      "slug": "energy-data-design-philosophy.html",
+      "title": "Design Principles for Energy Data Products",
+      "shortTitle": "Energy Data Design Philosophy",
+      "description": "If a chart does not tell me what it is about in 10 seconds, it has failed. A set of design principles for energy data products — on restraint, clarity, and letting data be the hero.",
+      "excerpt": "Less is not laziness. It is the hardest thing to get right, and most people never bother trying.",
+      "date": "2026-04-13",
+      "dateDisplay": "April 2026",
+      "category": "energy",
+      "categoryLabel": "Energy",
+      "image": "images/retrotimes_index.png",
+      "imageAlt": "The retro terminal era of this website — VAGABOND.EXE",
+      "tags": [
+        "Data Visualization",
+        "Design",
+        "Energy Markets",
+        "Product"
+      ],
+      "readTime": "6 min read",
+      "featured": false
+    },
+    {
       "id": "blog8",
       "slug": "battery-dispatch-ercot.html",
       "title": "Modelling Battery Dispatch in Energy Markets using Python",
@@ -165,6 +187,10 @@
     "ENERGY": [
       {
         "type": "BLOG",
+        "postId": "blog9"
+      },
+      {
+        "type": "BLOG",
         "postId": "blog8"
       },
       {
@@ -200,5 +226,5 @@
       }
     ]
   },
-  "lastUpdated": "2025-04-02"
+  "lastUpdated": "2026-04-13"
 }

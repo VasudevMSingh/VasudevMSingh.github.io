@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E6VLPFK24"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-7E6VLPFK24');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization in the Energy Space is Broken - The Merit Order</title>
+    <link rel="canonical" href="https://vasudevmsingh.github.io/energy-data-design-philosophy.html">
+    <meta name="description"
+        content="Why less is more in energy data visualization. The 10-second rule, tidy data, and what five iterations of a website taught me about designing for clarity.">
+
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Design Principles for Energy Data Products">
+    <meta property="og:description"
+        content="If a chart does not tell me what it is about in 10 seconds, it has failed. On restraint, clarity, and letting data be the hero.">
+    <meta property="og:image" content="images/retrotimes_index.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <span class="logo-text">The Merit Order</span>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <a href="about.html" class="nav-link">About</a>
+                <a href="index.html#writing" class="nav-link">Writing</a>
+                <a href="energy_viz.html" class="nav-link">Data</a>
+                <a href="about.html#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-page">
+        <article class="article article-personal">
+            <!-- Article Header -->
+            <header class="article-header">
+                <div class="container-narrow">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span class="separator">/</span>
+                        <span>Writing</span>
+                    </nav>
+
+                    <div class="article-meta-top">
+                        <span class="category-tag category-tag-energy">Energy</span>
+                    </div>
+
+                    <h1 class="article-title">Data Is the Hero. Not You.</h1>
+
+                    <div class="article-meta">
+                        <span class="author">By Vasudev Singh</span>
+                        <span class="separator">|</span>
+                        <time datetime="2026-04-13">April 2026</time>
+                        <span class="separator">|</span>
+                        <span class="read-time">6 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <div class="container-narrow">
+
+                    <p>I have a rule that I have followed without fail for all data visualizations I or someone else
+                        creates - if a chart does not tell me what it is about in 10 seconds, it has failed. The sole
+                        purpose of a chart is to make data legible and highlight the story within it.</p>
+
+                    <h2>The Two Ways to Get It Wrong</h2>
+
+                    <p>There are two ways to ruin a chart and people manage both with impressive consistency.</p>
+
+                    <p>The first is turning a chart into a presentation - a one-page report of sorts. Those where the
+                        page contains everything: from titles, subtitles, pop-ups, definitions, combo-charts,
+                        references, contributions, exceptions and so on. Some of the most prominent energy firms are
+                        known to be prone to these styles - and it always comes across as too much.</p>
+
+                    <p>The second is making a chart that belongs in a museum. Battery storage analytics do not need
+                        buildings as bars. LMP price curves do not need animated flight paths. A clean bar chart is not
+                        lazy. It is correct. Every unit of visual complexity that doesn't add information takes
+                        something away.</p>
+
+                    <p>Both mistakes have the same root at their core - they showcase the designer, not the data.</p>
+
+                    <h2>Data Is the Hero. Not You.</h2>
+
+                    <p>A line chart showing LMP price curves over time is not boring. It is clear. Clarity is the goal.
+                    </p>
+
+                    <p>The question I ask before every visual data design decision is simple. Does this make the data
+                        easier to read, or does it make me look like I worked hard? Those are different things, and
+                        unfortunately most people confuse them, which is how most energy market dashboards become
+                        unusable.</p>
+
+                    <p>Good design comes from restraint. Whitespace is not wasted space - it's a choice between clarity
+                        and cleverness. A clean grid is not a lack of effort - it's a display of structural integrity. A
+                        two-color palette is not a failure of imagination - it's timeless. These choices are hard to
+                        make because they require confidence - confidence that the data is interesting enough to stand
+                        on its own.</p>
+
+                    <p>And the best part - the data usually is.</p>
+
+                    <p>I learned this by trial and error myself. The principle itself was never the problem, but
+                        applying
+                        it seriously and properly was.
+                    </p>
+
+                    <h2>The Toggle</h2>
+
+                    <p>This website has had five lives. You are looking at the fifth.</p>
+
+                    <p>The first had a fullscreen looping bar chart as the hero background - a bunch of well-designed
+                        Excel charts about energy prices and demand in AUS markets looping in the background - with my
+                        name and a tagline overlaid in white. "Transforming energy markets through data-driven solutions
+                        and innovative technology." The only thing this transformed was good data analysis into a subpar
+                        background image.</p>
+
+                    <p>The second was VAGABOND.EXE. Retro terminal theme, black screen, green monospace font, blinking
+                        cursor. ABOUT.SYS. BLOG.SYS. PROJECTS.SYS. Was it clever? Maybe. Was it completely useless? 100%
+                        YES. Every design choice pointed at the aesthetic and away from the content. A reader landed and
+                        thought about the theme. Not the analysis. Not the writing. The theme. The container ate the
+                        content whole.</p>
+
+                    <figure class="article-figure">
+                        <div class="article-figure-grid">
+                            <img src="images/retrotimes_index.png"
+                                alt="VAGABOND.EXE - the retro terminal version of this site">
+                            <img src="images/herotimes_index_page.png"
+                                alt="The hero background chart version of this site">
+                        </div>
+                        <figcaption>Left: VAGABOND.EXE - the retro terminal era. Right: the fullscreen looping chart
+                            hero. Both versions where the container ate the content.</figcaption>
+                    </figure>
+
+                    <p>The current version exists because I finally asked the right question. Not "what looks
+                        interesting" but "what does the reader actually need."</p>
+
+                    <p>Clean layout. Warm tones. Charts that stand alone. Where the <a
+                            href="battery-dispatch-ercot.html">battery dispatch article</a> needs three panels - price
+                        profile, DA schedule, RT actual dispatch - they sit vertically, each with room to breathe, each
+                        readable in isolation. The reader moves through them in sequence. No legend archaeology. No
+                        cross-referencing. No squinting.</p>
+
+                    <p>This is tidy data applied to design. Hadley Wickham's concept - each variable a column, each
+                        observation a row, each table one thing only. It is a philosophy: structure your data correctly
+                        and the visualization almost draws itself. The mess in a chart is usually a mess in the data
+                        underneath it. Clean that first. The design naturally follows.</p>
+
+                    <p><span class="highlight">Ordo ab chao.</span></p>
+
+                    <p><em>"Order From Chaos"</em> - The website and my visuals got better the moment I stopped
+                        designing
+                        them and started tidying them.</p>
+
+                    <h2>Motion and Flow</h2>
+
+                    <p>Tidy data solves the canvas. What you do with the product around it is a different problem.</p>
+
+                    <p>The highest compliment I can give a product is this: it uses itself.</p>
+
+                    <p>Nobody gets there completely. But it is the right thing to aim at.</p>
+
+                    <p>Friction in a UI is not the enemy - directionless friction is. There is a difference between
+                        friction that guides a user toward the right next step and friction that exists because a
+                        designer didn't think hard enough about the screen. One is intentional. The other is a mistake.
+                    </p>
+
+                    <p>A user should never have to search for the obvious. If a battery operator opens an energy market
+                        dashboard to check yesterday's revenue, that number should already be in front of them. It is
+                        obvious, easy to do and yet rarely accomplished.</p>
+
+                    <p>And a user should never be drowned in the irrelevant. Every element on a screen is asking for
+                        attention. Attention runs out. A dashboard that shows everything shows nothing - it handed its
+                        job to the user and called it a feature.</p>
+
+                    <p>Flow is when none of this is visible anymore. The user is thinking about their work and the
+                        product disappears into the background.</p>
+
+                    <h2>The Last Mile</h2>
+
+                    <p>Energy analysis is genuinely hard work. Good models take time, real expertise, and serious
+                        effort. The people doing this work are usually capable and rigorous.</p>
+
+                    <p>And then they put the output in a chart nobody can read.</p>
+
+                    <p>A chart that fails the 10-second rule after so much work is a tragedy.</p>
+
+                    <p>The bar here is low. Most energy market dashboards and data products are badly designed because
+                        analysts never learned to think about design, and designers don't understand energy markets. If
+                        you can do both, you are in a genuinely small group. Use that.</p>
+
+                    <p>Less is not laziness. It is the hardest thing to get right, and most people never bother trying.
+                    </p>
+
+                </div>
+            </div>
+
+            <!-- Article Footer -->
+            <footer class="article-footer">
+                <div class="container-narrow">
+                    <div class="article-tags">
+                        <span class="tag">Energy Markets</span>
+                        <span class="tag">Data Visualization</span>
+                        <span class="tag">Design</span>
+                        <span class="tag">Product</span>
+                    </div>
+
+                    <!-- Navigation loaded dynamically from data/posts.json -->
+                    <nav class="article-nav">
+                        <!-- Fallback content - will be replaced by JS -->
+                    </nav>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+                    <a href="https://instagram.com/_vasudevsingh005/" target="_blank">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
