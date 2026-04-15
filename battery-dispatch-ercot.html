@@ -22,6 +22,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet">
+  <!-- Google Fonts — required for logo to render in DM Serif Display -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Libre+Franklin:wght@300&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
 
@@ -36,7 +39,15 @@
   <header class="site-header">
     <div class="container">
       <a href="index.html" class="site-logo">
-        <span class="logo-text">The Merit Order</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 56" width="256" height="56" role="img"
+          aria-label="The Merit Order">
+          <text x="1" y="13" font-family="'Libre Franklin', 'Arial Narrow', Arial, sans-serif" font-size="12"
+            font-weight="300" letter-spacing="4.2" fill="#b02418">THE</text>
+          <text x="0" y="40" font-family="'DM Serif Display', Georgia, 'Times New Roman', serif" font-size="28"
+            fill="#1a1210">Merit Order</text>
+          <rect x="0" y="46" width="152" height="2.5" fill="#1a1210" />
+          <rect x="0" y="51.5" width="152" height="0.8" fill="#1a1210" />
+        </svg>
       </a>
       <button class="menu-toggle" aria-label="Toggle menu">
         <span></span>
@@ -427,7 +438,6 @@ for h in range(1, 24):
         <div class="social-links">
           <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
           <a href="mailto:vasudevmsingh@gmail.com">Email</a>
-          <a href="https://instagram.com/_vasudevsingh005/" target="_blank">Instagram</a>
         </div>
       </div>
     </div>
