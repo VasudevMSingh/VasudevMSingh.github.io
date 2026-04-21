@@ -1,6 +1,28 @@
 {
   "posts": [
     {
+      "id": "blog10",
+      "slug": "battery-options-trading.html",
+      "title": "Battery Dispatch as an Options Strategy - A German Market Case Study",
+      "shortTitle": "Battery Dispatch as an Options Strategy",
+      "description": "Germany hit 573 negative-price hours in 2025. The operators profiting aren't forecasting prices — they're harvesting volatility like options traders. Here's how.",
+      "excerpt": "Germany hit 573 negative-price hours in 2025. The operators profiting aren't forecasting prices — they're harvesting volatility like options traders.",
+      "date": "2026-04-20",
+      "dateDisplay": "April 2026",
+      "category": "energy",
+      "categoryLabel": "Energy",
+      "image": "images/bess-mores.jpg",
+      "imageAlt": "BESS Dispatch Head",
+      "tags": [
+        "Energy Markets",
+        "Battery Storage",
+        "Germany",
+        "Options Trading"
+      ],
+      "readTime": "6 min read",
+      "featured": true
+    },
+    {
       "id": "blog9",
       "slug": "energy-data-design-philosophy.html",
       "title": "Design Principles for Energy Data Products",
@@ -11,7 +33,7 @@
       "dateDisplay": "April 2026",
       "category": "energy",
       "categoryLabel": "Energy",
-      "image": "images/retrotimes_index.png",
+      "image": "images/herotimes_index_page.png",
       "imageAlt": "The retro terminal era of this website — VAGABOND.EXE",
       "tags": [
         "Data Visualization",
@@ -29,8 +51,8 @@
       "shortTitle": "Battery Dispatch Across DA & RT",
       "description": "A practical walkthrough of two-stage linear programming for battery storage dispatch optimization across ERCOT's Day-Ahead and Real-Time markets - with perfect-foresight results across Q1 2025.",
       "excerpt": "Real-time flexibility added 32–55% on top of day-ahead revenue. A linear program finds the globally optimal schedule - no heuristic gets close.",
-      "date": "2025-04-02",
-      "dateDisplay": "April 2025",
+      "date": "2026-04-02",
+      "dateDisplay": "April 2026",
       "category": "energy",
       "categoryLabel": "Energy Markets",
       "image": "images/bess_dispatch_head.jpg",
@@ -44,7 +66,7 @@
         "Optimization"
       ],
       "readTime": "8 min read",
-      "featured": true
+      "featured": false
     },
     {
       "id": "blog7",
@@ -185,6 +207,10 @@
   ],
   "sections": {
     "ENERGY": [
+      {
+        "type": "BLOG",
+        "postId": "blog10"
+      },
       {
         "type": "BLOG",
         "postId": "blog9"

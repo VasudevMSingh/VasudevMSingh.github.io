@@ -151,21 +151,21 @@ function renderRecentWriting() {
     if (paginationContainer) {
         if (totalPages > 1) {
             let paginationHTML = '<div class="pagination-buttons">';
-            
+
             if (currentArticlePage > 1) {
                 paginationHTML += `<button onclick="changeArticlePage(${currentArticlePage - 1})" class="pagination-btn">Previous</button>`;
             } else {
                 paginationHTML += `<button class="pagination-btn disabled" disabled>Previous</button>`;
             }
-            
+
             paginationHTML += `<span class="pagination-info">Page ${currentArticlePage} of ${totalPages}</span>`;
-            
+
             if (currentArticlePage < totalPages) {
                 paginationHTML += `<button onclick="changeArticlePage(${currentArticlePage + 1})" class="pagination-btn">Next</button>`;
             } else {
                 paginationHTML += `<button class="pagination-btn disabled" disabled>Next</button>`;
             }
-            
+
             paginationHTML += '</div>';
             paginationContainer.innerHTML = paginationHTML;
         } else {
@@ -174,7 +174,7 @@ function renderRecentWriting() {
     }
 }
 
-window.changeArticlePage = function(page) {
+window.changeArticlePage = function (page) {
     currentArticlePage = page;
     renderRecentWriting();
     const writingSection = document.getElementById('writing');
@@ -389,7 +389,7 @@ function initBlogNavigation() {
  * Smooth scroll for anchor links
  */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if (href === '#') return;
 

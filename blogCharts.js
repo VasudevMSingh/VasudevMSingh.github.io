@@ -582,6 +582,211 @@ function createWaterfallChart() {
     });
 }
 
+// Battery Options Article Charts
+
+// Straddle Payoff Chart
+function createStraddleChart() {
+    const ctx = document.getElementById('straddleChart');
+    if (!ctx) return;
+
+    const underlying_price = [];
+    const pnl = [];
+    for (let p = 20; p <= 180; p += 5) {
+        underlying_price.push(p);
+        pnl.push(Math.abs(p - 100) - 15);
+    }
+
+    new Chart(ctx.getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: underlying_price,
+            datasets: [{
+                label: 'Payoff',
+                data: pnl,
+                borderColor: chartColors.primary,
+                backgroundColor: 'transparent',
+                borderWidth: 2,
+                pointRadius: 0,
+                tension: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(26, 26, 26, 0.9)',
+                    titleFont: { size: 13, weight: '600' },
+                    bodyFont: { size: 12 },
+                    padding: 12,
+                    cornerRadius: 8,
+                    callbacks: {
+                        label: function (context) {
+                            return `P&L: €${context.raw} per MWh`;
+                        },
+                        title: function (context) {
+                            return `Underlying: €${context[0].label}/MWh`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 11 } },
+                    title: {
+                        display: true,
+                        text: 'Underlying Price at Expiry (€/MWh)',
+                        font: { size: 11, weight: '500' }
+                    }
+                },
+                y: {
+                    grid: { color: chartColors.grid },
+                    ticks: { font: { size: 11 } },
+                    title: {
+                        display: true,
+                        text: 'P&L (€/MWh)',
+                        font: { size: 11, weight: '500' }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Battery P&L vs Price Spread Chart
+function createBatteryPnlChart() {
+    const ctx = document.getElementById('batteryPnlChart');
+    if (!ctx) return;
+
+    const spread = [];
+    const net_revenue = [];
+    for (let s = 0; s <= 200; s += 5) {
+        spread.push(s);
+        net_revenue.push(Math.max(0, (s * 0.87) - 12));
+    }
+
+    new Chart(ctx.getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: spread,
+            datasets: [{
+                label: 'Net Revenue',
+                data: net_revenue,
+                borderColor: chartColors.secondary,
+                backgroundColor: 'transparent',
+                borderWidth: 2,
+                pointRadius: 0,
+                tension: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(26, 26, 26, 0.9)',
+                    titleFont: { size: 13, weight: '600' },
+                    bodyFont: { size: 12 },
+                    padding: 12,
+                    cornerRadius: 8,
+                    callbacks: {
+                        label: function (context) {
+                            return `Net Revenue: €${context.raw.toFixed(2)} per MWh`;
+                        },
+                        title: function (context) {
+                            return `Spread: €${context[0].label}/MWh`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 11 } },
+                    title: {
+                        display: true,
+                        text: 'DA Spread (€/MWh)',
+                        font: { size: 11, weight: '500' }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: { color: chartColors.grid },
+                    ticks: { font: { size: 11 } },
+                    title: {
+                        display: true,
+                        text: 'Net Revenue per Cycle (€/MWh)',
+                        font: { size: 11, weight: '500' }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Germany Negative Price Hours Chart
+function createGermanyNegativeChart() {
+    const ctx = document.getElementById('germanyNegativeChart');
+    if (!ctx) return;
+
+    new Chart(ctx.getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['2023', '2024', '2025'],
+            datasets: [{
+                label: 'Negative Price Hours',
+                data: [301, 457, 573],
+                backgroundColor: chartColors.primary,
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(26, 26, 26, 0.9)',
+                    titleFont: { size: 13, weight: '600' },
+                    bodyFont: { size: 12 },
+                    padding: 12,
+                    cornerRadius: 8,
+                    callbacks: {
+                        label: function (context) {
+                            return `${context.raw} hours`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 11 } }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: { color: chartColors.grid },
+                    ticks: { font: { size: 11 } },
+                    title: {
+                        display: true,
+                        text: 'Number of Hours',
+                        font: { size: 11, weight: '500' }
+                    }
+                }
+            }
+        }
+    });
+}
+
 // Initialize all charts when the document loads
 document.addEventListener('DOMContentLoaded', () => {
     createRevenueChart();
@@ -590,4 +795,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createStackedBarChart();
     fetchDataAndCreateChart();
     createWaterfallChart();
+    createStraddleChart();
+    createBatteryPnlChart();
+    createGermanyNegativeChart();
 });
