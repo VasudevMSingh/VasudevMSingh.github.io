@@ -83,7 +83,7 @@
 
     /* Layout */
     --max-width: 1200px;
-    --max-width-narrow: 900px;
+    --max-width-narrow: 1200px;
     --container-padding: 1.5rem;
 
     /* Borders & Shadows - Softer, more rounded */
@@ -1001,6 +1001,50 @@ hr.ornament::before {
     margin-bottom: var(--space-2);
 }
 
+/* Data Tables */
+.table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-8) 0;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    background: white;
+}
+
+.data-table th {
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: var(--text-xs);
+    padding: var(--space-4);
+    text-align: left;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.data-table td {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    line-height: 1.4;
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tr:hover td {
+    background-color: var(--color-bg-tertiary);
+}
+
+
 /* ========================================
    CODE BLOCKS
    Reusable across all blog pages.
@@ -1009,7 +1053,7 @@ hr.ornament::before {
    to <code> elements to activate.
    ======================================== */
 
-/* Block code — <pre><code> */
+/* Block code - <pre><code> */
 pre {
     background: #2E2820;
     /* dark warm-brown, echoes the site palette */
@@ -1047,7 +1091,7 @@ pre[class*="language-"] code[class*="language-"] {
     white-space: pre;
 }
 
-/* Inline code — <code> inside prose */
+/* Inline code - <code> inside prose */
 code {
     font-family: var(--font-mono);
     font-size: 0.875em;
@@ -1074,7 +1118,7 @@ code {
 .token.string,
 .token.char {
     color: #8CB892;
-    /* sage green — data-3 from palette */
+    /* sage green - data-3 from palette */
 }
 
 /* Numbers, booleans */
@@ -1104,7 +1148,7 @@ code {
 /* Function names */
 .token.function {
     color: #B8C9A8;
-    /* light sage — differs from strings */
+    /* light sage - differs from strings */
 }
 
 /* Operators, punctuation */
@@ -1117,7 +1161,7 @@ code {
 /* Variables and identifiers */
 .token.variable {
     color: #D9CFBE;
-    /* base text — no extra emphasis */
+    /* base text - no extra emphasis */
 }
 
 /* Decorators, annotations */
@@ -1240,7 +1284,7 @@ code {
     }
 }
 
-/* Article Figure — inline images with caption */
+/* Article Figure - inline images with caption */
 .article-figure {
     margin: var(--space-10) 0;
 }

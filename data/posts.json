@@ -1,12 +1,35 @@
 {
   "posts": [
     {
+      "id": "blog11",
+      "slug": "parquet-duckdb-energy-analytics.html",
+      "title": "Stop Waiting on Pandas: Parquet and DuckDB for Energy Data Analytics",
+      "shortTitle": "Parquet & DuckDB for Energy Analytics",
+      "description": "One file format change, two tools, and a benchmark that will change how you work locally. How Parquet and DuckDB cut query time 4.6x on real ERCOT SCED data - and open up a new class of questions for energy analysts.",
+      "excerpt": "34.9x smaller than CSV, 4.6x faster to query. Here's what Parquet and DuckDB do and why they matter for energy data work.",
+      "date": "2026-04-23",
+      "dateDisplay": "April 2026",
+      "category": "energy",
+      "categoryLabel": "Energy Analytics",
+      "image": "images/parquet_title.jpg",
+      "imageAlt": "Parquet and DuckDB for energy data analytics",
+      "tags": [
+        "ERCOT",
+        "Python",
+        "DuckDB",
+        "Data Engineering",
+        "Energy Analytics"
+      ],
+      "readTime": "5 min read",
+      "featured": true
+    },
+    {
       "id": "blog10",
       "slug": "battery-options-trading.html",
       "title": "Battery Dispatch as an Options Strategy - A German Market Case Study",
       "shortTitle": "Battery Dispatch as an Options Strategy",
-      "description": "Germany hit 573 negative-price hours in 2025. The operators profiting aren't forecasting prices — they're harvesting volatility like options traders. Here's how.",
-      "excerpt": "Germany hit 573 negative-price hours in 2025. The operators profiting aren't forecasting prices — they're harvesting volatility like options traders.",
+      "description": "Germany hit 573 negative-price hours in 2025. The operators profiting aren't forecasting prices - they're harvesting volatility like options traders. Here's how.",
+      "excerpt": "Germany hit 573 negative-price hours in 2025. The operators profiting aren't forecasting prices - they're harvesting volatility like options traders.",
       "date": "2026-04-20",
       "dateDisplay": "April 2026",
       "category": "energy",
@@ -20,21 +43,21 @@
         "Options Trading"
       ],
       "readTime": "6 min read",
-      "featured": true
+      "featured": false
     },
     {
       "id": "blog9",
       "slug": "energy-data-design-philosophy.html",
       "title": "Design Principles for Energy Data Products",
       "shortTitle": "Energy Data Design Philosophy",
-      "description": "If a chart does not tell me what it is about in 10 seconds, it has failed. A set of design principles for energy data products — on restraint, clarity, and letting data be the hero.",
+      "description": "If a chart does not tell me what it is about in 10 seconds, it has failed. A set of design principles for energy data products - on restraint, clarity, and letting data be the hero.",
       "excerpt": "Less is not laziness. It is the hardest thing to get right, and most people never bother trying.",
       "date": "2026-04-13",
       "dateDisplay": "April 2026",
       "category": "energy",
       "categoryLabel": "Energy",
       "image": "images/herotimes_index_page.png",
-      "imageAlt": "The retro terminal era of this website — VAGABOND.EXE",
+      "imageAlt": "The retro terminal era of this website - VAGABOND.EXE",
       "tags": [
         "Data Visualization",
         "Design",
@@ -209,6 +232,10 @@
     "ENERGY": [
       {
         "type": "BLOG",
+        "postId": "blog11"
+      },
+      {
+        "type": "BLOG",
         "postId": "blog10"
       },
       {
@@ -242,6 +269,10 @@
     "TECH": [
       {
         "type": "BLOG",
+        "postId": "blog11"
+      },
+      {
+        "type": "BLOG",
         "postId": "blog2"
       }
     ],
@@ -252,5 +283,5 @@
       }
     ]
   },
-  "lastUpdated": "2026-04-13"
+  "lastUpdated": "2026-04-23"
 }

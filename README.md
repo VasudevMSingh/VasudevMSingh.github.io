@@ -1,4 +1,4 @@
-# The Merit Order — themeritorder.co
+# The Merit Order - themeritorder.co
 
 A personal publication covering US wholesale energy markets, battery storage analytics, and the occasional detour into tech and basketball.
 

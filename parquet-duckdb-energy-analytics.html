@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Waiting on Pandas: Parquet and DuckDB for Energy Analytics - The Merit Order</title>
+    <meta name="description"
+        content="One file format change, two tools, and a benchmark that will change how you work locally. How Parquet and DuckDB cut query time 4.6x on real ERCOT data - and open up a new class of questions for energy analysts.">
+    <link rel="canonical" href="https://themeritorder.co/parquet-duckdb-energy-analytics.html">
+
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Stop Waiting on Pandas: Parquet and DuckDB for Energy Analytics">
+    <meta property="og:description"
+        content="One file format change, two tools, and a benchmark that will change how you work locally. How Parquet and DuckDB cut query time 4.6x on real ERCOT data.">
+    <meta property="og:image" content="images/bess_dispatch_head.jpg">
+    <meta property="article:published_time" content="2026-04-23T00:00:00Z">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <!-- Google Fonts - required for logo to render in DM Serif Display -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Libre+Franklin:wght@300&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logos/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logos/favicon-16.png">
+
+    <!-- Prism.js syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"
+        defer></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E6VLPFK24"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-7E6VLPFK24');
+    </script>
+</head>
+
+<body>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 56" width="256" height="56" role="img"
+                    aria-label="The Merit Order">
+                    <text x="1" y="13" font-family="'Libre Franklin', 'Arial Narrow', Arial, sans-serif" font-size="12"
+                        font-weight="300" letter-spacing="4.2" fill="#b02418">THE</text>
+                    <text x="0" y="40" font-family="'DM Serif Display', Georgia, 'Times New Roman', serif"
+                        font-size="28" fill="#1a1210">Merit Order</text>
+                    <rect x="0" y="46" width="152" height="2.5" fill="#1a1210" />
+                    <rect x="0" y="51.5" width="152" height="0.8" fill="#1a1210" />
+                </svg>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <a href="about.html" class="nav-link">About</a>
+                <a href="index.html#writing" class="nav-link">Writing</a>
+                <a href="energy_viz.html" class="nav-link">Data</a>
+                <a href="about.html#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-page">
+        <article class="article article-analytical">
+            <!-- Article Header -->
+            <header class="article-header">
+                <div class="container-narrow">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span class="separator">/</span>
+                        <span>Writing</span>
+                    </nav>
+
+                    <div class="article-meta-top">
+                        <span class="category-tag category-tag-energy">Energy Analytics</span>
+                    </div>
+
+                    <h1 class="article-title">Stop Waiting on Pandas: Parquet and DuckDB for Energy Data Analytics</h1>
+
+                    <div class="article-meta">
+                        <span class="author">By Vasudev Singh</span>
+                        <span class="separator">|</span>
+                        <time datetime="2026-04-23">April 23, 2026</time>
+                        <span class="separator">|</span>
+                        <span class="read-time">5 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <div class="container-narrow">
+
+                    <blockquote>
+                        <p><em>"Torture the data, and it will confess to anything."</em> - Ronald Coase</p>
+                    </blockquote>
+
+                    <p>One file format change, two tools, and a benchmark that will change how you work locally. Here's
+                        what Parquet and DuckDB do and why they matter for anyone doing serious work on large energy
+                        datasets.</p>
+
+
+
+                    <h2>The Problem with CSV at Scale</h2>
+
+                    <p>For my energy analytics work, CSVs are the default for a reason - they're human readable, easy to
+                        generate, and just about every tool can read them. The problem arrives when we go to scale and
+                        need to do so locally without the cloud infrastructure.</p>
+
+
+
+                    <h2>Parquet: <span class="data-highlight">34.9×</span> smaller, faster to query</h2>
+
+                    <p>Parquet is a columnar file format. A CSV stores data row by row - every column for record 1,
+                        then every column for record 2, across the full width of the table. When your query touches
+                        three columns out of 193, the entire file gets read regardless.</p>
+
+                    <p>Parquet stores data column by column. <code>Output Schedule</code> together. <code>Resource
+                            Type</code> together. <code>Telemetered Net Output</code> together. A query that needs
+                        three columns reads those three and skips the rest entirely.</p>
+
+                    <p>Here's what that looks like on a real file - a single day's SCED Gen Resource disclosure from
+                        ERCOT. 319,000 rows. 193 columns. One day.</p>
+
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Format</th>
+                                    <th>Size</th>
+                                    <th>Queryable Without Full Load?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>CSV</td>
+                                    <td><span class="data-highlight">262.6 MB</span></td>
+                                    <td>No</td>
+                                </tr>
+                                <tr>
+                                    <td>CSV.GZ</td>
+                                    <td>~18 MB</td>
+                                    <td>No - decompress first</td>
+                                </tr>
+                                <tr>
+                                    <td>Parquet</td>
+                                    <td><span class="data-highlight">7.5 MB</span></td>
+                                    <td><strong>Yes</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p><strong>34.9× smaller than raw CSV</strong> - and queryable as well! CSV.GZ gets you compression
+                        but pandas still decompresses it entirely into memory before doing anything with it. You traded
+                        storage for nothing analytically. Parquet gives you both simultaneously.</p>
+
+                    <p>Converting to Parquet takes only two lines:</p>
+
+                    <pre><code class="language-python">import pandas as pd
+
+df = pd.read_csv("sced_genresource.csv")
+df.to_parquet("sced_genresource.parquet", index=False, engine="pyarrow")</code></pre>
+
+                    <p>You only need to do this step once. The Parquet becomes your working dataset, and the original
+                        CSV becomes the archive.</p>
+
+
+
+                    <h2>DuckDB: SQL directly on your files</h2>
+
+                    <p>DuckDB is an in-process analytical database - runs inside your Python environment, queries
+                        Parquet files directly from disk, and needs nothing else to get started.</p>
+
+                    <pre><code class="language-bash">pip install duckdb pyarrow</code></pre>
+
+                    <pre><code class="language-python">import duckdb
+
+result = duckdb.query("""
+    SELECT
+        "Resource Type",
+        ROUND(AVG("Output Schedule"), 2) AS avg_dispatched_mw,
+        ROUND(AVG("HSL"), 2)             AS avg_hsl_mw,
+        COUNT(*)                          AS intervals
+    FROM 'sced_genresource.parquet'
+    GROUP BY "Resource Type"
+    ORDER BY avg_dispatched_mw DESC
+""").df()</code></pre>
+
+                    <p>Notice there is no <code>read_parquet()</code> call. DuckDB directly reaches into the file,
+                        reads the columns it needs, executes the logic, and returns a result. The file itself is never
+                        loaded into memory.</p>
+
+
+
+                    <h2>The Benchmark</h2>
+
+                    <p>Real energy market data from ERCOT - SCED Gen Resource file from a day in 2025. The ERCOT API
+                        provides this file in CSV format. 262.6 MB CSV, 319,000 rows, 193 columns. One day.</p>
+
+                    <pre><code class="language-python">import time, pandas as pd, duckdb
+
+# CSV - full file load
+start = time.time()
+df_csv = pd.read_csv("sced_genresource.csv")
+result = df_csv.groupby("Resource Type")["Output Schedule"].mean()
+csv_time = time.time() - start
+print(f"CSV (pandas):     {csv_time:.2f}s")
+
+# CSV.GZ - decompress then load
+start = time.time()
+df_gz = pd.read_csv("sced_genresource.csv.gz", compression="gzip")
+result = df_gz.groupby("Resource Type")["Output Schedule"].mean()
+gz_time = time.time() - start
+print(f"CSV.GZ (pandas):  {gz_time:.2f}s")
+
+# Parquet - DuckDB, no load step
+start = time.time()
+result = duckdb.query("""
+    SELECT "Resource Type",
+           ROUND(AVG("Output Schedule"), 2) AS avg_output_mw
+    FROM 'sced_genresource.parquet'
+    GROUP BY "Resource Type"
+    ORDER BY avg_output_mw DESC
+""").df()
+parquet_time = time.time() - start
+print(f"Parquet (DuckDB): {parquet_time:.2f}s")</code></pre>
+
+                    <pre><code>CSV (pandas):     3.76s
+CSV.GZ (pandas):  3.81s
+Parquet (DuckDB): 0.82s
+
+DuckDB vs CSV:    4.6x faster
+DuckDB vs CSV.GZ: 4.7x faster</code></pre>
+
+                    <p>CSV.GZ is nearly identical to raw CSV. Decompression plus full memory load still happen before a
+                        single aggregation runs. You paid the storage cost and got nothing back at query time.</p>
+
+                    <p>This is one day. Scale to a month of SCED data and the gap becomes the difference between an
+                        overnight process and a query that returns results within seconds.</p>
+
+
+
+                    <h2>Possibilities with Parquet and DuckDB</h2>
+
+                    <p>The benchmarking above is just a scratch on the surface of what you can do with Parquet and
+                        DuckDB. What matters more is the class of questions that opens up for you as an energy analyst
+                        when you stop fighting the tools and start using them.</p>
+
+                    <p>Take a simple one: what did the ERCOT grid actually look like, interval by interval, on a given
+                        day - broken out by fuel type across every 5-minute SCED dispatch?</p>
+
+                    <p>That question requires joining two separate SCED disclosure files - gen resources and energy
+                        storage - aggregating telemetered output by fuel category across 290 intervals, and plotting the
+                        result. In the old workflow that's a multi-step pandas process involving two full CSV loads, a
+                        merge, and enough memory to hold both in RAM simultaneously. With DuckDB querying Parquet it's a
+                        single CTE that aggregates each file first and joins the 290-row summaries - neither file loaded
+                        into memory.</p>
+
+                    <p>I ran both approaches 10 times to get an honest average:</p>
+
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Approach</th>
+                                    <th>Average Time</th>
+                                    <th>Std Dev</th>
+                                    <th>Speedup</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Pandas (CSV)</td>
+                                    <td>4.48s</td>
+                                    <td>0.13s</td>
+                                    <td>1×</td>
+                                    <td>Full file load for every run</td>
+                                </tr>
+                                <tr>
+                                    <td>DuckDB (Parquet)</td>
+                                    <td>0.073s</td>
+                                    <td>0.098s</td>
+                                    <td><span class="data-highlight"><strong>61.6×</strong></span></td>
+                                    <td>Loads only required columns</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>The DuckDB variance is worth noting - run 5 hit 0.335s against a consistent ~0.043s for the
+                        other nine, likely an OS scheduling event.</p>
+
+                    <p>Here's what that query returns when you plot it - December 10, 2025, every 5-minute SCED
+                        interval across the full day:</p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container" style="position: relative; height: 500px;">
+                            <div id="ercotGenChart" style="width: 100%; height: 100%;"></div>
+                        </div>
+
+                        <figcaption>Figure 1: ERCOT generation by fuel type, 5-minute SCED intervals - December 10,
+                            2025</figcaption>
+                    </figure>
+
+                    <p>This was a normal day in Texas, where wind dominated overnight at 26,000 MW, solar ramped hard
+                        early morning typical of a winter morning. Nuclear didn't move - 5,100 MW all day. All normal,
+                        easily queried and viewed.</p>
+
+                    <p>There are a ton of small queries that can be run locally using this method (for example: bid
+                        curve analysis, ancillary awards, etc.) without needing cloud infrastructure. Of course, a lot
+                        of data analytics and the tools you use comes down to personal preference - this is a great way
+                        to get started with big data analytics.</p>
+
+
+
+                    <h2>When to use what</h2>
+
+                    <p><strong>Pandas</strong> - small datasets, quick transformations, data that fits comfortably in
+                        memory.</p>
+
+                    <p><strong>DuckDB</strong> - multi-year price history, ERCOT disclosure datasets, any workflow
+                        where you are currently waiting on a CSV load before asking an interesting question. For energy
+                        analysts, that middle ground covers most of the real work.</p>
+
+                    <p><strong>A relational database</strong> - production systems, concurrent users, transactional
+                        writes at scale.</p>
+
+                    <p>The signal to switch: if you have ever found yourself <span class="highlight">waiting on
+                            pandas</span>, you are past the threshold where this pays for itself.</p>
+
+
+                </div>
+            </div>
+
+            <!-- Article Footer -->
+            <footer class="article-footer">
+                <div class="container-narrow">
+                    <div class="article-tags">
+                        <span class="tag">ERCOT</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">DuckDB</span>
+                        <span class="tag">Data Engineering</span>
+                        <span class="tag">Energy Analytics</span>
+                    </div>
+
+                    <!-- Navigation loaded dynamically from data/posts.json -->
+                    <nav class="article-nav">
+                        <!-- Fallback content - will be replaced by JS -->
+                    </nav>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- Scripts -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+
+    <script>
+        // ERCOT generation by fuel type - Real SCED data from December 10, 2025
+        (function () {
+            fetch('data/files/sced_data.json')
+                .then(response => response.json())
+                .then(data => {
+                    const times = data.map(d => {
+                        // Convert "12/10/2025 HH:MM:SS" to "2025-12-10 HH:MM:SS"
+                        const [date, time] = d.timestamp.split(' ');
+                        const [m, day, y] = date.split('/');
+                        return `${y}-${m}-${day} ${time}`;
+                    });
+
+                    const traces = [
+                        {
+                            x: times,
+                            y: data.map(d => d.wind),
+                            name: 'Wind',
+                            type: 'scatter',
+                            fill: 'tonexty',
+                            line: { color: '#4c9be8', width: 2 },
+                            stackgroup: 'one'
+                        },
+                        {
+                            x: times,
+                            y: data.map(d => d.gas),
+                            name: 'Natural Gas',
+                            type: 'scatter',
+                            fill: 'tonexty',
+                            line: { color: '#e8824c', width: 2 },
+                            stackgroup: 'one'
+                        },
+                        {
+                            x: times,
+                            y: data.map(d => d.solar),
+                            name: 'Solar',
+                            type: 'scatter',
+                            fill: 'tonexty',
+                            line: { color: '#f5c842', width: 2 },
+                            stackgroup: 'one'
+                        },
+                        {
+                            x: times,
+                            y: data.map(d => d.nuclear),
+                            name: 'Nuclear',
+                            type: 'scatter',
+                            fill: 'tonexty',
+                            line: { color: '#7e57c2', width: 2 },
+                            stackgroup: 'one'
+                        },
+                        {
+                            x: times,
+                            y: data.map(d => d.esr),
+                            name: 'Storage (ESR)',
+                            type: 'scatter',
+                            line: { color: '#0A956A', width: 2 },
+                            // ESR is not stacked because it can be negative (charging)
+                            fill: 'tozeroy'
+                        }
+                    ];
+
+                    const layout = {
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        margin: { t: 40, r: 20, b: 40, l: 60 },
+                        showlegend: true,
+                        legend: {
+                            orientation: 'h',
+                            yanchor: 'bottom',
+                            y: 1.02,
+                            xanchor: 'right',
+                            x: 1,
+                            font: { family: 'Inter', size: 12 }
+                        },
+                        hovermode: 'x unified',
+                        xaxis: {
+                            type: 'date',
+                            tickformat: '%H:%M',
+                            dtick: 3600000,
+                            tickangle: 0,
+                            gridcolor: 'rgba(0,0,0,0.05)',
+                            linecolor: 'rgba(0,0,0,0.1)',
+                            font: { family: 'JetBrains Mono', size: 10 }
+                        },
+                        yaxis: {
+                            title: 'MW',
+                            gridcolor: 'rgba(0,0,0,0.06)',
+                            linecolor: 'rgba(0,0,0,0.1)',
+                            font: { family: 'JetBrains Mono', size: 11 }
+                        },
+                        font: { family: 'Inter' }
+                    };
+
+                    const config = {
+                        responsive: true,
+                        displayModeBar: false
+                    };
+
+                    Plotly.newPlot('ercotGenChart', traces, layout, config);
+                });
+        })();
+    </script>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
