@@ -1,4 +1,29 @@
 <!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  HOW TO ADD A NEW ARTICLE — 7-step checklist                   ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║  1. Copy this file:  cp _template.html your-slug.html          ║
+  ║  2. Fill in <head> placeholders:                               ║
+  ║       POST_TITLE, POST_DESCRIPTION, POST_SLUG, POST_IMAGE      ║
+  ║       YYYY-MM-DD  (article:published_time og tag)              ║
+  ║  3. Set article type on <article class="...">:                 ║
+  ║       article-analytical  — data / market analysis             ║
+  ║       article-personal    — opinion / lifestyle / books        ║
+  ║  4. Set the category tag (energy | tech | sports | books)      ║
+  ║     and fill in the article title, date, and read-time         ║
+  ║  5. Write content inside the <div class="article-content">     ║
+  ║  6. Add post to data/posts.json (prepend to top of array):     ║
+  ║     {                                                          ║
+  ║       "id": "blog##",                                          ║
+  ║       "slug": "your-slug.html",                               ║
+  ║       "sections": ["ENERGY"],   ← tab(s): ENERGY/TECH/NBA     ║
+  ║       "date": "YYYY-MM-DD",                                    ║
+  ║       ... (copy all other fields from an existing post)        ║
+  ║     }                                                          ║
+  ║  7. Add to sitemap.xml — copy an existing <url> block          ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
 <html lang="en">
 
 <head>
@@ -8,12 +33,14 @@
     <meta name="description" content="POST_DESCRIPTION">
     <link rel="canonical" href="https://themeritorder.co/POST_SLUG.html">
 
-    <!-- Open Graph / LinkedIn -->
+    <!-- Open Graph / Social (og:image must be absolute URL) -->
     <meta property="og:type" content="article">
+    <meta property="og:url" content="https://themeritorder.co/POST_SLUG.html">
     <meta property="og:title" content="POST_TITLE">
     <meta property="og:description" content="POST_DESCRIPTION">
-    <meta property="og:image" content="images/POST_IMAGE">
-    <meta property="article:published_time" content="YYYY-MM-DD">
+    <meta property="og:image" content="https://themeritorder.co/images/POST_IMAGE">
+    <meta property="article:published_time" content="YYYY-MM-DDT00:00:00Z">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +53,64 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Schema.org Article Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "POST_TITLE",
+      "description": "POST_DESCRIPTION",
+      "image": "https://themeritorder.co/images/POST_IMAGE",
+      "datePublished": "YYYY-MM-DDT00:00:00Z",
+      "dateModified": "YYYY-MM-DDT00:00:00Z",
+      "author": {
+        "@type": "Person",
+        "name": "Vasudev Singh",
+        "url": "https://themeritorder.co/about.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "The Merit Order",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://themeritorder.co/images/logos/logo.svg"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://themeritorder.co/POST_SLUG.html"
+      }
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://themeritorder.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Writing",
+          "item": "https://themeritorder.co/#writing"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "POST_TITLE",
+          "item": "https://themeritorder.co/POST_SLUG.html"
+        }
+      ]
+    }
+    </script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E6VLPFK24"></script>
@@ -144,6 +229,9 @@
                         <span class="tag">Tag2</span>
                         <span class="tag">Tag3</span>
                     </div>
+
+                    <!-- Related Articles — populated by JS from posts.json -->
+                    <div class="related-articles"></div>
 
                     <!-- Navigation loaded dynamically from data/posts.json -->
                     <nav class="article-nav">

@@ -11,15 +11,11 @@
       "dateDisplay": "April 2026",
       "category": "energy",
       "categoryLabel": "Energy Analytics",
+      "sections": ["ENERGY", "TECH"],
+      "related": ["blog8", "blog9", "blog1"],
       "image": "images/parquet_title.jpg",
       "imageAlt": "Parquet and DuckDB for energy data analytics",
-      "tags": [
-        "ERCOT",
-        "Python",
-        "DuckDB",
-        "Data Engineering",
-        "Energy Analytics"
-      ],
+      "tags": ["ERCOT", "Python", "DuckDB", "Data Engineering", "Energy Analytics"],
       "readTime": "5 min read",
       "featured": true
     },
@@ -34,14 +30,11 @@
       "dateDisplay": "April 2026",
       "category": "energy",
       "categoryLabel": "Energy",
+      "sections": ["ENERGY"],
+      "related": ["blog8", "blog6", "blog1"],
       "image": "images/bess-mores.jpg",
       "imageAlt": "BESS Dispatch Head",
-      "tags": [
-        "Energy Markets",
-        "Battery Storage",
-        "Germany",
-        "Options Trading"
-      ],
+      "tags": ["Energy Markets", "Battery Storage", "Germany", "Options Trading"],
       "readTime": "6 min read",
       "featured": false
     },
@@ -56,14 +49,11 @@
       "dateDisplay": "April 2026",
       "category": "energy",
       "categoryLabel": "Energy",
+      "sections": ["ENERGY"],
+      "related": ["blog11", "blog8", "blog1"],
       "image": "images/herotimes_index_page.png",
       "imageAlt": "The retro terminal era of this website - VAGABOND.EXE",
-      "tags": [
-        "Data Visualization",
-        "Design",
-        "Energy Markets",
-        "Product"
-      ],
+      "tags": ["Data Visualization", "Design", "Energy Markets", "Product"],
       "readTime": "6 min read",
       "featured": false
     },
@@ -78,16 +68,11 @@
       "dateDisplay": "April 2026",
       "category": "energy",
       "categoryLabel": "Energy Markets",
+      "sections": ["ENERGY"],
+      "related": ["blog10", "blog6", "blog1"],
       "image": "images/bess_dispatch_head.jpg",
       "imageAlt": "Battery dispatch optimization across ERCOT DA and RT markets",
-      "tags": [
-        "ERCOT",
-        "Battery Storage",
-        "Linear Programming",
-        "Energy Markets",
-        "Python",
-        "Optimization"
-      ],
+      "tags": ["ERCOT", "Battery Storage", "Linear Programming", "Energy Markets", "Python", "Optimization"],
       "readTime": "8 min read",
       "featured": false
     },
@@ -102,16 +87,11 @@
       "dateDisplay": "March 2026",
       "category": "energy",
       "categoryLabel": "Energy Markets",
+      "sections": ["ENERGY"],
+      "related": ["blog1", "blog8", "blog10"],
       "image": "images/tanker.jpg",
       "imageAlt": "LNG tanker on open water - global energy supply routes",
-      "tags": [
-        "Energy Markets",
-        "LNG",
-        "Iran",
-        "Geopolitics",
-        "Energy Security",
-        "Energy Transition"
-      ],
+      "tags": ["Energy Markets", "LNG", "Iran", "Geopolitics", "Energy Security", "Energy Transition"],
       "readTime": "8 min read",
       "featured": false
     },
@@ -126,16 +106,11 @@
       "dateDisplay": "September 2025",
       "category": "energy",
       "categoryLabel": "Energy Markets",
+      "sections": ["ENERGY"],
+      "related": ["blog8", "blog10", "blog1"],
       "image": "images/tb4_monthly_settlement.png",
       "imageAlt": "TB4 Monthly Settlement Paths - ERCOT vs CAISO",
-      "tags": [
-        "ERCOT",
-        "CAISO",
-        "Battery Storage",
-        "Energy Futures",
-        "BESS",
-        "Risk Management"
-      ],
+      "tags": ["ERCOT", "CAISO", "Battery Storage", "Energy Futures", "BESS", "Risk Management"],
       "readTime": "7 min read",
       "featured": false
     },
@@ -150,14 +125,11 @@
       "dateDisplay": "November 2024",
       "category": "energy",
       "categoryLabel": "Energy Markets",
+      "sections": ["ENERGY"],
+      "related": ["blog8", "blog6", "blog10"],
       "image": "images/topassets_bymonth.png",
       "imageAlt": "ERCOT Battery Market Analysis - Top Assets by Month",
-      "tags": [
-        "ERCOT",
-        "Battery Storage",
-        "Energy Markets",
-        "Revenue Analysis"
-      ],
+      "tags": ["ERCOT", "Battery Storage", "Energy Markets", "Revenue Analysis"],
       "readTime": "8 min read",
       "featured": false
     },
@@ -172,14 +144,11 @@
       "dateDisplay": "January 2025",
       "category": "tech",
       "categoryLabel": "Tech",
+      "sections": ["TECH"],
+      "related": ["blog11"],
       "image": "images/YA_overlook.png",
       "imageAlt": "AI Disruption",
-      "tags": [
-        "AI",
-        "Tech",
-        "Careers",
-        "Future of Work"
-      ],
+      "tags": ["AI", "Tech", "Careers", "Future of Work"],
       "readTime": "6 min read",
       "featured": false
     },
@@ -194,14 +163,11 @@
       "dateDisplay": "February 2025",
       "category": "sports",
       "categoryLabel": "Sports",
+      "sections": ["NBA"],
+      "related": [],
       "image": "images/luka.jpg",
       "imageAlt": "Luka Trade Analysis",
-      "tags": [
-        "NBA",
-        "Lakers",
-        "Trade Analysis",
-        "Basketball"
-      ],
+      "tags": ["NBA", "Lakers", "Trade Analysis", "Basketball"],
       "readTime": "5 min read",
       "featured": false
     },
@@ -216,48 +182,17 @@
       "dateDisplay": "February 2025",
       "category": "books",
       "categoryLabel": "Books",
+      "sections": [],
+      "related": [],
       "image": "images/2023vs2024_index_small.png",
       "imageAlt": "Books 2024",
-      "tags": [
-        "Books",
-        "Reading",
-        "Personal",
-        "2024 Roundup"
-      ],
+      "tags": ["Books", "Reading", "Personal", "2024 Roundup"],
       "readTime": "4 min read",
       "featured": false
     }
   ],
   "sections": {
     "ENERGY": [
-      {
-        "type": "BLOG",
-        "postId": "blog11"
-      },
-      {
-        "type": "BLOG",
-        "postId": "blog10"
-      },
-      {
-        "type": "BLOG",
-        "postId": "blog9"
-      },
-      {
-        "type": "BLOG",
-        "postId": "blog8"
-      },
-      {
-        "type": "BLOG",
-        "postId": "blog7"
-      },
-      {
-        "type": "BLOG",
-        "postId": "blog6"
-      },
-      {
-        "type": "BLOG",
-        "postId": "blog1"
-      },
       {
         "type": "PROJECT",
         "title": "Energy Visualizations Dashboard",
@@ -266,22 +201,8 @@
         "description": "Interactive visualizations of energy market data and battery storage performance"
       }
     ],
-    "TECH": [
-      {
-        "type": "BLOG",
-        "postId": "blog11"
-      },
-      {
-        "type": "BLOG",
-        "postId": "blog2"
-      }
-    ],
-    "NBA": [
-      {
-        "type": "BLOG",
-        "postId": "blog3"
-      }
-    ]
+    "TECH": [],
+    "NBA": []
   },
   "lastUpdated": "2026-04-23"
 }

@@ -61,73 +61,89 @@ function initMobileMenu() {
 }
 
 /**
- * Initialize Homepage - Featured Article and Recent Writing
+ * Initialize Homepage — zones populated by date-descending order
  */
 function initHomepage() {
     if (!siteData || !siteData.posts) return;
 
-    // Render featured article
-    renderFeaturedArticle();
+    const allPosts = getAllPostsSorted();
 
-    // Render recent writing
-    renderRecentWriting();
+    renderFeaturedArticle(allPosts[0]);
+    renderSidebarArticles(allPosts.slice(1, 5));
+    renderRecentWriting(allPosts.slice(5));
 }
 
 /**
- * Render Featured Article from JSON
+ * Zone 1 left — featured article (index 0 by date)
  */
-function renderFeaturedArticle() {
+function renderFeaturedArticle(post) {
     const featuredContainer = document.getElementById('featuredArticle');
-    if (!featuredContainer) return;
-
-    // Find featured post or use most recent
-    const featuredPost = siteData.posts.find(p => p.featured) || siteData.posts[0];
-    if (!featuredPost) return;
+    if (!featuredContainer || !post) return;
 
     featuredContainer.innerHTML = `
         <div class="featured-image">
-            <img src="${featuredPost.image}" alt="${featuredPost.imageAlt}">
+            <img src="${post.image}" alt="${post.imageAlt}">
         </div>
         <div class="featured-content">
             <div class="featured-meta">
-                <span class="category-tag category-tag-${featuredPost.category}">${featuredPost.categoryLabel}</span>
-                <span class="article-card-date">${featuredPost.dateDisplay}</span>
+                <span class="category-tag category-tag-${post.category}">${post.categoryLabel}</span>
+                <span class="article-card-date">${post.dateDisplay}</span>
             </div>
             <h1 class="featured-title">
-                <a href="${featuredPost.slug}">${featuredPost.title}</a>
+                <a href="${post.slug}">${post.title}</a>
             </h1>
-            <p class="featured-excerpt">${featuredPost.description}</p>
-            <a href="${featuredPost.slug}" class="read-more-link">Read Analysis</a>
+            <p class="featured-excerpt">${post.description}</p>
+            <a href="${post.slug}" class="read-more-link">Read Analysis</a>
         </div>
     `;
 }
 
 /**
- * Render Recent Writing Section from JSON
+ * Zone 1 right — sidebar stack (indices 1–3 by date)
  */
+function renderSidebarArticles(posts) {
+    const sidebarContainer = document.getElementById('sidebarArticles');
+    if (!sidebarContainer) return;
+
+    sidebarContainer.innerHTML = posts.map(post => `
+        <div class="sidebar-item" data-category="${post.category}">
+            <div class="sidebar-item-inner">
+                <div class="sidebar-meta">
+                    <span class="category-tag category-tag-${post.category}">${post.categoryLabel}</span>
+                    <span class="sidebar-date">${post.dateDisplay}</span>
+                </div>
+                <a class="sidebar-title" href="${post.slug}">${post.title}</a>
+                <p class="sidebar-excerpt">${post.description}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+let recentPostsCache = [];
 let currentArticlePage = 1;
-const ARTICLES_PER_PAGE = 5;
+const ARTICLES_PER_PAGE = 10;
 
-function renderRecentWriting() {
+/**
+ * Zone 2 — horizontal article list with pagination (index 5+ by date)
+ */
+function renderRecentWriting(posts, page = 1) {
     const articleList = document.getElementById('articleList');
-    const paginationContainer = document.getElementById('articlePagination');
-    if (!articleList) return;
+    if (!articleList || !posts || posts.length === 0) return;
 
-    // Get recent posts (excluding featured, sorted by date)
-    const recentPosts = siteData.posts
-        .filter(p => !p.featured)
-        .sort((a, b) => new Date(b.date) - new Date(a.date));
+    recentPostsCache = posts;
+    currentArticlePage = page;
 
-    if (recentPosts.length === 0) return;
+    // Ensure pagination container exists (injected if not in HTML)
+    let paginationContainer = document.getElementById('articlePagination');
+    if (!paginationContainer) {
+        paginationContainer = document.createElement('div');
+        paginationContainer.id = 'articlePagination';
+        articleList.insertAdjacentElement('afterend', paginationContainer);
+    }
 
-    const totalPages = Math.ceil(recentPosts.length / ARTICLES_PER_PAGE);
-
-    if (currentArticlePage > totalPages) currentArticlePage = totalPages;
-    if (currentArticlePage < 1) currentArticlePage = 1;
-
-    const startIndex = (currentArticlePage - 1) * ARTICLES_PER_PAGE;
-    const endIndex = startIndex + ARTICLES_PER_PAGE;
-    const currentPosts = recentPosts.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(posts.length / ARTICLES_PER_PAGE);
+    const start = (page - 1) * ARTICLES_PER_PAGE;
+    const currentPosts = posts.slice(start, start + ARTICLES_PER_PAGE);
 
     articleList.innerHTML = currentPosts.map(post => `
         <article class="article-card">
@@ -147,48 +163,32 @@ function renderRecentWriting() {
         </article>
     `).join('');
 
-    // Render pagination
-    if (paginationContainer) {
-        if (totalPages > 1) {
-            let paginationHTML = '<div class="pagination-buttons">';
+    if (totalPages > 1) {
+        let html = '<div class="pagination-buttons">';
+        html += page > 1
+            ? `<button data-page="${page - 1}" class="pagination-btn">Previous</button>`
+            : `<button class="pagination-btn disabled" disabled>Previous</button>`;
+        html += `<span class="pagination-info">Page ${page} of ${totalPages}</span>`;
+        html += page < totalPages
+            ? `<button data-page="${page + 1}" class="pagination-btn">Next</button>`
+            : `<button class="pagination-btn disabled" disabled>Next</button>`;
+        html += '</div>';
+        paginationContainer.innerHTML = html;
 
-            if (currentArticlePage > 1) {
-                paginationHTML += `<button onclick="changeArticlePage(${currentArticlePage - 1})" class="pagination-btn">Previous</button>`;
-            } else {
-                paginationHTML += `<button class="pagination-btn disabled" disabled>Previous</button>`;
-            }
-
-            paginationHTML += `<span class="pagination-info">Page ${currentArticlePage} of ${totalPages}</span>`;
-
-            if (currentArticlePage < totalPages) {
-                paginationHTML += `<button onclick="changeArticlePage(${currentArticlePage + 1})" class="pagination-btn">Next</button>`;
-            } else {
-                paginationHTML += `<button class="pagination-btn disabled" disabled>Next</button>`;
-            }
-
-            paginationHTML += '</div>';
-            paginationContainer.innerHTML = paginationHTML;
-        } else {
-            paginationContainer.innerHTML = '';
-        }
+        paginationContainer.querySelectorAll('[data-page]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                renderRecentWriting(recentPostsCache, parseInt(btn.dataset.page, 10));
+                const writingSection = document.getElementById('writing');
+                if (writingSection) {
+                    const offsetPosition = writingSection.getBoundingClientRect().top + window.pageYOffset - 100;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            });
+        });
+    } else {
+        paginationContainer.innerHTML = '';
     }
 }
-
-window.changeArticlePage = function (page) {
-    currentArticlePage = page;
-    renderRecentWriting();
-    const writingSection = document.getElementById('writing');
-    if (writingSection) {
-        // Offset to avoid sticking under header, header is ~80px usually but let's just scroll to view
-        const headerOffset = 100;
-        const elementPosition = writingSection.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
-        });
-    }
-};
 
 
 /**
@@ -254,14 +254,20 @@ function initUpdatesFeed() {
     function switchSection(section) {
         currentSection = section;
 
-        // Update button states
         sectionButtons.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.section === section);
         });
 
-        // Get items from loaded data
-        const items = siteData.sections[section] || [];
-        displayUpdates(items);
+        // Auto-derive blog items from posts that list this section, sorted newest-first
+        const blogItems = siteData.posts
+            .filter(p => Array.isArray(p.sections) && p.sections.includes(section))
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .map(p => ({ type: 'BLOG', postId: p.id }));
+
+        // Append any manually-configured non-blog items (projects, etc.)
+        const extraItems = (siteData.sections[section] || []).filter(item => item.type !== 'BLOG');
+
+        displayUpdates([...blogItems, ...extraItems]);
     }
 
     // Add click handlers to section buttons
@@ -383,6 +389,56 @@ function initBlogNavigation() {
     }
 
     articleNav.innerHTML = navHTML;
+
+    // Render related articles
+    renderRelatedArticles();
+}
+
+/**
+ * Render Related Articles — Auto-populate from post.related field
+ */
+function renderRelatedArticles() {
+    const relatedContainer = document.querySelector('.related-articles');
+    if (!relatedContainer || !siteData) return;
+
+    const currentSlug = window.location.pathname.split('/').pop() || 'index.html';
+    const currentPost = siteData.posts.find(p => p.slug === currentSlug);
+
+    if (!currentPost || !currentPost.related || currentPost.related.length === 0) {
+        relatedContainer.style.display = 'none';
+        return;
+    }
+
+    // Get related post objects
+    const relatedPosts = currentPost.related
+        .map(id => siteData.posts.find(p => p.id === id))
+        .filter(p => p) // filter out any not found
+        .slice(0, 4); // limit to 4
+
+    if (relatedPosts.length === 0) {
+        relatedContainer.style.display = 'none';
+        return;
+    }
+
+    const html = relatedPosts.map(post => `
+        <article class="related-article-card">
+            <div class="related-article-image">
+                <img src="${post.image}" alt="${post.imageAlt}">
+            </div>
+            <div class="related-article-content">
+                <span class="category-tag category-tag-${post.category}">${post.categoryLabel}</span>
+                <h3 class="related-article-title">
+                    <a href="${post.slug}">${post.title}</a>
+                </h3>
+                <p class="related-article-excerpt">${post.description}</p>
+            </div>
+        </article>
+    `).join('');
+
+    relatedContainer.innerHTML = `
+        <h3 class="related-articles-heading">Related Reading</h3>
+        <div class="related-articles-grid">${html}</div>
+    `;
 }
 
 /**
@@ -412,10 +468,3 @@ function getAllPostsSorted() {
     return [...siteData.posts].sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
-/**
- * Utility: Get posts by category
- */
-function getPostsByCategory(category) {
-    if (!siteData || !siteData.posts) return [];
-    return siteData.posts.filter(p => p.category === category);
-}

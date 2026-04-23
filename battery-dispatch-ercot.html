@@ -2,6 +2,14 @@
 <html lang="en">
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E6VLPFK24"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-7E6VLPFK24');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modelling Battery Dispatch in Energy Markets using Python - The Merit Order</title>
@@ -9,12 +17,15 @@
   <meta name="description"
     content="How to model ERCOT battery dispatch using two-stage linear programming across Day-Ahead and Real-Time markets. Real Q1 2025 data shows RT flexibility adds 32–55% on top of DA revenue.">
 
-  <!-- Open Graph / LinkedIn -->
+  <!-- Open Graph / Social -->
   <meta property="og:type" content="article">
+  <meta property="og:url" content="https://themeritorder.co/battery-dispatch-ercot.html">
   <meta property="og:title" content="How to Model Battery Dispatch Across ERCOT's DA and RT Markets">
   <meta property="og:description"
     content="A practical walkthrough of two-stage linear programming for battery storage dispatch optimization across ERCOT's Day-Ahead and Real-Time markets.">
-  <meta property="og:image" content="images/battery-dispatch-hero.png">
+  <meta property="og:image" content="https://themeritorder.co/images/bess_dispatch_head.jpg">
+  <meta property="article:published_time" content="2026-04-02T00:00:00Z">
+  <meta name="twitter:card" content="summary_large_image">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,6 +39,32 @@
 
   <link rel="stylesheet" href="styles.css">
 
+  <!-- Schema.org Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Modelling Battery Dispatch in Energy Markets using Python",
+    "description": "A practical walkthrough of two-stage linear programming for battery storage dispatch optimization across ERCOT's Day-Ahead and Real-Time markets.",
+    "image": "https://themeritorder.co/images/bess_dispatch_head.jpg",
+    "datePublished": "2026-04-02T00:00:00Z",
+    "dateModified": "2026-04-02T00:00:00Z",
+    "author": {"@type": "Person", "name": "Vasudev Singh", "url": "https://themeritorder.co/about.html"},
+    "publisher": {"@type": "Organization", "name": "The Merit Order", "logo": {"@type": "ImageObject", "url": "https://themeritorder.co/images/logos/logo.svg"}},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://themeritorder.co/battery-dispatch-ercot.html"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://themeritorder.co/"},
+      {"@type": "ListItem", "position": 2, "name": "Writing", "item": "https://themeritorder.co/#writing"},
+      {"@type": "ListItem", "position": 3, "name": "Battery Dispatch", "item": "https://themeritorder.co/battery-dispatch-ercot.html"}
+    ]
+  }
+  </script>
 
   <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
@@ -427,6 +464,9 @@ for h in range(1, 24):
             <span class="tag">Python</span>
             <span class="tag">Optimization</span>
           </div>
+
+          <!-- Related Articles — populated by JS -->
+          <div class="related-articles"></div>
 
           <nav class="article-nav">
             <!-- Populated by main.js -->
