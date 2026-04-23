@@ -243,6 +243,65 @@
             text-align: center;
             margin-top: var(--space-3);
         }
+
+        /* ---- LNG Legend & Stat Cards ---- */
+        .lng-legend {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-ui);
+            font-size: var(--text-sm);
+            justify-content: center;
+        }
+
+        .lng-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .lng-legend-swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        .lng-stat-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .lng-stat-card {
+            background: var(--color-paper);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+        }
+
+        .lng-stat-value {
+            font-family: var(--font-heading);
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            color: var(--color-accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .lng-stat-label {
+            font-family: var(--font-ui);
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .lng-stat-note {
+            font-family: var(--font-ui);
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+        }
     </style>
 
     <!-- Favicons -->
@@ -290,12 +349,17 @@
                 <div class="article-meta" style="justify-content: center; margin-top: var(--space-6);">
                     <span class="author">By Vasudev Singh</span>
                 </div>
+                <nav class="viz-section-nav" style="margin-top: var(--space-6); display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap;">
+                    <a href="#ercot-section" style="font-family: var(--font-ui); font-size: var(--text-sm); color: var(--color-accent); text-decoration: none; transition: color var(--transition-base);">ERCOT Battery Storage</a>
+                    <a href="#lng-section" style="font-family: var(--font-ui); font-size: var(--text-sm); color: var(--color-accent); text-decoration: none; transition: color var(--transition-base);">Global LNG Balance</a>
+                    <a href="#australia-section" style="font-family: var(--font-ui); font-size: var(--text-sm); color: var(--color-accent); text-decoration: none; transition: color var(--transition-base);">Australia NEM</a>
+                </nav>
             </div>
 
             <!-- ============================================================
                  GROUP 1: ERCOT BATTERY STORAGE 2024
                  ============================================================ -->
-            <p class="viz-group-label">ERCOT Battery Storage - 2023/24 Market Analysis</p>
+            <p class="viz-group-label" id="ercot-section">ERCOT Battery Storage - 2023/24 Market Analysis</p>
 
             <!-- Chart 1: Revenue Comparison -->
             <section class="viz-section">
@@ -419,7 +483,7 @@
             <!-- ============================================================
                  GROUP 2: GLOBAL LNG BALANCE
                  ============================================================ -->
-            <p class="viz-group-label">Global Energy Markets - LNG Supply Shock</p>
+            <p class="viz-group-label" id="lng-section">Global Energy Markets - LNG Supply Shock</p>
 
             <section class="viz-section">
                 <h2>The Week the Surplus Became a Deficit</h2>
@@ -435,27 +499,22 @@
                     </figure>
                 </div>
 
-                <div
-                    style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; font-family: var(--font-ui); font-size: var(--text-sm); justify-content: center;">
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                        <div
-                            style="width: 12px; height: 12px; border-radius: 2px; background: var(--color-primary, #2E5A3A);">
-                        </div> Supply addition
+                <div class="lng-legend">
+                    <div class="lng-legend-item">
+                        <div class="lng-legend-swatch" style="background: var(--color-primary, #2E5A3A);"></div>
+                        Supply addition
                     </div>
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                        <div
-                            style="width: 12px; height: 12px; border-radius: 2px; background: var(--color-accent, #5C2E0B);">
-                        </div> Supply removed
+                    <div class="lng-legend-item">
+                        <div class="lng-legend-swatch" style="background: var(--color-accent, #5C2E0B);"></div>
+                        Supply removed
                     </div>
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                        <div
-                            style="width: 12px; height: 12px; border-radius: 2px; background: var(--color-secondary, #5B8A5F);">
-                        </div> Offset (maxed)
+                    <div class="lng-legend-item">
+                        <div class="lng-legend-swatch" style="background: var(--color-secondary, #5B8A5F);"></div>
+                        Offset (maxed)
                     </div>
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                        <div
-                            style="width: 12px; height: 12px; border-radius: 2px; background: var(--color-text-primary, #4A4A4A);">
-                        </div> Net position
+                    <div class="lng-legend-item">
+                        <div class="lng-legend-swatch" style="background: var(--color-text-primary, #4A4A4A);"></div>
+                        Net position
                     </div>
                 </div>
 
@@ -465,55 +524,26 @@
                     remaining US spare capacity (+7 mtpa), leaving a structural deficit of 56 mtpa.
                 </div>
 
-                <div
-                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-                    <div
-                        style="background: var(--color-paper); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem;">
-                        <div
-                            style="font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: var(--font-bold); color: var(--color-accent); margin-bottom: 0.25rem;">
-                            +35.6%</div>
-                        <div
-                            style="font-family: var(--font-ui); font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-bottom: 0.25rem;">
-                            US crude weekly gain</div>
-                        <div
-                            style="font-family: var(--font-ui); font-size: var(--text-xs); color: var(--color-text-muted);">
-                            Largest in futures history since 1983</div>
+                <div class="lng-stat-cards">
+                    <div class="lng-stat-card">
+                        <div class="lng-stat-value">+35.6%</div>
+                        <div class="lng-stat-label">US crude weekly gain</div>
+                        <div class="lng-stat-note">Largest in futures history since 1983</div>
                     </div>
-                    <div
-                        style="background: var(--color-paper); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem;">
-                        <div
-                            style="font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: var(--font-bold); color: var(--color-accent); margin-bottom: 0.25rem;">
-                            +60%</div>
-                        <div
-                            style="font-family: var(--font-ui); font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-bottom: 0.25rem;">
-                            European TTF gas</div>
-                        <div
-                            style="font-family: var(--font-ui); font-size: var(--text-xs); color: var(--color-text-muted);">
-                            Biggest weekly gain since 2021</div>
+                    <div class="lng-stat-card">
+                        <div class="lng-stat-value">+60%</div>
+                        <div class="lng-stat-label">European TTF gas</div>
+                        <div class="lng-stat-note">Biggest weekly gain since 2021</div>
                     </div>
-                    <div
-                        style="background: var(--color-paper); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem;">
-                        <div
-                            style="font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: var(--font-bold); color: var(--color-text-secondary); margin-bottom: 0.25rem;">
-                            &gt;1 mo</div>
-                        <div
-                            style="font-family: var(--font-ui); font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-bottom: 0.25rem;">
-                            Qatar outage threshold</div>
-                        <div
-                            style="font-family: var(--font-ui); font-size: var(--text-xs); color: var(--color-text-muted);">
-                            Deficit confirmed beyond this</div>
+                    <div class="lng-stat-card">
+                        <div class="lng-stat-value">+1 mo</div>
+                        <div class="lng-stat-label">Qatar outage threshold</div>
+                        <div class="lng-stat-note">Deficit confirmed beyond this</div>
                     </div>
-                    <div
-                        style="background: var(--color-paper); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem;">
-                        <div
-                            style="font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: var(--font-bold); color: var(--color-text-primary); margin-bottom: 0.25rem;">
-                            95&ndash;98%</div>
-                        <div
-                            style="font-family: var(--font-ui); font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-bottom: 0.25rem;">
-                            US LNG utilization</div>
-                        <div
-                            style="font-family: var(--font-ui); font-size: var(--text-xs); color: var(--color-text-muted);">
-                            No swing capacity left</div>
+                    <div class="lng-stat-card">
+                        <div class="lng-stat-value">95–98%</div>
+                        <div class="lng-stat-label">US LNG utilization</div>
+                        <div class="lng-stat-note">No swing capacity left</div>
                     </div>
                 </div>
 
@@ -529,58 +559,22 @@
             <!-- ============================================================
                  GROUP 3: AUSTRALIA NEM - STATIC IMAGE ANALYSIS
                  ============================================================ -->
-            <p class="viz-group-label">Australia NEM - Regional Price &amp; Demand Analysis</p>
+            <p class="viz-group-label" id="australia-section">Australia NEM - Regional Price &amp; Demand Analysis</p>
 
-            <!-- Australia Price -->
+            <!-- Australia Regional Analysis -->
             <section class="viz-section">
-                <h2>Australia Regional Price Analysis</h2>
-                <p class="viz-section-meta">Hourly and monthly spot price patterns across Australian NEM regions</p>
-                <div class="viz-container multi-image">
-                    <div class="image-slider">
-                        <img src="images/price_hourly.png" alt="Regional Price Comparison (Hourly)">
-                        <img src="images/price_monthly.png" alt="Regional Price Comparison (Monthly)">
-                    </div>
-                    <button class="slider-button prev">Prev</button>
-                    <button class="slider-button next">Next</button>
-                    <div class="image-counter">1 / 2</div>
-                    <div class="slider-nav">
-                        <div class="slider-dots">
-                            <span class="dot active"></span>
-                            <span class="dot"></span>
-                        </div>
-                    </div>
-                </div>
+                <h2>Australia Regional Price &amp; Demand Analysis</h2>
+                <p class="viz-section-meta">Spot price and load patterns across Australian NEM regions (2022–2023)</p>
                 <div class="viz-insights">
                     <strong>Key Insights:</strong> Extreme price volatility in NSW and VIC during Jul–Aug 2022, with
-                    spikes reaching $12k/MWh. Tasmania exhibits the most stable price patterns. Monthly averages
-                    show convergence by Jan 2023. All regions demonstrate strong seasonal patterns with winter peaks.
+                    spikes reaching $12k/MWh driven by supply constraints. Tasmania exhibits the most stable price patterns
+                    across regions. NSW consistently shows the highest demand peaks due to population density, with clear
+                    morning and evening load patterns. All regions demonstrate strong seasonal dynamics with winter price
+                    peaks and coordinated demand shifts.
                 </div>
-            </section>
-
-            <!-- Australia Demand -->
-            <section class="viz-section">
-                <h2>Australia Regional Demand Analysis</h2>
-                <p class="viz-section-meta">Hourly and monthly demand patterns across Australian NEM regions</p>
-                <div class="viz-container multi-image">
-                    <div class="image-slider">
-                        <img src="images/demand_hourly.png" alt="Regional Demand Comparison (Hourly)">
-                        <img src="images/demand_monthly.png" alt="Regional Demand Comparison (Monthly)">
-                    </div>
-                    <button class="slider-button prev">Prev</button>
-                    <button class="slider-button next">Next</button>
-                    <div class="image-counter">1 / 2</div>
-                    <div class="slider-nav">
-                        <div class="slider-dots">
-                            <span class="dot active"></span>
-                            <span class="dot"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="viz-insights">
-                    <strong>Key Insights:</strong> NSW consistently shows the highest demand peaks due to
-                    greater population density. Clear morning and evening peaks dominate daily variations.
-                    Summer months (Jul–Aug 2022) exhibit highest total demand. Tasmania shows the most
-                    stable pattern with minimal seasonal variation.
+                <div class="viz-footer-row">
+                    <span>Source: AEMO NEM data 2022–2023</span>
+                    <a href="australia-nem-analysis.html" class="data-link">Explore detailed analysis</a>
                 </div>
             </section>
 
