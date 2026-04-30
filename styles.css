@@ -32,6 +32,7 @@
     --color-category-tech: #5C2E0B;
     --color-category-sports: #B8860B;
     --color-category-books: #6B5344;
+    --color-category-bess: #1E40AF;
 
     /* Utility Colors */
     --color-border: rgba(44, 36, 22, 0.1);
@@ -549,6 +550,11 @@ hr.ornament::before {
 .category-tag-books {
     background: rgba(74, 74, 74, 0.1);
     color: var(--color-category-books);
+}
+
+.category-tag-bess {
+    background: rgba(30, 64, 175, 0.1);
+    color: var(--color-category-bess);
 }
 
 /* ========================================

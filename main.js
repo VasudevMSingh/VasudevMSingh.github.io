@@ -65,9 +65,17 @@ function initHomepage() {
 
     const allPosts = getAllPostsSorted();
 
-    renderFeaturedArticle(allPosts[0]);
-    renderSidebarArticles(allPosts.slice(1, 5));
-    renderRecentWriting(allPosts.slice(5));
+    // Find the featured article, or fall back to newest
+    const featuredPost = siteData.posts.find(post => post.featured === true) || allPosts[0];
+    const featuredIndex = allPosts.findIndex(post => post.id === featuredPost.id);
+
+    // Build sidebar from posts excluding the featured one
+    const sidebarPosts = allPosts.filter((_, idx) => idx !== featuredIndex).slice(0, 4);
+    const recentPosts = allPosts.filter((_, idx) => idx !== featuredIndex).slice(4);
+
+    renderFeaturedArticle(featuredPost);
+    renderSidebarArticles(sidebarPosts);
+    renderRecentWriting(recentPosts);
 }
 
 /**

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why the Grid Needs Batteries - The Merit Order</title>
+    <meta name="description" content="Why renewable energy is creating an urgent need for battery storage on modern grids. Explore how batteries solve the frequency stability and energy timing challenges that renewables create.">
+    <link rel="canonical" href="https://themeritorder.co/bess-why-grid-needs-batteries.html">
+
+    <!-- Open Graph / Social (og:image must be absolute URL) -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://themeritorder.co/bess-why-grid-needs-batteries.html">
+    <meta property="og:title" content="Why the Grid Needs Batteries">
+    <meta property="og:description" content="Why renewable energy is creating an urgent need for battery storage on modern grids. Explore how batteries solve the frequency stability and energy timing challenges that renewables create.">
+    <meta property="og:image" content="https://themeritorder.co/images/bess-grid-needs.jpg">
+    <meta property="article:published_time" content="2026-04-28T00:00:00Z">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <!-- Google Fonts - required for logo to render in DM Serif Display -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Libre+Franklin:wght@300&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Schema.org Article Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Why the Grid Needs Batteries",
+      "description": "Why renewable energy is creating an urgent need for battery storage on modern grids. Explore how batteries solve the frequency stability and energy timing challenges that renewables create.",
+      "image": "https://themeritorder.co/images/bess-grid-needs.jpg",
+      "datePublished": "2026-04-28T00:00:00Z",
+      "dateModified": "2026-04-28T00:00:00Z",
+      "author": {
+        "@type": "Person",
+        "name": "Vasudev Singh",
+        "url": "https://themeritorder.co/about.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "The Merit Order",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://themeritorder.co/images/logos/logo.svg"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://themeritorder.co/bess-why-grid-needs-batteries.html"
+      }
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://themeritorder.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Writing",
+          "item": "https://themeritorder.co/#writing"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Why the Grid Needs Batteries",
+          "item": "https://themeritorder.co/bess-why-grid-needs-batteries.html"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E6VLPFK24"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-7E6VLPFK24');
+    </script>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logos/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logos/favicon-16.png">
+</head>
+
+<body>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 56" width="256" height="56" role="img"
+                    aria-label="The Merit Order">
+                    <text x="1" y="13" font-family="'Libre Franklin', 'Arial Narrow', Arial, sans-serif" font-size="12"
+                        font-weight="300" letter-spacing="4.2" fill="#b02418">THE</text>
+                    <text x="0" y="40" font-family="'DM Serif Display', Georgia, 'Times New Roman', serif"
+                        font-size="28" fill="#1a1210">Merit Order</text>
+                    <rect x="0" y="46" width="152" height="2.5" fill="#1a1210" />
+                    <rect x="0" y="51.5" width="152" height="0.8" fill="#1a1210" />
+                </svg>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <a href="about.html" class="nav-link">About</a>
+                <a href="index.html#writing" class="nav-link">Writing</a>
+                <a href="energy_viz.html" class="nav-link">Data</a>
+                <a href="about.html#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-page">
+        <article class="article article-analytical">
+            <!-- Article Header -->
+            <header class="article-header">
+                <div class="container-narrow">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span class="separator">/</span>
+                        <span>Writing</span>
+                    </nav>
+
+                    <div class="article-meta-top">
+                        <span class="category-tag category-tag-bess">BESS</span>
+                    </div>
+
+                    <h1 class="article-title">Why the Grid Needs Batteries</h1>
+
+                    <div class="article-meta">
+                        <span class="author">By Vasudev Singh</span>
+                        <span class="separator">|</span>
+                        <time datetime="2026-04-28">April 28, 2026</time>
+                        <span class="separator">|</span>
+                        <span class="read-time">10 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <div class="container-narrow">
+
+                    <p><strong>Series:</strong> <em>Why Batteries Matter - And How They Make Money</em> | Article 1 of 6</p>
+
+                    <div class="article-summary">
+                        <h2>About This Series</h2>
+                        <p><em>Why Batteries Matter - And How They Make Money</em> is a 6-part series covering battery energy storage systems (BESS) from first principles to full project economics.</p>
+                        <ul>
+                            <li><strong>Article 1 (this one):</strong> Why the grid needs batteries</li>
+                            <li>Article 2: What a battery actually does on the grid</li>
+                            <li>Article 3: How a battery makes money - energy arbitrage</li>
+                            <li>Article 4: How a battery makes money - ancillary services</li>
+                            <li>Article 5: The hidden cost - degradation</li>
+                            <li>Article 6: The full picture - does it actually work?</li>
+                        </ul>
+                        <p><em>All examples use a Li-Ion BESS operating as a merchant in the ERCOT grid. The economics and principles apply broadly to any BESS in any market. This series does not cover battery chemistry, construction, or raw materials.</em></p>
+                    </div>
+
+                    <h2>The Foundation: A Century of Reliable Generation</h2>
+
+                    <p>The electric grid is one of the great engineering achievements of humanity. Coal, gas, and nuclear plants generate electricity on demand - and operators keep the supply and demand equation in balance, keeping the lights on and industries humming. Across decades, the generation has followed load, reliably, consistently.</p>
+
+                    <p>Simple and elegant, that model has been working fine for over a century. But it was designed for a different era - an era before the advent of renewable energy.</p>
+
+                    <p>Solar and wind are undoubtedly extraordinary technologies. The fuel is free and <em>renewable</em>. The emissions during operation are zero. The cost of utility-scale solar has fallen more than 90% since 2010, making it the cheapest source of new electricity generation in history.<sup><a href="#ref-1">[1]</a></sup> Every grid on earth is adding renewable capacity as fast as permitting, supply chains, and transmission will allow.</p>
+
+                    <p>But renewable generation operates on nature's schedule, not ours. The sun peaks at noon, wind blows hardest at night, when demand is at its lowest. This mismatch between when clean energy is available and when people actually need it is the central engineering challenge of the modern grid - and it is why batteries have gone from a niche technology to a critical infrastructure requirement in the span of a decade.</p>
+
+                    <h2>Why Frequency Is the Grid's Hard Constraint</h2>
+
+                    <p>To understand the challenge properly, you need to understand how the grid holds itself together.</p>
+
+                    <p>The electricity grid is an alternating current system. Voltage and current cycle back and forth 60 times per second - 60 Hz - and every generator connected to the grid must produce power at that exact frequency, in lockstep with every other generator. This synchronization is not enforced by software. It emerges from the physics of how synchronous generators work.</p>
+
+                    <p>A synchronous generator is, at its core, a spinning electromagnet. A steam turbine - driven by coal, gas, nuclear, or geothermal heat - spins a rotor inside a magnetic field, inducing the AC voltage that reaches your wall socket. In the United States, that rotor spins at exactly 3,600 RPM (or 1,800 RPM for four-pole machines) to produce 60 Hz. Every large synchronous machine on the interconnection spins at this speed. Together, they form a single coherent electromagnetic system spanning thousands of miles.</p>
+
+                    <p>The frequency of that system reflects the balance between mechanical power going in and electrical power coming out. When supply and demand are equal, the turbines spin at exactly their rated speed and frequency holds at 60 Hz. When demand exceeds supply - more electricity being drawn out than generated - the turbines feel the extra load, slow down slightly, and frequency dips below 60 Hz. When supply exceeds demand, the turbines spin faster and frequency rises above 60 Hz.</p>
+
+                    <p>This makes frequency a real-time indicator of the grid's supply-demand balance. Operators watch it continuously. A small deviation is normal and manageable. A large, sustained deviation is a signal that the system is losing control.</p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <canvas id="freqChart"></canvas>
+                        </div>
+                        <figcaption>Figure 1: Frequency deviation following a generation loss event. High inertia (slow decline) vs. low inertia (faster, deeper excursion). The 59.5 Hz threshold marks where protective relays trip.</figcaption>
+                    </figure>
+
+                    <p>At around 59.5 Hz in ERCOT, generators begin automatically tripping offline to protect their equipment.<sup><a href="#ref-2">[2]</a></sup> Each trip reduces supply further, which drops frequency further, which trips more generators. Left unchecked, this cascade can collapse the entire interconnection faster than any operator can manually intervene.</p>
+
+                    <p>The traditional defense against this cascade was inertia. A spinning turbine - especially a large one - stores enormous kinetic energy in its rotating mass. When the grid suddenly loses a generator, that stored kinetic energy flows into the system, slowing the rate of frequency change and buying time for other generators to ramp up and restore balance. Think of it as the electrical equivalent of shock absorption - the bigger the spinning mass, the more cushioning exists between a disturbance and a crisis.</p>
+
+                    <h2>What Renewables Change - And Why That's a Good Problem to Have</h2>
+
+                    <p>Solar panels and wind turbines generate electricity through power electronics, not rotating machines. They produce DC power, convert it to AC through inverters, and synchronize to the grid electronically. They contribute little to no physical inertia by default.</p>
+
+                    <p>This does not make renewables a problem. It makes them a transition challenge - one that is entirely solvable, and already being solved. But it does mean that as the synchronous thermal fleet retires and gets replaced by solar and wind, the grid's physical inertia buffer shrinks. Frequency deviations occur faster and the time window between a disturbance and a dangerous cascade gets shorter.</p>
+
+                    <p>ERCOT now monitors its minimum inertia level as an active operational constraint - a threshold below which the system operator intervenes to maintain stability.<sup><a href="#ref-3">[3]</a></sup> On days with high renewable output and low thermal dispatch, managing that constraint has become part of daily grid operations in a way it simply wasn't a decade ago.</p>
+
+                    <p>The grid was designed for a world where every generator was a spinning machine. Rebuilding it for a world where most generation comes from panels and turbines requires adding something that can do what spinning machines used to do - store energy, respond instantly, and hold frequency stable. That is exactly what batteries do. But before we get there, we need to see what the mismatch actually looks like in practice.</p>
+
+                    <h2>The Duck Curve: A Feature, Not a Bug</h2>
+
+                    <p>In 2013, the California Independent System Operator published an analysis of how increasing solar penetration would reshape the grid's daily load profile.<sup><a href="#ref-4">[4]</a></sup> What they described became known as the duck curve - and it has since become the defining operational challenge of high-solar grids worldwide.</p>
+
+                    <p>The duck curve describes the shape of net load: total system demand minus the output of solar and other non-dispatchable generation. This is the residual demand that must be served by controllable generation - gas, hydro, storage, or whatever else can be dispatched on command.</p>
+
+                    <p>On a high-solar day, net load develops a distinctive shape. Through the morning, as the sun rises and solar output climbs, net load drops sharply - sometimes for hours - even as people are awake and using electricity. Then the sun begins to set. Solar output falls away. But demand does not fall with it - it actually rises as people return home and turn things on. The result is a steep ramp in net load that dispatchable generation must cover in a matter of hours.</p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <div id="duckChart" style="width: 100%; height: 100%;"></div>
+                        </div>
+                        <figcaption>Figure 2: CAISO net load by year, 2012–2020. Each line is one year. The deepening midday belly and steepening evening ramp show how solar penetration reshaped the grid over time.</figcaption>
+                    </figure>
+
+                    <p>The duck curve is not a California anomaly. Every grid with significant solar penetration develops it, and it deepens as more solar comes online. ERCOT's net load profile during spring days - when solar output is high and weather-related demand is low - shows the same shape. Germany's grid, with roughly 60% renewable share in 2024, has industrialised it.<sup><a href="#ref-5">[5]</a></sup></p>
+
+                    <p>The curve creates two distinct operational pressures. The midday belly tests the grid's ability to absorb surplus. The evening ramp tests its ability to respond. Both matter equally and require very different solutions.</p>
+
+                    <h2>The Two Problems the Curve Creates</h2>
+
+                    <h3>Too Much Power</h3>
+
+                    <p>The midday surplus is real and growing. When solar output exceeds what the grid can consume and transmit, prices collapse - often to zero, frequently to negative territory. If negative prices fail to incentivize enough consumption, the system operator has only one option left: curtailment. Generators are instructed to reduce output. Clean, zero-marginal-cost renewable energy is discarded because there is nowhere for it to go.</p>
+
+                    <p>In ERCOT in 2024, curtailment reached over 8 TWh of wind and solar generation combined - enough electricity to power roughly 750,000 Texas homes for a full year.<sup><a href="#ref-6">[6]</a></sup> The West Texas and Panhandle regions were hardest hit, where transmission capacity eastward cannot keep pace with installed renewable capacity. The West zone alone saw 3.1 TWh of wind and 2.2 TWh of solar curtailed.<sup><a href="#ref-7">[7]</a></sup></p>
+
+                    <p>Curtailment is not a static problem. The EIA projects that without significant transmission upgrades, wind curtailment in ERCOT could reach 13% of total available output by 2035, with solar at 19%.<sup><a href="#ref-8">[8]</a></sup> Zooming out across all US grid operators, curtailment hit 20 million MWh in 2024 - a figure that keeps climbing as generation buildout outpaces the grid's ability to absorb it.<sup><a href="#ref-9">[9]</a></sup></p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <div id="curtailmentChart" style="width: 100%; height: 100%;"></div>
+                        </div>
+                        <figcaption>Figure 3: ERCOT curtailment by year, 2020–2024 (TWh). Source: Modo Energy / ERCOT / EIA 860M. The upward trend reflects the growing challenge of absorbing renewable supply.</figcaption>
+                    </figure>
+
+                    <h3>Not Enough Power, Fast Enough</h3>
+
+                    <p>The evening ramp is the other side of the same coin. As solar collapses and demand stays elevated, the grid must find megawatts quickly. The resource that has historically filled this role is the peaker plant - a combustion turbine that exists specifically for these high-demand hours.</p>
+
+                    <p>Peakers are expensive to build and maintain, but they may run fewer than 200 hours a year.<sup><a href="#ref-10">[10]</a></sup> Their capital and fixed costs are passed through to ratepayers regardless of dispatch. Their thermal efficiency is poor at partial load. And they emit more per MWh than baseload gas plants precisely because they never run long enough to reach optimal operating conditions.</p>
+
+                    <p>They persist because nothing else has been fast enough and large enough to replace them. Until now.</p>
+
+                    <h2>Where Batteries Close the Gap</h2>
+
+                    <p>A battery energy storage system does one thing: it decouples when electricity is generated from when it is consumed.</p>
+
+                    <p>Charge during the midday belly, when solar floods the grid and prices are low or negative. Discharge during the evening ramp, when the grid needs fast megawatts and prices reflect the scarcity. The curtailed MWh that would have been thrown away becomes the dispatchable energy that covers the ramp.</p>
+
+                    <p>That single capability addresses both problems at once. No wasted renewable energy. No idling gas turbine waiting for a call it may only receive 200 hours a year.</p>
+
+                    <p>On the frequency side, a grid-connected BESS can respond in under 200 milliseconds - faster than any combustion turbine, and fast enough to arrest a frequency excursion before it reaches protective relay thresholds. It provides the fast, controllable power injection that declining inertia makes increasingly critical, through inverter controls rather than rotating mass. ERCOT began formally procuring this service - called Fast Frequency Response - in 2021, and batteries are the dominant technology providing it.<sup><a href="#ref-3">[3]</a></sup></p>
+
+                    <p>The ecological arithmetic is straightforward. A battery that charges on curtailed solar captures energy that would have been wasted and displaces a gas peaker that would otherwise fire. It recovers clean generation on the charging side and avoids dirty generation on the discharge side - a double benefit per cycle that no other technology delivers.</p>
+
+                    <p>And critically: as the grid adds more renewables, the battery's value grows with it. More solar means a deeper curtailment trough and more surplus to store. Less thermal inertia means more demand for fast frequency response. The battery does not compete with the energy transition. It is what makes the energy transition operationally coherent.</p>
+
+                    <h2>What Comes Next</h2>
+
+                    <p>The case for batteries is physical before it is economic. Renewable energy is the right direction - cleaner, cheaper, and increasingly dominant. But the grid cannot run on intermittent generation alone without something that can store the surplus and release it on demand. The gap between when the sun shines and when people need power is real, and it is growing every year as more solar comes online.</p>
+
+                    <p>Batteries close that gap. The next question - the one that determines whether this technology actually gets deployed at the scale the grid requires - is whether the economics work.</p>
+
+                    <p>In Article 2, we go inside the battery. What it actually does on the grid, hour by hour. The three distinct services it provides, and how each of them translates into a revenue stream. And why how a battery is operated is the single largest driver of whether a project is financially viable.</p>
+
+                    <h2>References</h2>
+
+                    <div class="references">
+                        <p id="ref-1">[1] Our World in Data - <a href="https://ourworldindata.org/cheap-renewables-growth" target="_blank">Solar panel prices have fallen by around 20% for every doubling of installed capacity</a></p>
+                        <p id="ref-2">[2] FERC / NERC - <a href="https://www.ferc.gov/news-events/news/final-report-february-2021-freeze-underscores-winterization-recommendations" target="_blank">Final Report on the February 2021 Freeze</a></p>
+                        <p id="ref-3">[3] ERCOT - <a href="https://www.ercot.com/services/programs/load/eils" target="_blank">Fast Frequency Response in ERCOT</a></p>
+                        <p id="ref-4">[4] CAISO - <a href="https://www.caiso.com/documents/flexibleresourceshelprenewables_fastfacts.pdf" target="_blank">What the Duck Curve Tells Us About Managing a Green Grid</a></p>
+                        <p id="ref-5">[5] Fraunhofer ISE - <a href="https://www.energy-charts.info/charts/power/chart.htm?l=en&c=DE" target="_blank">Energy Charts: Net Power Generation in Germany 2024</a></p>
+                        <p id="ref-6">[6] Modo Energy - <a href="https://modoenergy.com/research/en/ercot-curtailment-crisis-solar-wind-data-battery-colocated-trends-maps-texas" target="_blank">The Curtailment Crisis: Saving wind and solar investments in ERCOT</a></p>
+                        <p id="ref-7">[7] FactSet Insight - <a href="https://insight.factset.com/ercot-curtailments-persist-as-load-rises" target="_blank">ERCOT Curtailments Persist as Load Rises</a></p>
+                        <p id="ref-8">[8] US Energy Information Administration - <a href="https://www.eia.gov/todayinenergy/detail.php?id=57100" target="_blank">As Texas wind and solar capacity increase, energy curtailments are also likely to rise</a></p>
+                        <p id="ref-9">[9] Amperon - <a href="https://www.amperon.co/blog/us-solar-and-wind-curtailment-is-exploding" target="_blank">US Solar and Wind Curtailment Is Exploding</a></p>
+                        <p id="ref-10">[10] Rocky Mountain Institute - <a href="https://rmi.org/insight/the-economics-of-demand-flexibility/" target="_blank">The Economics of Peaker Plants</a></p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Article Footer -->
+            <footer class="article-footer">
+                <div class="container-narrow">
+                    <div class="article-tags">
+                        <span class="tag">Grid Stability</span>
+                        <span class="tag">Battery Storage</span>
+                        <span class="tag">Renewables</span>
+                        <span class="tag">Energy Markets</span>
+                    </div>
+
+                    <!-- Related Articles — populated by JS from posts.json -->
+                    <div class="related-articles"></div>
+
+                    <!-- Navigation loaded dynamically from data/posts.json -->
+                    <nav class="article-nav">
+                        <!-- Fallback content - will be replaced by JS -->
+                    </nav>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <script src="main.js"></script>
+
+    <!-- Chart Definitions -->
+    <script>
+        // Load chart data from JSON files
+        Promise.all([
+            fetch('data/files/chart1_frequency.json').then(r => r.json()),
+            fetch('data/files/chart2_duck_curve.json').then(r => r.json()),
+            fetch('data/files/chart3_curtailment.json').then(r => r.json())
+        ]).then(([freqData, duckData, curtailmentData]) => {
+            // Chart 1: Frequency Deviation
+            const freqCtx = document.getElementById('freqChart');
+            if (freqCtx && freqData.series) {
+                const xAxisValues = freqData.x;
+                const highInertiaData = freqData.series.high_inertia;
+                const lowInertiaData = freqData.series.low_inertia;
+                const thresholdValue = freqData.annotations.relay_threshold_hz;
+
+                new Chart(freqCtx, {
+                    type: 'line',
+                    data: {
+                        labels: xAxisValues,
+                        datasets: [
+                            {
+                                label: highInertiaData.label,
+                                data: highInertiaData.values,
+                                borderColor: '#6b7280',
+                                backgroundColor: 'rgba(107, 114, 128, 0.1)',
+                                tension: 0.4,
+                                fill: false,
+                                borderWidth: 2
+                            },
+                            {
+                                label: lowInertiaData.label,
+                                data: lowInertiaData.values,
+                                borderColor: '#b02418',
+                                backgroundColor: 'rgba(176, 36, 24, 0.1)',
+                                tension: 0.4,
+                                fill: false,
+                                borderWidth: 2
+                            },
+                            {
+                                label: 'Protective Relay Threshold (59.5 Hz)',
+                                data: Array(xAxisValues.length).fill(thresholdValue),
+                                borderColor: '#ea580c',
+                                borderDash: [5, 5],
+                                fill: false,
+                                borderWidth: 2,
+                                pointRadius: 0
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: { usePointStyle: true }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                title: { display: true, text: 'Frequency (Hz)' },
+                                min: 59,
+                                max: 60.1
+                            },
+                            x: {
+                                title: { display: true, text: freqData.x_label }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Chart 2: Duck Curve — multi-year CAISO net load (Plotly)
+            const duckDiv = document.getElementById('duckChart');
+            if (duckDiv && duckData.series) {
+                const yearColors = {
+                    '2012': '#cbd5e1', '2013': '#94a3b8', '2014': '#64748b',
+                    '2015': '#60a5fa', '2016': '#2563eb', '2017': '#f59e0b',
+                    '2018': '#f97316', '2019': '#ef4444', '2020': '#b02418'
+                };
+                const traces = Object.keys(duckData.series).map(year => ({
+                    x: duckData.x,
+                    y: duckData.series[year].values,
+                    mode: 'lines',
+                    name: year,
+                    line: {
+                        color: yearColors[year] || '#6b7280',
+                        width: year === '2020' ? 3 : 1.5
+                    }
+                }));
+                Plotly.newPlot(duckDiv, traces, {
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    margin: { t: 10, r: 20, b: 60, l: 80 },
+                    xaxis: { title: { text: duckData.x_label }, tickfont: { size: 11 } },
+                    yaxis: { title: { text: duckData.y_label }, tickfont: { size: 11 } },
+                    legend: { orientation: 'h', y: -0.25, x: 0.5, xanchor: 'center' },
+                    height: 400,
+                    showlegend: true
+                }, { responsive: true, displayModeBar: false });
+            }
+
+            // Chart 3: Curtailment — ERCOT 2020-2024 in TWh (Plotly)
+            const curtailmentDiv = document.getElementById('curtailmentChart');
+            if (curtailmentDiv && curtailmentData.data) {
+                const years = curtailmentData.data.map(d => d.year);
+                const values = curtailmentData.data.map(d => d.curtailment_twh);
+                Plotly.newPlot(curtailmentDiv, [{
+                    x: years,
+                    y: values,
+                    type: 'bar',
+                    marker: { color: '#f59e0b' },
+                    text: values.map(v => `${v} TWh`),
+                    textposition: 'outside',
+                    textfont: { size: 11 },
+                    hovertemplate: '%{x}: %{y} TWh<extra></extra>'
+                }], {
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    margin: { t: 30, r: 20, b: 60, l: 80 },
+                    xaxis: { title: { text: 'Year' }, tickfont: { size: 11 } },
+                    yaxis: { title: { text: curtailmentData.y_label }, range: [0, 10], tickfont: { size: 11 } },
+                    height: 400,
+                    showlegend: false
+                }, { responsive: true, displayModeBar: false });
+            }
+        }).catch(err => console.error('Error loading chart data:', err));
+    </script>
+</body>
+
+</html>

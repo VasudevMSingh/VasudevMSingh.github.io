@@ -1,0 +1,141 @@
+{
+  "source": "CAISO \u2014 'What the Duck Curve Tells Us About Managing a Green Grid', 2013",
+  "url": "https://www.caiso.com/documents/flexibleresourceshelprenewables_fastfacts.pdf",
+  "note": "Digitized from Figure 2. 2012 and 2013 are actuals. 2014-2020 are CAISO projections.",
+  "x_label": "Hour of day",
+  "y_label": "Net load (MW)",
+  "x": [
+    "12am",
+    "3am",
+    "6am",
+    "9am",
+    "12pm",
+    "3pm",
+    "6pm",
+    "9pm"
+  ],
+  "series": {
+    "2012": {
+      "label": "2012",
+      "values": [
+        20500,
+        18500,
+        19000,
+        19500,
+        21800,
+        18800,
+        25800,
+        21000
+      ]
+    },
+    "2013": {
+      "label": "2013",
+      "values": [
+        20500,
+        18500,
+        19000,
+        19500,
+        20500,
+        18000,
+        25500,
+        21000
+      ]
+    },
+    "2014": {
+      "label": "2014",
+      "values": [
+        20500,
+        18500,
+        19000,
+        19500,
+        18500,
+        16500,
+        25500,
+        21000
+      ]
+    },
+    "2015": {
+      "label": "2015",
+      "values": [
+        20500,
+        18500,
+        19000,
+        19500,
+        17000,
+        15500,
+        25800,
+        21000
+      ]
+    },
+    "2016": {
+      "label": "2016",
+      "values": [
+        20500,
+        18500,
+        19000,
+        19500,
+        15500,
+        14500,
+        26000,
+        21000
+      ]
+    },
+    "2017": {
+      "label": "2017",
+      "values": [
+        20500,
+        18500,
+        19000,
+        19500,
+        14500,
+        13500,
+        26200,
+        21000
+      ]
+    },
+    "2018": {
+      "label": "2018",
+      "values": [
+        20500,
+        18500,
+        19000,
+        19500,
+        13500,
+        12800,
+        26200,
+        21000
+      ]
+    },
+    "2019": {
+      "label": "2019",
+      "values": [
+        20500,
+        18500,
+        19000,
+        19500,
+        12800,
+        12200,
+        26200,
+        21000
+      ]
+    },
+    "2020": {
+      "label": "2020",
+      "values": [
+        20500,
+        18500,
+        19000,
+        19500,
+        12200,
+        11800,
+        26500,
+        21000
+      ]
+    }
+  },
+  "annotations": {
+    "overgeneration_risk": "Midday trough 2018-2020",
+    "ramp_need": "~13,000 MW in three hours (3pm to 6pm)",
+    "actual_ramp_feb_2016": "10,892 MW on February 1, 2016"
+  }
+}

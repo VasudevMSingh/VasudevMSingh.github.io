@@ -1,6 +1,7 @@
 # Publishing a New Article on The Merit Order
 
 Step-by-step reference for writing, converting, and deploying a new post.
+All following instructions are overridden by user commands if any are provided.
 
 ---
 
@@ -151,7 +152,7 @@ Add a new entry at the **top** of the `"posts"` array and in the relevant sectio
 }
 ```
 
-Set `"featured": true` only for the most recent/flagship article - this controls the homepage hero card. 
+Unless specified by user otherwise, set `"featured": true` only for the most recent/flagship article - this controls the homepage hero card. 
 
 **Important:** If you set a new post to `featured: true`, you **must** find the previous featured post and set it to `featured: false`. Only one post can be featured at a time.
 

@@ -1,0 +1,29 @@
+{
+  "source": "Modo Energy \u2014 'The Curtailment Crisis: Saving wind and solar investments in ERCOT'",
+  "url": "https://modoenergy.com/research/en/ercot-curtailment-crisis-solar-wind-data-battery-colocated-trends-maps-texas",
+  "underlying_data_source": "ERCOT, EIA 860M (as cited in Modo Energy chart)",
+  "note": "Total wind + solar curtailment only. Zone breakdown not shown.",
+  "y_label": "Curtailment (TWh)",
+  "data": [
+    {
+      "year": "2020",
+      "curtailment_twh": 4.7
+    },
+    {
+      "year": "2021",
+      "curtailment_twh": 6.5
+    },
+    {
+      "year": "2022",
+      "curtailment_twh": 7.7
+    },
+    {
+      "year": "2023",
+      "curtailment_twh": 6.8
+    },
+    {
+      "year": "2024",
+      "curtailment_twh": 8.2
+    }
+  ]
+}
