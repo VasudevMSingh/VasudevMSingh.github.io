@@ -1,6 +1,37 @@
 {
   "posts": [
     {
+      "id": "blog13",
+      "slug": "bess-what-battery-does-on-grid.html",
+      "title": "What a Battery Actually Does on the Grid",
+      "shortTitle": "What a Battery Does on the Grid",
+      "description": "A clear explanation of what a battery energy storage system actually does on the grid - energy shifting, ancillary services, and the dispatch tension that defines BESS economics.",
+      "excerpt": "Two functions drive battery revenue: shifting energy in time, and providing the reliability services grid operators have always needed. Understanding both - and the constraint they share - is the foundation for BESS economics.",
+      "date": "2026-05-03",
+      "dateDisplay": "May 2026",
+      "category": "bess",
+      "categoryLabel": "BESS",
+      "sections": [
+        "BESS"
+      ],
+      "related": [
+        "blog12",
+        "blog8",
+        "blog10"
+      ],
+      "image": "images/bess_how_2.jpg",
+      "imageAlt": "What a battery energy storage system does on the grid",
+      "tags": [
+        "Battery Storage",
+        "BESS",
+        "Ancillary Services",
+        "Energy Markets",
+        "ERCOT"
+      ],
+      "readTime": "9 min read",
+      "featured": true
+    },
+    {
       "id": "blog12",
       "slug": "bess-why-grid-needs-batteries.html",
       "title": "Why the Grid Needs Batteries",
@@ -29,7 +60,7 @@
         "BESS"
       ],
       "readTime": "10 min read",
-      "featured": true
+      "featured": false
     },
     {
       "id": "blog11",
@@ -343,9 +374,13 @@
     "BESS": [
       {
         "type": "BLOG",
+        "postId": "blog13"
+      },
+      {
+        "type": "BLOG",
         "postId": "blog12"
       }
     ]
   },
-  "lastUpdated": "2026-04-28"
+  "lastUpdated": "2026-05-03"
 }

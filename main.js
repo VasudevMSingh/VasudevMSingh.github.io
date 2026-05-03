@@ -58,7 +58,7 @@ function initMobileMenu() {
 }
 
 /**
- * Initialize Homepage — zones populated by date-descending order
+ * Initialize Homepage - zones populated by date-descending order
  */
 function initHomepage() {
     if (!siteData || !siteData.posts) return;
@@ -79,7 +79,7 @@ function initHomepage() {
 }
 
 /**
- * Zone 1 left — featured article (index 0 by date)
+ * Zone 1 left - featured article (index 0 by date)
  */
 function renderFeaturedArticle(post) {
     const featuredContainer = document.getElementById('featuredArticle');
@@ -104,7 +104,7 @@ function renderFeaturedArticle(post) {
 }
 
 /**
- * Zone 1 right — sidebar stack (indices 1–3 by date)
+ * Zone 1 right - sidebar stack (indices 1–3 by date)
  */
 function renderSidebarArticles(posts) {
     const sidebarContainer = document.getElementById('sidebarArticles');
@@ -129,7 +129,7 @@ let currentArticlePage = 1;
 const ARTICLES_PER_PAGE = 10;
 
 /**
- * Zone 2 — horizontal article list with pagination (index 5+ by date)
+ * Zone 2 - horizontal article list with pagination (index 5+ by date)
  */
 function renderRecentWriting(posts, page = 1) {
     const articleList = document.getElementById('articleList');
@@ -246,7 +246,7 @@ function initBlogNavigation() {
 }
 
 /**
- * Render Related Articles — Auto-populate from post.related field
+ * Render Related Articles - Auto-populate from post.related field
  */
 function renderRelatedArticles() {
     const relatedContainer = document.querySelector('.related-articles');
