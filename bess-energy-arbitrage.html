@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How a Battery Makes Money: Energy Arbitrage - The Merit Order</title>
+    <meta name="description"
+        content="How battery energy storage systems earn revenue through energy arbitrage in ERCOT - the mechanics of spread capture, the optimiser that makes it work, and what Q1 2025 data shows about achievable returns.">
+    <link rel="canonical" href="https://themeritorder.co/bess-energy-arbitrage.html">
+
+    <!-- Open Graph / Social (og:image must be absolute URL) -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://themeritorder.co/bess-energy-arbitrage.html">
+    <meta property="og:title" content="How a Battery Makes Money: Energy Arbitrage">
+    <meta property="og:description"
+        content="How battery energy storage systems earn revenue through energy arbitrage in ERCOT - the mechanics of spread capture, the optimiser that makes it work, and what Q1 2025 data shows about achievable returns.">
+    <meta property="og:image" content="https://themeritorder.co/images/bess_dispatch_head.jpg">
+    <meta property="article:published_time" content="2026-05-14T00:00:00Z">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Libre+Franklin:wght@300&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Schema.org Article Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How a Battery Makes Money: Energy Arbitrage",
+      "description": "How battery energy storage systems earn revenue through energy arbitrage in ERCOT - the mechanics of spread capture, the optimiser that makes it work, and what Q1 2025 data shows about achievable returns.",
+      "image": "https://themeritorder.co/images/bess_dispatch_head.jpg",
+      "datePublished": "2026-05-14T00:00:00Z",
+      "dateModified": "2026-05-14T00:00:00Z",
+      "author": {
+        "@type": "Person",
+        "name": "Vasudev Singh",
+        "url": "https://themeritorder.co/about.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "The Merit Order",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://themeritorder.co/images/logos/logo.svg"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://themeritorder.co/bess-energy-arbitrage.html"
+      }
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://themeritorder.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Writing",
+          "item": "https://themeritorder.co/#writing"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How a Battery Makes Money: Energy Arbitrage",
+          "item": "https://themeritorder.co/bess-energy-arbitrage.html"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E6VLPFK24"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-7E6VLPFK24');
+    </script>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logos/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logos/favicon-16.png">
+</head>
+
+<body>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 56" width="256" height="56" role="img"
+                    aria-label="The Merit Order">
+                    <text x="1" y="13" font-family="'Libre Franklin', 'Arial Narrow', Arial, sans-serif" font-size="12"
+                        font-weight="300" letter-spacing="4.2" fill="#b02418">THE</text>
+                    <text x="0" y="40" font-family="'DM Serif Display', Georgia, 'Times New Roman', serif"
+                        font-size="28" fill="#1a1210">Merit Order</text>
+                    <rect x="0" y="46" width="152" height="2.5" fill="#1a1210" />
+                    <rect x="0" y="51.5" width="152" height="0.8" fill="#1a1210" />
+                </svg>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <a href="about.html" class="nav-link">About</a>
+                <a href="index.html#writing" class="nav-link">Writing</a>
+                <a href="energy_viz.html" class="nav-link">Data</a>
+                <a href="about.html#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-page">
+        <article class="article article-analytical">
+            <!-- Article Header -->
+            <header class="article-header">
+                <div class="container-narrow">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span class="separator">/</span>
+                        <span>Writing</span>
+                    </nav>
+
+                    <div class="article-meta-top">
+                        <span class="category-tag category-tag-bess">BESS</span>
+                    </div>
+
+                    <h1 class="article-title">How a Battery Makes Money: Energy Arbitrage</h1>
+
+                    <div class="article-meta">
+                        <span class="author">By Vasudev Singh</span>
+                        <span class="separator">|</span>
+                        <time datetime="2026-05-14">May 14, 2026</time>
+                        <span class="separator">|</span>
+                        <span class="read-time">8 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <div class="container-narrow">
+
+                    <p><strong>Series:</strong> <em>Why Batteries Matter - And How They Make Money</em> | Article 3 of 6
+                    </p>
+
+                    <div class="article-summary">
+                        <h2>About This Series</h2>
+                        <p><em>Why Batteries Matter - And How They Make Money</em> is a 6-part series covering battery
+                            energy storage systems (BESS) from first principles to full project economics.</p>
+                        <ul>
+                            <li>Article 1: <a href="bess-why-grid-needs-batteries.html">Why the grid needs batteries</a>
+                            </li>
+                            <li>Article 2: <a href="bess-what-battery-does-on-grid.html">What a battery actually does on
+                                    the grid</a></li>
+                            <li><strong>Article 3 (this one):</strong> How a battery makes money - energy arbitrage</li>
+                            <li>Article 4: How a battery makes money - ancillary services</li>
+                            <li>Article 5: The hidden cost - degradation</li>
+                            <li>Article 6: The full picture - does it actually work?</li>
+                        </ul>
+                        <p><em>All examples use a Li-Ion BESS operating as a merchant in the ERCOT grid. The economics
+                                and principles apply broadly to any BESS in any market. This series does not cover
+                                battery chemistry, construction, or raw materials.</em></p>
+                    </div>
+
+                    <p>Next we take a look at the first revenue function a battery performs, energy arbitrage - what it
+                        is, how it works, and the market mechanics that govern dispatch. Energy revenue is the baseline
+                        every BESS project is built on.</p>
+
+                    <h2>Spread the Prices, Earn the Difference</h2>
+
+                    <p>Arbitrage is the act of buying a thing when it is cheap and selling it when it is expensive. In
+                        energy markets, the asset is electricity and the vehicle is time - a battery stores energy
+                        during low-price hours and releases it during high-price hours. The difference between the sell
+                        price and the buy price is called the spread and capturing that spread is the entirety of the
+                        energy arbitrage opportunity.</p>
+
+                    <p>Electricity prices vary by the hour because supply and demand vary by the hour. At a daily level,
+                        the cheap windows are predictable: midday, when solar generation floods the grid and suppresses
+                        prices, sometimes to zero or below; and overnight, when demand is low and wind generation is
+                        high. The expensive windows are equally predictable: evenings, when solar drops off and demand
+                        peaks as people return home, forcing gas-fired plants to the margin and pushing prices up.</p>
+
+                    <p>The spread between those two windows is what the battery monetises. The duck curve from Article 1
+                        is the shape that describes this - but it is the spread in dollars per megawatt-hour ($/MWh)
+                        that the shape creates, and not the shape in MWh it represents, that matters here. Deeper solar
+                        penetration makes the midday troughs cheaper, and steep evening ramps make the peak more
+                        expensive, causing the spread to widen as more and more renewables come online.</p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <canvas id="priceChart"></canvas>
+                        </div>
+                        <figcaption>Figure 1: ERCOT Day-Ahead and Real-Time price profile for 15 January 2025 - the
+                            highest-revenue day of Q1 2025. The overnight trough and evening peak create the spread the
+                            battery captures.</figcaption>
+                    </figure>
+
+                    <h2>Why Simple Spread Capture Fails</h2>
+
+                    <p>The simplest dispatch strategy is to sort all 24 hourly prices from lowest to highest, charge in
+                        the bottom N hours, and discharge in the top N hours, where N is set by the battery's duration.
+                        For a 2-hour battery, charge in the 2 cheapest hours, discharge in the 2 most expensive. This
+                        is known as a Top-Bottom Spread or a Top-Bottom Analysis in energy markets.</p>
+
+                    <p>This strategy, although simple, overstates achievable revenue. Three main physical constraints
+                        make this strategy impractical:</p>
+
+                    <ol>
+                        <li><strong>Round-trip efficiency:</strong> A battery does not deliver back what it consumed.
+                            Efficiency losses - heat dissipated in the charge and discharge process - mean the battery
+                            sells less energy than it bought.</li>
+                        <li><strong>State of Charge:</strong> Charge and discharge decisions are not independent. Each
+                            hour's available energy depends on what previous hours left in the battery. This running
+                            balance is the state of charge, and it constrains every dispatch decision.</li>
+                        <li><strong>Sequential decisions:</strong> A battery cannot charge and discharge in the same
+                            interval. Top-bottom arithmetic ignores this and produces physically impossible schedules on
+                            days where cheap and expensive hours overlap.</li>
+                    </ol>
+
+                    <p>Accounting for all three constraints requires an optimiser - a tool that takes prices, physical
+                        limits, and efficiency parameters as inputs and finds the schedule that maximises revenue across
+                        the full operating window simultaneously. The best implementations use linear programming to
+                        solve for the globally optimal 24-hour schedule.</p>
+
+                    <h2>Day-Ahead and Real-Time Markets Explained</h2>
+
+                    <p>Most organised wholesale electricity markets run two sequential markets for each physical
+                        delivery hour - the Day-Ahead Market and the Real-Time Market. The structure is standard across
+                        US ISOs: ERCOT, PJM, MISO, CAISO, SPP, and NYISO all operate this way. It is not universal -
+                        bilateral and single-settlement markets exist - but it covers the markets where most
+                        utility-scale BESS capacity operates today.</p>
+
+                    <p><strong>Day-Ahead Market (DAM):</strong> The evening before the operating day, participants
+                        submit bids and offers, the market clears, and hourly prices are published. A battery commits
+                        its charge-discharge schedule here. Those positions settle financially at DA prices regardless
+                        of what happens in real time the following day.</p>
+
+                    <p><strong>Real-Time Market (RTM):</strong> On the operating day, the market settles actual physical
+                        delivery in 5 or 15-minute intervals. Any deviation from the DA schedule settles at real-time
+                        prices for that interval, and the difference is the profit or loss for that interval for any
+                        asset. RT prices are often more volatile than DA prices - they reflect actual grid conditions,
+                        not the prior evening's forecast.</p>
+
+                    <p>This structure creates two revenue layers. DA revenue comes from the committed schedule settling
+                        at the more predictable hourly price. RT revenue - or loss - comes from deviations settling at
+                        the more volatile 15-minute price. A battery that responds quickly to real-time conditions earns
+                        additional revenue when RT prices diverge from what the DA market priced in the night before.
+                    </p>
+
+                    <p>For a full walkthrough of the two-stage LP model and complete Q1 2025 ERCOT results, see
+                        <a href="battery-dispatch-ercot.html">Modelling Battery Dispatch in Energy Markets using
+                            Python</a>.
+                    </p>
+
+                    <h2>Efficiency and State of Charge: Fundamental Constraints</h2>
+
+                    <h3>Round-trip efficiency</h3>
+
+                    <p>A lithium-ion BESS has a one-way efficiency of approximately 0.9220 in both the charge and
+                        discharge direction. Round-trip efficiency (RTE) is the product of the two:
+                        0.9220 × 0.9220 = 0.85.<sup><a href="#ref-1">[1]</a></sup> This is the NREL ATB standard value
+                        for utility-scale lithium-ion storage and the figure used throughout this series.</p>
+
+                    <p>In plain terms: charge 2 MWh from the grid, and 1.70 MWh comes back out on discharge. The
+                        remaining 0.30 MWh is dissipated as heat. The battery does not sell what it bought - it sells
+                        85% of it. Every cycle of a LFP battery must suffer this loss before actual profits are
+                        realised.</p>
+
+                    <h3>State of charge</h3>
+
+                    <p>The battery's state of charge at the start of any interval is the result of everything that
+                        preceded it. It determines what the battery can do next:</p>
+
+                    <p><code>SOC[t] = SOC[t−1] + c[t] × η_c − d[t] / η_d</code></p>
+
+                    <p>A battery at 0% SOC cannot discharge, regardless of price. A battery at 100% SOC cannot charge,
+                        regardless of price. The optimiser that solves the full 24-hour schedule simultaneously -
+                        rather than deciding each hour independently - respects this constraint at every step, and this
+                        is what separates it from the top-bottom approach we discussed in the previous section.</p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container" style="position: relative; height: 380px;">
+                            <canvas id="socChart"></canvas>
+                        </div>
+                        <figcaption>Figure 2: Battery state of charge across the day (DA schedule, 15 January 2025).
+                            SOC rises during the charge window, holds, then falls during discharge. Blue shading marks
+                            charging hours; red shading marks discharging hours. Dispatch stops when SOC hits 0%
+                            regardless of price.</figcaption>
+                    </figure>
+
+                    <h3>A single cycle, worked through</h3>
+
+                    <p>Battery: 1 MW / 2 MWh. Charge price: $20/MWh. Discharge price: $80/MWh.
+                        η_c = η_d = 0.9220. RTE = 0.85.</p>
+
+                    <ul>
+                        <li>Charge: 2 MWh drawn from the grid. Cost = 2 × $20 = <strong>$40</strong></li>
+                        <li>Stored: 2 × 0.9220 = 1.844 MWh</li>
+                        <li>Delivered on discharge: 1.844 × 0.9220 = 1.700 MWh - equal to 2 × 0.85</li>
+                        <li>Revenue: 1.700 × $80 = <strong>$136</strong></li>
+                        <li>Net revenue on the cycle: $136 − $40 = <strong>$96</strong></li>
+                    </ul>
+
+                    <h3>The break-even spread</h3>
+
+                    <p>The spread does not translate directly into profit. Round-trip losses set a minimum threshold the
+                        spread must clear before any margin exists. Set the efficiency-adjusted revenue equal to cost
+                        and solve for the minimum discharge price:</p>
+
+                    <pre><code>Revenue  = (E × RTE) × P_discharge
+Cost     =  E × P_charge
+
+Break-even:  (E × RTE) × P_discharge = E × P_charge
+E cancels.   Solve:
+
+P_discharge = P_charge / RTE = P_charge / 0.85</code></pre>
+
+                    <p>The discharge price must exceed the charge price by a factor of 1/0.85 - 17.6% - to recover the
+                        round-trip efficiency loss. This is the floor imposed by physics alone. It does not include
+                        degradation cost per cycle, fixed and variable operating costs, or financing obligations. The
+                        full economic threshold is higher. Degradation - the cost the battery pays in lost capacity for
+                        every cycle it completes - is covered in Article 5.</p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <canvas id="efficiencyChart"></canvas>
+                        </div>
+                        <figcaption>Figure 3: The RTE floor. The discharge price must exceed the charge price by a
+                            factor of 1/0.85 before round-trip efficiency losses are recovered. The red line is physics
+                            - profitability requires clearing a higher bar still.</figcaption>
+                    </figure>
+
+                    <h2>Q1 2025 ERCOT: What the Model Actually Produced</h2>
+
+                    <p>For the model in the ERCOT Battery Dispatch article, we made three assumptions that must be kept
+                        in mind before we proceed with the numbers below.</p>
+
+                    <ul>
+                        <li>First, both the DA and RT stages assume perfect price foresight - prices are fully known
+                            before each dispatch decision. Real dispatch does not have this. Actual revenues are lower.
+                            These numbers are a ceiling, not an operational estimate.</li>
+                        <li>Second, Q1 is ERCOT's highest-spread quarter. Winter wind volatility and cold-weather
+                            demand events produce DA-to-RT price divergence that sits above the annual average. Q1
+                            results cannot be multiplied by four to estimate annual revenue.</li>
+                        <li>Third, this model runs energy arbitrage only. A battery co-optimising across energy and
+                            ancillary services earns more, and dispatches differently.</li>
+                    </ul>
+
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>DA Revenue</th>
+                                    <th>RT PnL</th>
+                                    <th>Total</th>
+                                    <th>RT Share</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Jan</td>
+                                    <td>$8,678</td>
+                                    <td>$10,619</td>
+                                    <td>$19,297</td>
+                                    <td>55%</td>
+                                </tr>
+                                <tr>
+                                    <td>Feb</td>
+                                    <td>$8,017</td>
+                                    <td>$7,205</td>
+                                    <td>$15,223</td>
+                                    <td>47%</td>
+                                </tr>
+                                <tr>
+                                    <td>Mar</td>
+                                    <td>$6,243</td>
+                                    <td>$3,000</td>
+                                    <td>$9,243</td>
+                                    <td>33%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Q1</strong></td>
+                                    <td><strong>$22,938</strong></td>
+                                    <td><strong>$20,824</strong></td>
+                                    <td><strong>$43,763</strong></td>
+                                    <td><strong>48%</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>January's RT share of 55% reflects exceptional DA-to-RT price divergence driven by winter wind
+                        forecast error. By March, conditions were more predictable and RT contribution fell to 33%. The
+                        48% Q1 average is not representative of a full year of energy-only operation.</p>
+
+                    <p>The revenue data here is right-skewed. Most days earn modestly, but a small number of
+                        high-spread days - weather events, unexpected demand - carry a disproportionate share of the
+                        quarterly total. The highest single day across Q1 was 15 January 2025 at
+                        <span class="data-highlight">$2,600</span> for the 1 MW / 2 MWh asset. Remove the five
+                        highest-revenue days and the quarter looks materially different.
+                    </p>
+
+                    <p>DA price spread is the single strongest predictor of total daily revenue. The gap between the
+                        cheapest and most expensive hourly DA prices on a given day predicts revenue close to linearly.
+                        Days where RT significantly outperforms that trendline are days where something unexpected
+                        happened after the DA market cleared - a wind event, a load surprise, a transmission
+                        constraint.</p>
+
+                    <h2>What Comes Next</h2>
+
+                    <p>Energy arbitrage captures the price spread between hours. It does not capture the separate
+                        payment stream that comes from holding reserve capacity available for the grid. Article 4 covers
+                        ancillary services - what those payments are, where they come from, and how they stack on top
+                        of the arbitrage revenue shown here.</p>
+
+                    <h2>References</h2>
+
+                    <div class="references">
+                        <p id="ref-1">[1] NREL Annual Technology Baseline 2024 - <a
+                                href="https://atb.nrel.gov/electricity/2024/utility-scale_battery_storage"
+                                target="_blank">Utility-Scale Battery Storage</a></p>
+                        <p id="ref-2">[2] The Merit Order - <a href="battery-dispatch-ercot.html">Modelling Battery
+                                Dispatch in Energy Markets using Python</a></p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Article Footer -->
+            <footer class="article-footer">
+                <div class="container-narrow">
+                    <div class="article-tags">
+                        <span class="tag">ERCOT</span>
+                        <span class="tag">Battery Storage</span>
+                        <span class="tag">Energy Arbitrage</span>
+                        <span class="tag">Energy Markets</span>
+                    </div>
+
+                    <div class="related-articles"></div>
+
+                    <nav class="article-nav">
+                        <!-- Populated by main.js -->
+                    </nav>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="main.js"></script>
+
+    <script>
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#6B6358';
+
+        const P = {
+            da: '#175B9E',
+            rt: '#87CEBA',
+            soc: '#175B9E',
+            chargeShade: 'rgba(23, 91, 158, 0.08)',
+            dischargeShade: 'rgba(176, 36, 24, 0.08)',
+            limitZero: '#b02418',
+            limitFull: '#2E5A3A',
+            rteFloor: '#b02418',
+            noLoss: '#9ca3af',
+            regionBelow: 'rgba(176, 36, 24, 0.07)',
+            regionAbove: 'rgba(46, 90, 58, 0.07)',
+            grid: 'rgba(44,36,22,0.07)',
+            label: '#4A4235',
+            tick: '#6B6358'
+        };
+
+        function gridOpts() { return { color: P.grid, drawBorder: false }; }
+        function tickOpts() { return { color: P.tick, font: { size: 11 } }; }
+
+        // ── Charts 1 & 2: loaded from chart4_dispatch.json ────────────────────
+        fetch('data/files/chart4_dispatch.json')
+            .then(r => r.json())
+            .then(d => {
+                buildPriceChart(d);
+                buildSocChart(d);
+            })
+            .catch(err => console.error('Failed to load chart4_dispatch.json:', err));
+
+        function buildPriceChart(d) {
+            const ctx = document.getElementById('priceChart');
+            if (!ctx) return;
+
+            const daStep = d.da_prices.flatMap((y, i) => [{ x: i, y }, { x: i + 1, y }]);
+            const rtLine = d.rt_prices.map((y, i) => ({ x: i / 4 + 0.125, y }));
+            const maxDA = Math.max(...d.da_prices);
+            const minDA = Math.min(...d.da_prices);
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [
+                        {
+                            label: 'DA price',
+                            data: daStep,
+                            borderColor: P.da,
+                            borderWidth: 2.5,
+                            pointRadius: 0,
+                            fill: false
+                        },
+                        {
+                            label: 'RT price (15-min)',
+                            data: rtLine,
+                            borderColor: P.rt,
+                            borderWidth: 1.5,
+                            pointRadius: 0,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } },
+                        title: {
+                            display: true,
+                            text: d.date + ' - ERCOT hourly price profile',
+                            font: { size: 13, weight: 'bold' },
+                            color: '#1a1210'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'linear', min: 0, max: 24,
+                            grid: gridOpts(),
+                            ticks: { ...tickOpts(), stepSize: 2, callback: v => (v >= 0 && v <= 24 ? v : '') },
+                            title: { display: true, text: 'Hour of day', color: P.label, font: { size: 11 } }
+                        },
+                        y: {
+                            grid: gridOpts(),
+                            ticks: { ...tickOpts(), callback: v => '$' + v },
+                            title: { display: true, text: 'Price ($/MWh)', color: P.label, font: { size: 11 } }
+                        }
+                    }
+                },
+                plugins: [{
+                    id: 'spreadBracket',
+                    afterDraw(chart) {
+                        const { ctx: c, scales: { x, y }, chartArea } = chart;
+                        const xR = chartArea.right;
+                        const yHi = y.getPixelForValue(maxDA);
+                        const yLo = y.getPixelForValue(minDA);
+                        c.save();
+                        c.strokeStyle = '#b02418';
+                        c.lineWidth = 1.5;
+                        c.setLineDash([4, 3]);
+                        c.beginPath(); c.moveTo(chartArea.left, yHi); c.lineTo(xR - 20, yHi); c.stroke();
+                        c.beginPath(); c.moveTo(chartArea.left, yLo); c.lineTo(xR - 20, yLo); c.stroke();
+                        c.setLineDash([]);
+                        c.beginPath(); c.moveTo(xR - 14, yHi); c.lineTo(xR - 14, yLo); c.stroke();
+                        c.fillStyle = '#b02418';
+                        c.font = 'bold 10px Inter, sans-serif';
+                        c.textAlign = 'right';
+                        c.fillText('Spread: $' + (maxDA - minDA).toFixed(0) + '/MWh', xR - 18, (yHi + yLo) / 2 - 4);
+                        c.restore();
+                    }
+                }]
+            });
+        }
+
+        function buildSocChart(d) {
+            const ctx = document.getElementById('socChart');
+            if (!ctx) return;
+
+            // Estimate the starting SOC by reversing hour 0's action
+            const eta = 0.9220;
+            const net0 = d.da_net[0];
+            const startSOC = Math.max(0, Math.min(100,
+                d.soc_da[0] - (net0 > 0 ? net0 / eta : net0 * eta)
+            ));
+            const socPts = [{ x: 0, y: startSOC }]
+                .concat(d.soc_da.map((y, i) => ({ x: i + 1, y })));
+
+            const chargeHrs = d.da_net.map((n, i) => n < -0.01 ? i : null).filter(i => i !== null);
+            const dischargeHrs = d.da_net.map((n, i) => n > 0.01 ? i : null).filter(i => i !== null);
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'State of Charge (%)',
+                        data: socPts,
+                        borderColor: P.soc,
+                        backgroundColor: 'rgba(23, 91, 158, 0.08)',
+                        borderWidth: 2.5,
+                        pointRadius: 0,
+                        fill: true,
+                        tension: 0.15
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: d.date + ' - State of charge (DA schedule)',
+                            font: { size: 13, weight: 'bold' },
+                            color: '#1a1210'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'linear', min: 0, max: 24,
+                            grid: gridOpts(),
+                            ticks: { ...tickOpts(), stepSize: 2, callback: v => (v >= 0 && v <= 24 ? v : '') },
+                            title: { display: true, text: 'Hour of day', color: P.label, font: { size: 11 } }
+                        },
+                        y: {
+                            min: 0, max: 110,
+                            grid: gridOpts(),
+                            ticks: { ...tickOpts(), callback: v => v + '%' },
+                            title: { display: true, text: 'State of Charge (%)', color: P.label, font: { size: 11 } }
+                        }
+                    }
+                },
+                plugins: [{
+                    id: 'socBg',
+                    beforeDraw(chart) {
+                        const { ctx: c, scales: { x, y } } = chart;
+                        const w = x.getPixelForValue(1) - x.getPixelForValue(0);
+                        const h = y.bottom - y.top;
+                        chargeHrs.forEach(hr => {
+                            c.save();
+                            c.fillStyle = P.chargeShade;
+                            c.fillRect(x.getPixelForValue(hr), y.top, w, h);
+                            c.restore();
+                        });
+                        dischargeHrs.forEach(hr => {
+                            c.save();
+                            c.fillStyle = P.dischargeShade;
+                            c.fillRect(x.getPixelForValue(hr), y.top, w, h);
+                            c.restore();
+                        });
+                    },
+                    afterDraw(chart) {
+                        const { ctx: c, scales: { x, y }, chartArea } = chart;
+                        [
+                            { v: 0, color: P.limitZero, label: '0% - cannot discharge' },
+                            { v: 100, color: P.limitFull, label: '100% - cannot charge' }
+                        ].forEach(({ v, color, label }) => {
+                            const yPos = y.getPixelForValue(v);
+                            c.save();
+                            c.strokeStyle = color;
+                            c.lineWidth = 1.5;
+                            c.setLineDash([5, 4]);
+                            c.beginPath();
+                            c.moveTo(chartArea.left, yPos);
+                            c.lineTo(chartArea.right, yPos);
+                            c.stroke();
+                            c.setLineDash([]);
+                            c.fillStyle = color;
+                            c.font = 'bold 10px Inter, sans-serif';
+                            c.textAlign = 'left';
+                            c.fillText(label, chartArea.left + 4, yPos - 4);
+                            c.restore();
+                        });
+                    }
+                }]
+            });
+        }
+
+        // ── Chart 3: Efficiency floor - pure math, no data file ───────────────
+        (function buildEfficiencyChart() {
+            const ctx = document.getElementById('efficiencyChart');
+            if (!ctx) return;
+
+            const RTE = 0.85;
+            const xs = [0, 10, 20, 30, 40, 50, 60, 70, 80];
+            const noLossData = xs.map(x => ({ x, y: x }));
+            const rteData = xs.map(x => ({ x, y: parseFloat((x / RTE).toFixed(2)) }));
+            const annPts = [
+                { x: 20, y: parseFloat((20 / RTE).toFixed(2)) },
+                { x: 35, y: parseFloat((35 / RTE).toFixed(2)) },
+                { x: 50, y: parseFloat((50 / RTE).toFixed(2)) }
+            ];
+
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            type: 'line',
+                            label: 'No loss (reference)',
+                            data: noLossData,
+                            borderColor: P.noLoss,
+                            borderWidth: 1.5,
+                            borderDash: [5, 4],
+                            pointRadius: 0,
+                            fill: false
+                        },
+                        {
+                            type: 'line',
+                            label: 'RTE floor - 85%',
+                            data: rteData,
+                            borderColor: P.rteFloor,
+                            borderWidth: 2.5,
+                            pointRadius: 0,
+                            fill: false
+                        },
+                        {
+                            type: 'scatter',
+                            label: '_pts',
+                            data: annPts,
+                            backgroundColor: P.rteFloor,
+                            pointRadius: 6,
+                            pointHoverRadius: 8
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                boxWidth: 12,
+                                font: { size: 11 },
+                                filter: item => !item.text.startsWith('_')
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => {
+                                    if (ctx.datasetIndex === 2) {
+                                        return 'Charge $' + ctx.parsed.x + '/MWh → floor $' + ctx.parsed.y + '/MWh';
+                                    }
+                                    return '$' + ctx.parsed.y.toFixed(2) + '/MWh';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            min: 0, max: 80,
+                            grid: gridOpts(),
+                            ticks: { ...tickOpts(), callback: v => '$' + v },
+                            title: { display: true, text: 'Charge price ($/MWh)', color: P.label, font: { size: 11 } }
+                        },
+                        y: {
+                            min: 0, max: 96,
+                            grid: gridOpts(),
+                            ticks: { ...tickOpts(), callback: v => '$' + v },
+                            title: { display: true, text: 'Discharge price ($/MWh)', color: P.label, font: { size: 11 } }
+                        }
+                    }
+                },
+                plugins: [{
+                    id: 'effShading',
+                    beforeDraw(chart) {
+                        const { ctx: c, scales: { x, y } } = chart;
+
+                        // Below RTE floor: round-trip loss not recovered
+                        c.save();
+                        c.beginPath();
+                        c.moveTo(x.getPixelForValue(0), y.getPixelForValue(0));
+                        for (let v = 0; v <= 80; v += 2) {
+                            c.lineTo(x.getPixelForValue(v), y.getPixelForValue(v / RTE));
+                        }
+                        c.lineTo(x.getPixelForValue(80), y.getPixelForValue(0));
+                        c.closePath();
+                        c.fillStyle = P.regionBelow;
+                        c.fill();
+                        c.restore();
+
+                        // Above RTE floor: efficiency loss covered
+                        c.save();
+                        c.beginPath();
+                        c.moveTo(x.getPixelForValue(0), y.getPixelForValue(0));
+                        for (let v = 0; v <= 80; v += 2) {
+                            c.lineTo(x.getPixelForValue(v), y.getPixelForValue(v / RTE));
+                        }
+                        c.lineTo(x.getPixelForValue(80), y.getPixelForValue(96));
+                        c.lineTo(x.getPixelForValue(0), y.getPixelForValue(96));
+                        c.closePath();
+                        c.fillStyle = P.regionAbove;
+                        c.fill();
+                        c.restore();
+                    },
+                    afterDraw(chart) {
+                        const { ctx: c, scales: { x, y } } = chart;
+                        c.save();
+                        c.font = '11px Inter, sans-serif';
+                        c.textAlign = 'center';
+
+                        c.fillStyle = 'rgba(176, 36, 24, 0.75)';
+                        c.fillText('Round-trip loss not recovered', x.getPixelForValue(55), y.getPixelForValue(20));
+
+                        c.fillStyle = 'rgba(46, 90, 58, 0.75)';
+                        c.fillText('Efficiency loss covered', x.getPixelForValue(20), y.getPixelForValue(84));
+                        c.fillText('(full economic threshold higher)', x.getPixelForValue(20), y.getPixelForValue(77));
+
+                        // Annotate the three points
+                        c.fillStyle = '#b02418';
+                        c.font = 'bold 10px Inter, sans-serif';
+                        c.textAlign = 'left';
+                        [
+                            { x: 20, y: 20 / RTE, label: '($20, $23.53)' },
+                            { x: 35, y: 35 / RTE, label: '($35, $41.18)' },
+                            { x: 50, y: 50 / RTE, label: '($50, $58.82)' }
+                        ].forEach(pt => {
+                            c.fillText(pt.label, x.getPixelForValue(pt.x) + 8, y.getPixelForValue(pt.y) - 5);
+                        });
+                        c.restore();
+                    }
+                }]
+            });
+        })();
+    </script>
+</body>
+
+</html>

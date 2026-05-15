@@ -84,7 +84,7 @@
 
     /* Layout */
     --max-width: 1200px;
-    --max-width-narrow: 1200px;
+    --max-width-narrow: 1000px;
     --container-padding: 1.5rem;
 
     /* Borders & Shadows - Softer, more rounded */

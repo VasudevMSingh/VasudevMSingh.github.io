@@ -1,6 +1,37 @@
 {
   "posts": [
     {
+      "id": "blog14",
+      "slug": "bess-energy-arbitrage.html",
+      "title": "How a Battery Makes Money: Energy Arbitrage",
+      "shortTitle": "How a Battery Makes Money: Energy Arbitrage",
+      "description": "How battery energy storage systems earn revenue through energy arbitrage in ERCOT — the mechanics of spread capture, the optimiser that makes it work, and what Q1 2025 data shows about achievable returns.",
+      "excerpt": "The spread between overnight lows and evening peaks is the entire energy arbitrage opportunity. Here is what it takes to actually capture it — physics, optimisation, and Q1 2025 ERCOT results.",
+      "date": "2026-05-14",
+      "dateDisplay": "May 2026",
+      "category": "bess",
+      "categoryLabel": "BESS",
+      "sections": [
+        "BESS"
+      ],
+      "related": [
+        "blog13",
+        "blog12",
+        "blog8"
+      ],
+      "image": "images/bess_arbitrage3.jpg",
+      "imageAlt": "Battery energy arbitrage — price spread capture in ERCOT",
+      "tags": [
+        "ERCOT",
+        "Battery Storage",
+        "Energy Arbitrage",
+        "Energy Markets",
+        "BESS"
+      ],
+      "readTime": "8 min read",
+      "featured": true
+    },
+    {
       "id": "blog13",
       "slug": "bess-what-battery-does-on-grid.html",
       "title": "What a Battery Actually Does on the Grid",
@@ -29,7 +60,7 @@
         "ERCOT"
       ],
       "readTime": "9 min read",
-      "featured": true
+      "featured": false
     },
     {
       "id": "blog12",
@@ -374,6 +405,10 @@
     "BESS": [
       {
         "type": "BLOG",
+        "postId": "blog14"
+      },
+      {
+        "type": "BLOG",
         "postId": "blog13"
       },
       {
@@ -382,5 +417,5 @@
       }
     ]
   },
-  "lastUpdated": "2026-05-03"
+  "lastUpdated": "2026-05-14"
 }
