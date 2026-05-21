@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How a Battery Makes Money: Ancillary Services - The Merit Order</title>
+    <meta name="description"
+        content="How battery energy storage systems earn revenue through ancillary services in ERCOT — regulation, RRS, ECRS, what ERCOT paid in Q1 2025, and how the combined energy + AS stack closes the series.">
+    <link rel="canonical" href="https://themeritorder.co/bess-ancillary-services.html">
+
+    <!-- Open Graph / Social (og:image must be absolute URL) -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://themeritorder.co/bess-ancillary-services.html">
+    <meta property="og:title" content="How a Battery Makes Money: Ancillary Services">
+    <meta property="og:description"
+        content="How battery energy storage systems earn revenue through ancillary services in ERCOT — regulation, RRS, ECRS, what ERCOT paid in Q1 2025, and how the combined energy + AS stack closes the series.">
+    <meta property="og:image" content="https://themeritorder.co/images/bess-mores.jpg">
+    <meta property="article:published_time" content="2026-05-21T00:00:00Z">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Libre+Franklin:wght@300&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Schema.org Article Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How a Battery Makes Money: Ancillary Services",
+      "description": "How battery energy storage systems earn revenue through ancillary services in ERCOT — regulation, RRS, ECRS, what ERCOT paid in Q1 2025, and how the combined energy + AS stack closes the series.",
+      "image": "https://themeritorder.co/images/bess-mores.jpg",
+      "datePublished": "2026-05-21T00:00:00Z",
+      "dateModified": "2026-05-21T00:00:00Z",
+      "author": {
+        "@type": "Person",
+        "name": "Vasudev Singh",
+        "url": "https://themeritorder.co/about.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "The Merit Order",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://themeritorder.co/images/logos/logo.svg"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://themeritorder.co/bess-ancillary-services.html"
+      }
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://themeritorder.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Writing",
+          "item": "https://themeritorder.co/#writing"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How a Battery Makes Money: Ancillary Services",
+          "item": "https://themeritorder.co/bess-ancillary-services.html"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E6VLPFK24"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-7E6VLPFK24');
+    </script>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logos/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logos/favicon-16.png">
+</head>
+
+<body>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 56" width="256" height="56" role="img"
+                    aria-label="The Merit Order">
+                    <text x="1" y="13" font-family="'Libre Franklin', 'Arial Narrow', Arial, sans-serif" font-size="12"
+                        font-weight="300" letter-spacing="4.2" fill="#b02418">THE</text>
+                    <text x="0" y="40" font-family="'DM Serif Display', Georgia, 'Times New Roman', serif"
+                        font-size="28" fill="#1a1210">Merit Order</text>
+                    <rect x="0" y="46" width="152" height="2.5" fill="#1a1210" />
+                    <rect x="0" y="51.5" width="152" height="0.8" fill="#1a1210" />
+                </svg>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <a href="about.html" class="nav-link">About</a>
+                <a href="bess-calculator.html" class="nav-link">Calculator</a>
+                <a href="energy_viz.html" class="nav-link">Data</a>
+                <a href="about.html#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-page">
+        <article class="article article-analytical">
+            <!-- Article Header -->
+            <header class="article-header">
+                <div class="container-narrow">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span class="separator">/</span>
+                        <span>Writing</span>
+                    </nav>
+
+                    <div class="article-meta-top">
+                        <span class="category-tag category-tag-bess">BESS</span>
+                    </div>
+
+                    <h1 class="article-title">How a Battery Makes Money: Ancillary Services</h1>
+
+                    <div class="article-meta">
+                        <span class="author">By Vasudev Singh</span>
+                        <span class="separator">|</span>
+                        <time datetime="2026-05-21">May 21, 2026</time>
+                        <span class="separator">|</span>
+                        <span class="read-time">9 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <div class="container-narrow">
+
+                    <p><strong>Series:</strong> <em>Why Batteries Matter — And How They Make Money</em> | Article 4 of 4 — Series Finale</p>
+
+                    <blockquote>
+                        <p><em>This is the final article in a four-part series covering battery energy storage systems from first principles to project economics. <a href="bess-why-grid-needs-batteries.html">Article 1</a> covered why the grid needs batteries. <a href="bess-what-battery-does-on-grid.html">Article 2</a> covered what a battery actually does on the grid. <a href="bess-energy-arbitrage.html">Article 3</a> covered energy arbitrage — how a battery earns revenue by capturing the price spread between cheap and expensive hours. This article covers ancillary services, stacks both revenue streams together, and closes the series with an honest read on what the fundamentals actually say.</em></p>
+                        <p><em>All examples use a 1 MW / 2 MWh Li-Ion BESS operating as a merchant in the ERCOT grid. The economics and principles apply broadly to any BESS in any market.</em></p>
+                    </blockquote>
+
+                    <p>In the previous article I explained how energy arbitrage pays a battery to move power across time. As a corollary, ancillary services pay a battery to be ready. Those are two separate transactions, and ERCOT — or any market with a similar mechanism — pays for both. The previous article showed what the first one, energy arbitrage, produces. This article covers the second, ancillary services — what it is, what it pays, and how the two streams combine into a complete picture of merchant BESS economics.</p>
+
+                    <h2>The Grid Is Not Just Buying Megawatts</h2>
+
+                    <p>The day-ahead market clears a schedule of generation and load for every hour of the next operating day. In theory, this allows it to procure exactly all the supply it needs to match the forecasted demand, and any gaps in that balancing equation are figured out in the real-time market. But what the grid cannot buy is insurance — specifically against that schedule being wrong. What happens if demand moves too much either way and there are no available generation units to fill the gap? We all know the answer to that very well. Localized blackouts are the best of cases. The worst cases — such as the Great Texas Freeze of February 2021, during winter storm Uri — can lead to catastrophic consequences: $130 billion in damages, and millions of homes without essential infrastructure left to fend for themselves.</p>
+
+                    <p>Forecast errors are bound to happen — that is their nature. A generator can trip unexpectedly, wind can drop below the predicted level, demand spikes past the modeled peak. Any of these throws the physical grid — the real-time balance of supply and demand — out of alignment with the plan established the night before.</p>
+
+                    <p>When supply drops relative to demand, frequency falls. Article 1 covered what frequency is and why its deviation is dangerous: synchronous generators slow, protective relays trip, and if the cascade is not arrested quickly, the grid collapses. But here is the conflict — the defense against that cascade is not faster generation dispatch. It is pre-committed capacity: resources that have already agreed to respond, at a defined speed, before any contingency occurs.</p>
+
+                    <p>That pre-commitment is what ancillary services are. Every grid operator runs a separate procurement process, distinct from the energy market, where it buys response capacity from generators, batteries, and controllable loads. The seller commits to hold a defined MW available and respond within a specified time window if called. In return, they receive a capacity payment for every hour that commitment is maintained, regardless of whether the product ever activates.</p>
+
+                    <p>This is the structural difference between energy revenue and AS revenue. Energy revenue depends on when and how hard the battery cycles. AS capacity revenue flows from availability alone.</p>
+
+                    <h2>Four Products, Four Response Windows</h2>
+
+                    <p>ERCOT procures four ancillary service products that batteries can provide. For other grids, the names and procurement standards of these services may be different, but by and large they have the same properties. These services differ in speed of response, duration, and the nature of the dispatch signal.</p>
+
+                    <h3>Regulation: Continuous, Automatic, Two-Way</h3>
+
+                    <p>The most demanding product. A battery cleared for regulation receives a continuous automatic control signal from ERCOT — the regulation signal — instructing it to increase or decrease output in real time, second by second, throughout the committed hour. It is active grid balancing, happening continuously.</p>
+
+                    <p>Because the signal goes both ways, regulation is split into two separate procurements. Reg Up is the capacity to increase output on demand. Reg Down is the capacity to absorb power on demand. They clear separately, price separately, and a battery can offer both simultaneously by holding headroom in both directions.</p>
+
+                    <p>A lithium-ion battery is structurally well-suited here. It responds in under 200 milliseconds — faster than any combustion turbine — and executes both charge and discharge commands without mechanical wear in either direction. The response is symmetric: the battery does not care about direction the way a gas turbine cares about ramp rate.</p>
+
+                    <h3>ECRS: The Reserve Product the Grid Needed After Uri</h3>
+
+                    <p>ERCOT launched ECRS — ERCOT Contingency Reserve Service — in June 2023.<sup><a href="#ref-1">[1]</a></sup> It exists because the inertia gap described in Article 1 became an operational constraint the grid could no longer manage with its existing reserve products alone.</p>
+
+                    <p>As the synchronous thermal fleet has retired and been replaced by inverter-based renewables, the rate at which frequency falls after a generation loss event has increased. The window between a contingency and a dangerous frequency excursion has shortened. Legacy contingency reserves — designed for a grid with substantial spinning inertia — were no longer responding fast enough to arrest excursions before relay thresholds were breached.</p>
+
+                    <p>ECRS requires full response within 10 minutes but with a faster ramp profile than traditional contingency reserves. A battery clears ECRS by committing a defined MW and demonstrating it can deliver within the required window. The commitment is held across a 4-hour operating period.</p>
+
+                    <h3>RRS: The 10-Minute Contingency Reserve</h3>
+
+                    <p>Responsive Reserve Service is ERCOT's primary contingency product, predating ECRS and larger by volume. Providers commit to respond to a frequency event and sustain that response for a full 10 minutes.<sup><a href="#ref-2">[2]</a></sup></p>
+
+                    <p>For batteries, RRS is typically provided via under-frequency relay: the battery monitors grid frequency continuously and, if frequency drops below 59.7 Hz, it discharges automatically without waiting for a manual dispatch signal. This makes battery RRS faster in practice than generator RRS, even when both clear the same product.</p>
+
+                    <p>Like ECRS, RRS is a standby product for most hours. The capacity payment is earned through availability. When the product activates, there is an additional energy settlement on top — but the base revenue is the committed capacity cleared at the Market Clearing Price for Capacity.</p>
+
+                    <h2>What ERCOT Paid — Q1 2025 MCPC Data</h2>
+
+                    <p>ERCOT publishes the Market Clearing Price for Capacity (MCPC) for each ancillary service product each hour.<sup><a href="#ref-3">[3]</a></sup> The unit is $/MW/h: for each MW of capacity committed, the provider earns that price for the hour, regardless of activation. What follows is Q1 2025 MCPC data for our 1 MW / 2 MWh benchmark asset.</p>
+
+                    <p><strong>Q1 2025 — 1 MW committed to each product for the full quarter:</strong></p>
+
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Reg Up</th>
+                                    <th>Reg Down</th>
+                                    <th>RRS</th>
+                                    <th>ECRS</th>
+                                    <th>Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>January</td>
+                                    <td>$1,487</td>
+                                    <td>$884</td>
+                                    <td>$1,329</td>
+                                    <td>$1,016</td>
+                                    <td>720</td>
+                                </tr>
+                                <tr>
+                                    <td>February</td>
+                                    <td>$2,021</td>
+                                    <td>$1,136</td>
+                                    <td>$2,022</td>
+                                    <td>$1,731</td>
+                                    <td>672</td>
+                                </tr>
+                                <tr>
+                                    <td>March</td>
+                                    <td>$1,945</td>
+                                    <td>$1,161</td>
+                                    <td>$1,912</td>
+                                    <td>$1,666</td>
+                                    <td>743</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Q1</strong></td>
+                                    <td><strong>$5,453</strong></td>
+                                    <td><strong>$3,182</strong></td>
+                                    <td><strong>$5,263</strong></td>
+                                    <td><strong>$4,413</strong></td>
+                                    <td><strong>2,135</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>Source: ERCOT MCPC public data, Q1 2025. Figures for a 1 MW asset committed for the full period. A battery commits to one product per MW per operating period — these columns are not additive.</p>
+
+                    <p>The first thing to note is that January, the highest-revenue month for energy arbitrage in Article 3, is the <em>lowest</em> revenue month for AS capacity. February and March both produce more AS capacity revenue than January. The two streams do not peak together. Energy arbitrage in Q1 was driven by the large DA-to-RT price spreads of January's cold weather period. AS capacity revenue in Q1 was driven by a different event entirely — and it happened in February.</p>
+
+                    <h3>The February 20 Event</h3>
+
+                    <p>On February 20, 2025, ERCOT's ancillary service markets produced prices that belong in a different conversation from the quarterly averages.</p>
+
+                    <p>Between 06:00 and 10:00, the grid experienced acute stress. RRS cleared at $102/MW/h at 06:00, then $270/MW/h at 07:00, then $228/MW/h at 08:00. By noon, it had returned to under $1/MW/h. The spike was sharp, concentrated in a four-hour window, and resolved by midday.</p>
+
+                    <p>A 1 MW battery committed to RRS for the full day of February 20 earned $739 in capacity payments. That is more than many full weeks of ordinary trading produce. The following day, still elevated as grid conditions normalized, added another $327. Two days of grid stress contributed roughly $1,067 to February's total RRS revenue of $2,022 — more than half the month's capacity revenue from 48 hours of extraordinary conditions.</p>
+
+                    <p>This is the distribution shape of AS revenue in ERCOT: a stable, modest baseline punctuated by sharp spikes during grid stress events. The median RRS price in Q1 was $0.83/MW/h. The mean was $2.47/MW/h. That gap — nearly a factor of three between median and mean — is entirely explained by a handful of hours where the market paid extraordinary prices to hold capacity available.</p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <canvas id="rrsChart"></canvas>
+                        </div>
+                        <figcaption>Figure 1: RRS MCPC hourly prices, Q1 2025 (ERCOT). Baseline is modest; the right-skewed distribution is driven by a small number of extreme hours in late January and February.</figcaption>
+                    </figure>
+
+                    <h2>AS Adds Revenue — Without Requiring a Cycle</h2>
+
+                    <p>Energy arbitrage requires the battery to actually do something: charge, discharge, manage state of charge, cycle against round-trip efficiency losses. Every dollar of energy revenue requires a physical transaction and carries the degradation cost of that transaction.</p>
+
+                    <p>AS capacity revenue does not. Committing 1 MW to RRS for an hour earns the MCPC. If the product does not activate — the case for the overwhelming majority of hours — the battery does nothing physical.</p>
+
+                    <p>This asymmetry is why AS lifts total revenue rather than substituting for energy revenue. The capacity payments are earned without cycling. The spike events — the hours where AS prices move to extraordinary levels — tend to coincide with hours of grid stress where energy prices are also elevated. A battery committed to RRS during a major grid event misses the energy arbitrage opportunity in that window. Whether RRS or the energy trade was worth more depends on the specific prices in that specific hour, which is precisely the calculation a co-optimizer makes.</p>
+
+                    <p>For Q1 2025, the directional picture is clear. Energy arbitrage produced <span class="data-highlight">$43,763</span> for the quarter at perfect foresight — the dominant revenue stream, as it was in Article 3. The AS capacity layer adds thousands in revenue earned without cycling, with peaks concentrated in hours the battery would likely have been highly active in the energy market anyway. The two streams are complementary in practice, even if they compete for the same MW in any given operating period.</p>
+
+                    <h2>The Battery Has One MW</h2>
+
+                    <p>The state of charge and the energy capacity of a battery is the true constraint. A 1 MW battery has 1 MW of capacity. Each MW committed to an AS product in an operating period is one MW not available for an energy cycle in that window. The two uses compete for the same asset.</p>
+
+                    <p>This is not a problem unique to batteries. It is the fundamental resource allocation problem of any asset that can earn revenue in multiple ways simultaneously. The battery solves it through co-optimization: a model that takes AS prices, energy prices, efficiency parameters, and state-of-charge constraints as inputs, and solves for the schedule that maximizes combined revenue across the full operating window.</p>
+
+                    <p>The co-optimizer asks, for each operating period: does holding this MW for RRS at the current MCPC earn more than the expected energy spread the battery could capture if that MW were free? When RRS clears at $0.83/MW/h and the DA price spread is $40/MWh, the energy trade is more valuable. When RRS clears at $270/MW/h and the DA spread is $30/MWh, the AS commitment is more valuable. The optimizer finds the threshold that maximizes the combined stack, hour by hour, subject to physical constraints.</p>
+
+                    <p>A battery without that optimization — one that commits to a fixed AS product all quarter, or dispatches energy arbitrage without considering AS — leaves revenue on the table. The spread between a well-optimized and a poorly-optimized battery in ERCOT is not marginal. In a quarter with events like February 20, it can be the difference between a financially viable project and one that does not cover its costs.</p>
+
+                    <h2>The Combined Stack — Q1 2025</h2>
+
+                    <p>Both revenue streams, placed side by side for Q1 2025, using the same 1 MW / 2 MWh benchmark asset throughout this series.</p>
+
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Revenue Stream</th>
+                                    <th>January</th>
+                                    <th>February</th>
+                                    <th>March</th>
+                                    <th>Q1</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Energy Arbitrage (DA + RT)</td>
+                                    <td>$19,297</td>
+                                    <td>$15,223</td>
+                                    <td>$9,243</td>
+                                    <td>$43,763</td>
+                                </tr>
+                                <tr>
+                                    <td>Best AS Product (capacity only)</td>
+                                    <td>$1,487 (Reg Up)</td>
+                                    <td>$2,022 (RRS)</td>
+                                    <td>$1,945 (Reg Up)</td>
+                                    <td>$5,453 (Reg Up)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p><em>Energy figures from the LP dispatch model in Article 3, assuming perfect price foresight — a ceiling, not an operational estimate. AS figures are the highest-clearing single product per month at full 1 MW commitment for the entire period — a separate ceiling. A battery cannot simultaneously maximize both; every MW committed to AS is one MW not cycling for energy. The true combined revenue requires a co-optimizer that allocates capacity between the two streams and lies somewhere between the energy-only figure and the arithmetic sum of both ceilings.</em></p>
+
+                    <p>Two things stand out from this view. First, AS is a meaningful addition — not a rounding error. The best AS product adds between 10% and 13% on top of energy-only revenue in each month, earned without a single additional cycle. Second, the streams peak in opposite months. January was the strongest energy month; February was the strongest AS month. A battery capturing both was less exposed to any single market condition than one optimizing for either stream alone.</p>
+
+                    <p>That is the honest picture of what a merchant 1 MW / 2 MWh BESS in ERCOT earned in Q1 2025, at the ceiling of each revenue stream's potential, before costs.</p>
+
+                    <h2>What the Fundamentals Actually Say</h2>
+
+                    <p>The physical case for batteries is real and growing. More renewables mean a deeper duck curve, a wider daily price spread, less inertia, and more demand for fast-responding reserves. Every structural trend in the grid increases the value of what a battery does. That is the direction the energy transition is heading, and it is measurable, quantifiable, and most importantly, it is now profitable.</p>
+
+                    <p>The Q1 2025 revenue figures are real, but they have limits. The energy arbitrage numbers assume perfect price foresight — real dispatch captures less. Real dispatch is dependent on forecasts, obligations, and many other financial instruments beyond just a merchant case. Q1 2025 was the strongest quarter of the year; January's cold weather spreads and February's AS spike events are not representative of an average quarter. Energy and AS revenues shown here are gross: they do not include degradation cost per cycle, fixed and variable O&amp;M, interconnection charges, or the financing costs that determine whether a project actually generates a return for its investors. Those costs sit between gross revenue and project economics.</p>
+
+                    <p>What the series has built is the analytical foundation to answer simple questions: why the grid needs batteries, what a battery does on the grid, how energy arbitrage works, how ancillary services work, and how the two streams combine into a revenue stack. The foundation needs to be solid before the financial model built on top of it is worth anything.</p>
+
+                    <p>If you have read the complete series and gotten this far — thank you. This was my first attempt at putting something like this out there in the world. Any feedback and constructive criticism is most welcome — please find my contact details on the about page.</p>
+
+                    <p>That's all folks. Goodbye.</p>
+
+                    <div class="references">
+                        <p id="ref-1">[1] ERCOT — ERCOT Contingency Reserve Service (ECRS), June 2023. For globally accessible background on ECRS design: FERC, <a href="https://www.ferc.gov/industries-data/electric/electric-power-markets/energy-storage" target="_blank"><em>Energy Storage in Organized Wholesale Electric Markets</em></a>, Order 841 implementation context.</p>
+                        <p id="ref-2">[2] For a globally accessible technical reference on contingency reserve design and the 10-minute response requirement, see: NERC, <a href="https://www.nerc.com/pa/Stand/Reliability%20Guidelines/Reliability_Guideline-Adequacy_of_the_BAA.pdf" target="_blank"><em>Reliability Guideline: Adequacy of the Balancing Authority Area</em></a>.</p>
+                        <p id="ref-3">[3] ERCOT MCPC data is published daily via the ERCOT MIS. For a globally accessible overview of ERCOT's ancillary service market structure, see: U.S. Energy Information Administration, <a href="https://www.eia.gov/electricity/wholesale/" target="_blank"><em>Wholesale electricity and natural gas market data</em></a>, and FERC, <a href="https://www.ferc.gov/industries-data/electric/electric-power-markets/energy-storage" target="_blank"><em>Energy Storage in Organized Wholesale Electric Markets</em></a>.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Article Footer -->
+            <footer class="article-footer">
+                <div class="container-narrow">
+                    <div class="article-tags">
+                        <span class="tag">ERCOT</span>
+                        <span class="tag">Battery Storage</span>
+                        <span class="tag">Ancillary Services</span>
+                        <span class="tag">Energy Markets</span>
+                    </div>
+
+                    <div class="related-articles"></div>
+
+                    <nav class="article-nav">
+                        <!-- Populated by main.js -->
+                    </nav>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="main.js"></script>
+
+    <script>
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#6B6358';
+
+        const P = {
+            rrs: '#175B9E',
+            grid: 'rgba(44,36,22,0.07)',
+            label: '#4A4235',
+            tick: '#6B6358'
+        };
+
+        function gridOpts() { return { color: P.grid, drawBorder: false }; }
+        function tickOpts() { return { color: P.tick, font: { size: 11 } }; }
+
+        fetch('data/files/2025_Q1_AS_prices.json')
+            .then(r => r.json())
+            .then(data => {
+                const spinData = data.map((d, i) => ({ x: i, y: d.spin }));
+                buildRrsChart(spinData, data.length, data);
+            })
+            .catch(err => console.error('Failed to load 2025_Q1_AS_prices.json:', err));
+
+        function buildRrsChart(spinData, totalPoints, rawData) {
+            const ctx = document.getElementById('rrsChart');
+            if (!ctx) return;
+
+            // Identify month boundary indices from the date field
+            let febStart = 0, marStart = 0;
+            for (let i = 0; i < rawData.length; i++) {
+                const d = rawData[i].date;
+                if (!febStart && d.startsWith('2025-02')) { febStart = i; }
+                if (!marStart && d.startsWith('2025-03')) { marStart = i; }
+            }
+            const janStart = 0;
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'RRS MCPC ($/MW/h)',
+                        data: spinData,
+                        borderColor: P.rrs,
+                        borderWidth: 1.5,
+                        pointRadius: 0,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } },
+                        title: {
+                            display: true,
+                            text: 'RRS MCPC Hourly — Q1 2025 (ERCOT)',
+                            font: { size: 13, weight: 'bold' },
+                            color: '#1a1210'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: items => {
+                                    const idx = items[0].parsed.x;
+                                    return rawData[idx] ? rawData[idx].date : '';
+                                },
+                                label: item => 'RRS: $' + item.parsed.y.toFixed(2) + '/MW/h'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            min: 0,
+                            max: totalPoints - 1,
+                            grid: gridOpts(),
+                            ticks: {
+                                ...tickOpts(),
+                                maxTicksLimit: 6,
+                                callback: v => {
+                                    const i = Math.round(v);
+                                    if (Math.abs(i - janStart) < 40) return 'Jan';
+                                    if (febStart && Math.abs(i - febStart) < 40) return 'Feb';
+                                    if (marStart && Math.abs(i - marStart) < 40) return 'Mar';
+                                    return '';
+                                }
+                            },
+                            title: { display: true, text: 'Q1 2025', color: P.label, font: { size: 11 } }
+                        },
+                        y: {
+                            grid: gridOpts(),
+                            ticks: { ...tickOpts(), callback: v => '$' + v },
+                            title: { display: true, text: '$/MW/h', color: P.label, font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

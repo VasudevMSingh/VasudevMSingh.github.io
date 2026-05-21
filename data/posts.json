@@ -1,6 +1,37 @@
 {
   "posts": [
     {
+      "id": "blog15",
+      "slug": "bess-ancillary-services.html",
+      "title": "How a Battery Makes Money: Ancillary Services",
+      "shortTitle": "Ancillary Services",
+      "description": "How battery energy storage systems earn revenue through ancillary services in ERCOT — regulation, RRS, ECRS, what ERCOT paid in Q1 2025, and how the combined energy + AS stack closes the series.",
+      "excerpt": "Energy arbitrage captures the price spread between hours. Ancillary services pay the battery just to be ready. Q1 2025 ERCOT data shows what both streams actually produced.",
+      "date": "2026-05-21",
+      "dateDisplay": "May 2026",
+      "category": "bess",
+      "categoryLabel": "BESS",
+      "sections": [
+        "BESS"
+      ],
+      "related": [
+        "blog14",
+        "blog13",
+        "blog12"
+      ],
+      "image": "images/bess-mores.jpg",
+      "imageAlt": "Battery energy storage system in a landscape setting",
+      "tags": [
+        "ERCOT",
+        "Battery Storage",
+        "Ancillary Services",
+        "Energy Markets",
+        "BESS"
+      ],
+      "readTime": "9 min read",
+      "featured": true
+    },
+    {
       "id": "blog14",
       "slug": "bess-energy-arbitrage.html",
       "title": "How a Battery Makes Money: Energy Arbitrage",
@@ -29,7 +60,7 @@
         "BESS"
       ],
       "readTime": "8 min read",
-      "featured": true
+      "featured": false
     },
     {
       "id": "blog13",
@@ -405,6 +436,10 @@
     "BESS": [
       {
         "type": "BLOG",
+        "postId": "blog15"
+      },
+      {
+        "type": "BLOG",
         "postId": "blog14"
       },
       {
@@ -417,5 +452,5 @@
       }
     ]
   },
-  "lastUpdated": "2026-05-14"
+  "lastUpdated": "2026-05-21"
 }
