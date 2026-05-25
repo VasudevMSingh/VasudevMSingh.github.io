@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BESS Project Finance Calculator - The Merit Order</title>
+    <meta name="description"
+        content="Client-side BESS project finance calculator for AEMO market context. Compute IRR, NPV, payback, and LCOS for utility-scale battery storage projects.">
+    <link rel="canonical" href="https://themeritorder.co/bess-calculator.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Libre+Franklin:wght@300&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E6VLPFK24"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-7E6VLPFK24');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logos/favicon-32.png">
+</head>
+
+<body>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 56" width="256" height="56" role="img"
+                    aria-label="The Merit Order">
+                    <text x="1" y="13" font-family="'Libre Franklin', 'Arial Narrow', Arial, sans-serif" font-size="12"
+                        font-weight="300" letter-spacing="4.2" fill="#b02418">THE</text>
+                    <text x="0" y="40" font-family="'DM Serif Display', Georgia, 'Times New Roman', serif"
+                        font-size="28" fill="#1a1210">Merit Order</text>
+                    <rect x="0" y="46" width="152" height="2.5" fill="#1a1210" />
+                    <rect x="0" y="51.5" width="152" height="0.8" fill="#1a1210" />
+                </svg>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="main-nav">
+                <a href="about.html" class="nav-link">About</a>
+                <a href="bess-calculator.html" class="nav-link">Calculator</a>
+
+                <a href="energy_viz.html" class="nav-link">Data</a>
+                <a href="about.html#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="calc-page">
+            <div class="container">
+
+                <!-- Page header -->
+                <div class="calc-page-header">
+                    <h1>BESS Project Finance Calculator</h1>
+                    <div class="calc-meta">
+                        <span class="calc-meta-badge">AEMO market context</span>
+                        <span class="calc-meta-badge" id="meta-mode">Unlevered equity</span>
+                        <span class="calc-meta-badge">All calculations run client-side</span>
+                        <span>Default: 100 MW / 2 hr utility-scale BESS</span>
+                    </div>
+                </div>
+
+                <div class="calc-body">
+
+                    <!-- ════════════════════════════════
+                         INPUTS PANEL
+                    ════════════════════════════════ -->
+                    <aside class="inputs-panel">
+
+                        <!-- 1. Capacity -->
+                        <div class="input-section">
+                            <span class="input-section-title">Project Capacity</span>
+
+                            <div class="input-row">
+                                <label class="input-label" for="inp-power-mw">Power capacity</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-power-mw" class="calc-input" value="100" min="1"
+                                        max="10000" step="1">
+                                    <span class="input-unit">MW</span>
+                                </div>
+                            </div>
+
+                            <div class="input-row">
+                                <label class="input-label">Duration</label>
+                                <div class="duration-toggle">
+                                    <button type="button" class="toggle-btn active" data-hours="2">2 hr</button>
+                                    <button type="button" class="toggle-btn" data-hours="4">4 hr</button>
+                                </div>
+                            </div>
+
+                            <div class="derived-row">
+                                <span class="derived-label">Energy capacity</span>
+                                <div class="derived-field">
+                                    <span id="out-energy-mwh" class="derived-value">200</span>
+                                    <span class="input-unit">MWh</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Capex -->
+                        <div class="input-section">
+                            <span class="input-section-title">Capital Costs (AUD/kWh of energy capacity)</span>
+
+                            <div class="input-row">
+                                <label class="input-label" for="inp-capex-cells">Battery cells + BOS</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-capex-cells" class="calc-input" value="350" min="0"
+                                        step="5">
+                                    <span class="input-unit">AUD/kWh</span>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <label class="input-label" for="inp-capex-epc">EPC</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-capex-epc" class="calc-input" value="80" min="0"
+                                        step="5">
+                                    <span class="input-unit">AUD/kWh</span>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <label class="input-label" for="inp-capex-grid">Grid connection</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-capex-grid" class="calc-input" value="40" min="0"
+                                        step="5">
+                                    <span class="input-unit">AUD/kWh</span>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <label class="input-label" for="inp-capex-dev">Development costs</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-capex-dev" class="calc-input" value="20" min="0"
+                                        step="5">
+                                    <span class="input-unit">AUD/kWh</span>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <label class="input-label" for="inp-capex-contingency">Owner's costs &amp;
+                                    contingency</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-capex-contingency" class="calc-input" value="30"
+                                        min="0" step="5">
+                                    <span class="input-unit">AUD/kWh</span>
+                                </div>
+                            </div>
+
+                            <div class="derived-row prominent">
+                                <span class="derived-label">Total capex</span>
+                                <div class="derived-field">
+                                    <span id="out-total-capex-kwh" class="derived-value">520</span>
+                                    <span class="input-unit">AUD/kWh</span>
+                                </div>
+                            </div>
+                            <div class="derived-row prominent">
+                                <span class="derived-label">Total project capex</span>
+                                <div class="derived-field">
+                                    <span id="out-total-capex-audm" class="derived-value">104.0</span>
+                                    <span class="input-unit">AUD M</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Opex -->
+                        <div class="input-section">
+                            <span class="input-section-title">Annual Operating Costs</span>
+
+                            <div class="input-row">
+                                <label class="input-label" for="inp-opex-fixed-om">Fixed O&amp;M</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-opex-fixed-om" class="calc-input" value="10" min="0"
+                                        step="0.5">
+                                    <span class="input-unit">AUD/kW/yr</span>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <label class="input-label" for="inp-opex-variable">Variable O&amp;M</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-opex-variable" class="calc-input" value="0.5" min="0"
+                                        step="0.1">
+                                    <span class="input-unit">AUD/MWh</span>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <label class="input-label" for="inp-opex-insurance">Insurance &amp; admin</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-opex-insurance" class="calc-input" value="3" min="0"
+                                        step="0.5">
+                                    <span class="input-unit">AUD/kW/yr</span>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <label class="input-label" for="inp-opex-land">Land lease</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-opex-land" class="calc-input wide" value="150000"
+                                        min="0" step="10000">
+                                    <span class="input-unit">AUD/yr</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Degradation & Augmentation -->
+                        <div class="input-section">
+                            <span class="input-section-title">Degradation &amp; Augmentation</span>
+
+                            <div class="input-row">
+                                <label class="input-label" for="inp-degrad">Annual degradation</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-degrad" class="calc-input" value="2.0" min="0" max="10"
+                                        step="0.1">
+                                    <span class="input-unit">% / year</span>
+                                </div>
+                            </div>
+
+                            <div class="input-row" style="align-items:flex-start; margin-top:4px;">
+                                <label class="input-label" style="padding-top:3px;">Augmentation 1</label>
+                                <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
+                                    <span class="aug-row-label">yr</span>
+                                    <input type="number" id="inp-aug1-year" class="calc-input narrow" value="7" min="1"
+                                        max="30" step="1">
+                                    <span class="aug-row-label">cost</span>
+                                    <input type="number" id="inp-aug1-cost" class="calc-input narrow" value="8" min="0"
+                                        max="50" step="0.5">
+                                    <span class="input-unit">% capex</span>
+                                </div>
+                            </div>
+
+                            <div class="input-row" style="align-items:flex-start;">
+                                <label class="input-label" style="padding-top:3px;">Augmentation 2</label>
+                                <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
+                                    <span class="aug-row-label">yr</span>
+                                    <input type="number" id="inp-aug2-year" class="calc-input narrow" value="12" min="1"
+                                        max="30" step="1">
+                                    <span class="aug-row-label">cost</span>
+                                    <input type="number" id="inp-aug2-cost" class="calc-input narrow" value="8" min="0"
+                                        max="50" step="0.5">
+                                    <span class="input-unit">% capex</span>
+                                </div>
+                            </div>
+
+                            <div class="input-row">
+                                <label class="input-label" for="inp-project-life">Project life</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-project-life" class="calc-input narrow" value="15"
+                                        min="5" max="40" step="1">
+                                    <span class="input-unit">years</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Revenue -->
+                        <div class="input-section">
+                            <span class="input-section-title">Revenue</span>
+
+                            <div class="revenue-disclaimer">
+                                <strong>Your Revenue Assumptions — not a forecast</strong>
+                                <p>User-supplied inputs. BESS revenues are highly variable and site-specific.</p>
+                            </div>
+
+                            <div class="input-row">
+                                <label class="input-label" for="inp-rev-arbitrage">
+                                    Energy arbitrage
+                                    <span class="tip-icon"
+                                        title="Revenue from buying cheap and selling dear in the NEM spot market">i</span>
+                                </label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-rev-arbitrage" class="calc-input" value="80" min="0"
+                                        step="5">
+                                    <span class="input-unit">AUD/kW/yr</span>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <label class="input-label" for="inp-rev-fcas">
+                                    FCAS
+                                    <span class="tip-icon"
+                                        title="Frequency Control Ancillary Services — regulation and contingency markets operated by AEMO">i</span>
+                                </label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-rev-fcas" class="calc-input" value="60" min="0"
+                                        step="5">
+                                    <span class="input-unit">AUD/kW/yr</span>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <label class="input-label" for="inp-rev-contract">
+                                    Capacity / contract
+                                    <span class="tip-icon"
+                                        title="Offtake contracts, capacity agreements, or other contracted revenue">i</span>
+                                </label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-rev-contract" class="calc-input" value="20" min="0"
+                                        step="5">
+                                    <span class="input-unit">AUD/kW/yr</span>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <label class="input-label" for="inp-rev-escalator">Annual escalator</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-rev-escalator" class="calc-input" value="2.0" min="-5"
+                                        max="10" step="0.5">
+                                    <span class="input-unit">% / year</span>
+                                </div>
+                            </div>
+
+                            <div class="derived-row">
+                                <span class="derived-label">Total revenue (yr 1)</span>
+                                <div class="derived-field">
+                                    <span id="out-total-revenue" class="derived-value">160</span>
+                                    <span class="input-unit">AUD/kW/yr</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 6. Financing & Tax -->
+                        <div class="input-section">
+                            <span class="input-section-title">Financing &amp; Tax</span>
+
+                            <div class="input-row">
+                                <label class="input-label" for="inp-discount-rate">Required IRR / discount rate</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-discount-rate" class="calc-input" value="12" min="0"
+                                        max="50" step="0.5">
+                                    <span class="input-unit">%</span>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <label class="input-label" for="inp-tax-rate">Corporate tax rate</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-tax-rate" class="calc-input" value="30" min="0"
+                                        max="50" step="1">
+                                    <span class="input-unit">%</span>
+                                </div>
+                            </div>
+                            <div
+                                style="margin-top:6px; font-family:var(--font-ui); font-size:11px; color:var(--color-text-muted); line-height:1.4;">
+                                Unlevered (no debt) · Straight-line depreciation · Tax shield applied
+                            </div>
+                        </div>
+
+                        <!-- Mode toggle -->
+                        <div class="input-section">
+                            <div class="mode-toggle-wrap">
+                                <span class="mode-toggle-label">Analysis mode</span>
+                                <div class="mode-toggle">
+                                    <button type="button" class="mode-toggle-btn active"
+                                        data-mode="unlevered">Unlevered</button>
+                                    <button type="button" class="mode-toggle-btn" data-mode="levered">Levered</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 7. Debt Financing (hidden by default) -->
+                        <div class="debt-inputs-section input-section">
+                            <span class="input-section-title">Debt Financing</span>
+
+                            <div class="input-row">
+                                <label class="input-label" for="inp-leverage">Leverage</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-leverage" class="calc-input" value="60" min="0"
+                                        max="100" step="5">
+                                    <span class="input-unit">% of capex</span>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <label class="input-label" for="inp-interest-rate">Interest rate</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-interest-rate" class="calc-input" value="5.5" min="0"
+                                        max="20" step="0.25">
+                                    <span class="input-unit">% per year</span>
+                                </div>
+                            </div>
+                            <div class="input-row">
+                                <label class="input-label" for="inp-loan-tenor">Loan tenor</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-loan-tenor" class="calc-input narrow" value="10"
+                                        min="1" max="30" step="1">
+                                    <span class="input-unit">years</span>
+                                </div>
+                            </div>
+
+                            <div class="input-row">
+                                <label class="input-label">Debt schedule method</label>
+                                <div class="duration-toggle">
+                                    <button type="button" class="toggle-btn active"
+                                        data-method="annuity">Annuity</button>
+                                    <button type="button" class="toggle-btn" data-method="sculpted">Sculpted</button>
+                                </div>
+                            </div>
+
+                            <div class="input-row" id="dscr-row" style="display:none;">
+                                <label class="input-label" for="inp-min-dscr">Min DSCR covenant</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-min-dscr" class="calc-input" value="1.30" min="1"
+                                        max="3" step="0.05">
+                                    <span class="input-unit">x</span>
+                                </div>
+                            </div>
+
+                            <div class="input-row">
+                                <label class="input-label" for="inp-dsra-months">DSRA coverage</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-dsra-months" class="calc-input narrow" value="6"
+                                        min="0" max="24" step="1">
+                                    <span class="input-unit">months</span>
+                                </div>
+                            </div>
+
+                            <div class="input-row">
+                                <label class="input-label" for="inp-arr-fee">Arrangement fee</label>
+                                <div class="input-field">
+                                    <input type="number" id="inp-arr-fee" class="calc-input" value="2" min="0" max="10"
+                                        step="0.25">
+                                    <span class="input-unit">% of debt</span>
+                                </div>
+                            </div>
+
+                            <div class="derived-row">
+                                <span class="derived-label">Total debt</span>
+                                <div class="derived-field">
+                                    <span id="out-total-debt" class="derived-value">—</span>
+                                    <span class="input-unit">AUD M</span>
+                                </div>
+                            </div>
+                            <div class="derived-row">
+                                <span class="derived-label">Total equity</span>
+                                <div class="derived-field">
+                                    <span id="out-total-equity" class="derived-value">—</span>
+                                    <span class="input-unit">AUD M</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </aside>
+
+                    <!-- ════════════════════════════════
+                         OUTPUTS PANEL
+                    ════════════════════════════════ -->
+                    <div class="outputs-panel">
+
+                        <!-- KPI Cards -->
+                        <div class="kpi-grid" id="kpi-grid">
+                            <!-- Unlevered mode cards (always visible) -->
+                            <div class="kpi-card" id="card-unlevered-irr">
+                                <span class="kpi-label">Unlevered IRR</span>
+                                <span class="kpi-value" id="kpi-irr">—</span>
+                                <span class="kpi-sub">vs. hurdle rate</span>
+                            </div>
+                            <div class="kpi-card" id="card-unlevered-npv">
+                                <span class="kpi-label">NPV at discount rate</span>
+                                <span class="kpi-value" id="kpi-npv">—</span>
+                                <span class="kpi-sub">AUD millions</span>
+                            </div>
+                            <div class="kpi-card" id="card-unlevered-payback">
+                                <span class="kpi-label">Simple payback</span>
+                                <span class="kpi-value" id="kpi-payback">—</span>
+                                <span class="kpi-sub">undiscounted</span>
+                            </div>
+                            <div class="kpi-card" id="card-lcos">
+                                <span class="kpi-label">LCOS</span>
+                                <span class="kpi-value" id="kpi-lcos">—</span>
+                                <span class="kpi-sub">levelised cost</span>
+                            </div>
+
+                            <!-- Levered mode cards (hidden by default) -->
+                            <div class="kpi-card levered-only" id="card-levered-irr">
+                                <span class="kpi-label">Levered IRR</span>
+                                <span class="kpi-value" id="kpi-levered-irr">—</span>
+                                <span class="kpi-sub">on equity</span>
+                            </div>
+                            <div class="kpi-card levered-only" id="card-levered-npv">
+                                <span class="kpi-label">Equity NPV</span>
+                                <span class="kpi-value" id="kpi-levered-npv">—</span>
+                                <span class="kpi-sub">AUD millions</span>
+                            </div>
+                            <div class="kpi-card levered-only" id="card-levered-payback">
+                                <span class="kpi-label">Levered payback</span>
+                                <span class="kpi-value" id="kpi-levered-payback">—</span>
+                                <span class="kpi-sub">equity basis</span>
+                            </div>
+                            <div class="kpi-card levered-only" id="card-min-dscr">
+                                <span class="kpi-label">Min DSCR</span>
+                                <span class="kpi-value" id="kpi-min-dscr">—</span>
+                                <span class="kpi-sub">covenant</span>
+                            </div>
+                            <div class="kpi-card levered-only" id="card-peak-ds">
+                                <span class="kpi-label">Peak debt service</span>
+                                <span class="kpi-value" id="kpi-peak-ds">—</span>
+                                <span class="kpi-sub">AUD M / year</span>
+                            </div>
+                        </div>
+
+                        <!-- Sensitivity Table -->
+                        <div class="output-card">
+                            <div class="output-card-header">
+                                <span class="output-card-title">IRR Sensitivity</span>
+                                <span class="output-card-desc">Rows: revenue (AUD/kW/yr) · Columns: total capex
+                                    (AUD/kWh) · <strong>Bordered cell = nearest to current inputs</strong></span>
+                            </div>
+                            <div class="sens-table-wrap">
+                                <table class="sens-table" aria-label="IRR sensitivity table">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:left;">Rev ↓ / Capex →</th>
+                                            <th>400</th>
+                                            <th>450</th>
+                                            <th>500</th>
+                                            <th>550</th>
+                                            <th>600</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sensitivity-tbody">
+                                        <!-- filled by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="sens-legend">
+                                <span class="sens-legend-item"><span class="sens-swatch sens-dg"></span>&gt; hurdle +
+                                    3%</span>
+                                <span class="sens-legend-item"><span class="sens-swatch sens-lg"></span>&gt;
+                                    hurdle</span>
+                                <span class="sens-legend-item"><span class="sens-swatch sens-amb"></span>within 2%
+                                    below</span>
+                                <span class="sens-legend-item"><span class="sens-swatch sens-red"></span>&gt; 2% below
+                                    hurdle</span>
+                            </div>
+                        </div>
+
+                        <!-- Reverse Solve -->
+                        <div class="output-card">
+                            <div class="output-card-header">
+                                <span class="output-card-title">Reverse Solve</span>
+                                <span class="output-card-desc">Binary search · convergence to 0.001% IRR</span>
+                            </div>
+                            <div class="rs-panels">
+
+                                <!-- RS 1: Max capex -->
+                                <div class="rs-panel">
+                                    <div class="rs-panel-title">1 — Maximum capex for target IRR</div>
+                                    <div class="rs-input-row">
+                                        <span class="rs-label">Target IRR</span>
+                                        <input type="number" id="rs1-target-irr" class="rs-input" value="12" min="0"
+                                            max="50" step="0.5">
+                                        <span class="rs-label">%</span>
+                                        <span class="rs-label" style="margin-left:var(--space-3);">Revenue</span>
+                                        <input type="number" id="rs1-total-rev" class="rs-input" value="160" min="0"
+                                            max="500" step="5">
+                                        <span class="rs-label">AUD/kW/yr</span>
+                                        <button id="rs1-btn" class="rs-btn">Calculate</button>
+                                    </div>
+                                    <div id="rs1-result" class="rs-result"></div>
+                                </div>
+
+                                <!-- RS 2: Min revenue -->
+                                <div class="rs-panel">
+                                    <div class="rs-panel-title">2 — Minimum revenue for target IRR</div>
+                                    <div class="rs-input-row">
+                                        <span class="rs-label">Target IRR</span>
+                                        <input type="number" id="rs2-target-irr" class="rs-input" value="12" min="0"
+                                            max="50" step="0.5">
+                                        <span class="rs-label">%</span>
+                                        <span class="rs-label" style="margin-left:var(--space-3);">Total capex</span>
+                                        <input type="number" id="rs2-total-capex" class="rs-input" value="520" min="100"
+                                            max="2000" step="10">
+                                        <span class="rs-label">AUD/kWh</span>
+                                        <button id="rs2-btn" class="rs-btn">Calculate</button>
+                                    </div>
+                                    <div id="rs2-result" class="rs-result"></div>
+                                </div>
+
+                                <!-- RS 3: Min FCAS -->
+                                <div class="rs-panel">
+                                    <div class="rs-panel-title">3 — Minimum FCAS price for target IRR</div>
+                                    <div class="rs-input-row">
+                                        <span class="rs-label">Target IRR</span>
+                                        <input type="number" id="rs3-target-irr" class="rs-input" value="12" min="0"
+                                            max="50" step="0.5">
+                                        <span class="rs-label">%</span>
+                                        <span class="rs-label"
+                                            style="margin-left:var(--space-3); color:var(--color-text-muted); font-size:11px;">All
+                                            other revenue at current inputs</span>
+                                        <button id="rs3-btn" class="rs-btn">Calculate</button>
+                                    </div>
+                                    <div id="rs3-result" class="rs-result"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Cash Flow Table -->
+                        <div class="output-card">
+                            <div class="output-card-header">
+                                <span class="output-card-title">Annual Cash Flows</span>
+                                <div class="cf-toolbar">
+                                    <button id="cf-toggle-btn" class="cf-toggle-btn">▼ Show cash flows</button>
+                                    <button id="cf-export-btn" class="cf-export-btn">↓ Export CSV</button>
+                                </div>
+                            </div>
+                            <div id="cf-table-wrap" class="cf-table-wrap">
+                                <table class="cf-table" aria-label="Annual cash flow schedule">
+                                    <thead id="cf-thead">
+                                        <!-- filled by JS -->
+                                    </thead>
+                                    <tbody id="cf-tbody">
+                                        <!-- filled by JS -->
+                                    </tbody>
+                                </table>
+                                <div class="cf-note">AUD thousands. ◆ = augmentation year. Negative values in red.</div>
+                            </div>
+                        </div>
+
+                    </div><!-- /outputs-panel -->
+                </div><!-- /calc-body -->
+            </div><!-- /container -->
+        </div><!-- /calc-page -->
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="bess-model.js"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            // ── Default inputs ──────────────────────────────────────────────
+            var DEFAULT = {
+                powerMW: 100, durationHrs: 2,
+                capexCells: 350, capexEPC: 80, capexGrid: 40, capexDev: 20, capexContingency: 30,
+                opexFixedOM: 10, opexVariable: 0.5, opexInsurance: 3, opexLandLease: 150000,
+                degradationPct: 2.0,
+                aug1Year: 7, aug1CostPct: 8,
+                aug2Year: 12, aug2CostPct: 8,
+                projectLife: 15,
+                revenueArbitrage: 80, revenueFCAS: 60, revenueContract: 20, revenueEscalator: 2.0,
+                discountRate: 12, taxRate: 30,
+                // Levered model inputs
+                leverage: 60, interestRate: 5.5, loanTenor: 10,
+                debtMethod: 'annuity', minDSCR: 1.30,
+                dsraMonths: 6, arrangementFee: 2,
+            };
+
+            var inp = {};
+            for (var k in DEFAULT) inp[k] = DEFAULT[k];
+            var isLeveredMode = false;
+
+            // ── Input binding map ─────────────────────────────────────────
+            var NUM_INPUTS = [
+                ['inp-power-mw', 'powerMW'],
+                ['inp-capex-cells', 'capexCells'],
+                ['inp-capex-epc', 'capexEPC'],
+                ['inp-capex-grid', 'capexGrid'],
+                ['inp-capex-dev', 'capexDev'],
+                ['inp-capex-contingency', 'capexContingency'],
+                ['inp-opex-fixed-om', 'opexFixedOM'],
+                ['inp-opex-variable', 'opexVariable'],
+                ['inp-opex-insurance', 'opexInsurance'],
+                ['inp-opex-land', 'opexLandLease'],
+                ['inp-degrad', 'degradationPct'],
+                ['inp-aug1-year', 'aug1Year'],
+                ['inp-aug1-cost', 'aug1CostPct'],
+                ['inp-aug2-year', 'aug2Year'],
+                ['inp-aug2-cost', 'aug2CostPct'],
+                ['inp-project-life', 'projectLife'],
+                ['inp-rev-arbitrage', 'revenueArbitrage'],
+                ['inp-rev-fcas', 'revenueFCAS'],
+                ['inp-rev-contract', 'revenueContract'],
+                ['inp-rev-escalator', 'revenueEscalator'],
+                ['inp-discount-rate', 'discountRate'],
+                ['inp-tax-rate', 'taxRate'],
+                // Levered inputs
+                ['inp-leverage', 'leverage'],
+                ['inp-interest-rate', 'interestRate'],
+                ['inp-loan-tenor', 'loanTenor'],
+                ['inp-min-dscr', 'minDSCR'],
+                ['inp-dsra-months', 'dsraMonths'],
+                ['inp-arr-fee', 'arrangementFee'],
+            ];
+
+            // ── Formatting helpers ───────────────────────────────────────
+            function fmtK(val) {
+                if (val === null || val === undefined || isNaN(val)) return '—';
+                var k = val / 1000;
+                var s = Math.abs(k).toLocaleString('en-AU', { maximumFractionDigits: 0 });
+                return k < 0 ? '(' + s + ')' : s;
+            }
+
+            function fmtPct(val) {
+                return val !== null && val !== undefined ? (val * 100).toFixed(1) + '%' : 'n/a';
+            }
+
+            // ── Main recalculate ─────────────────────────────────────────
+            function recalculate() {
+                var flows = BESSModel.buildCashFlows(inp);
+                var rate = inp.discountRate / 100;
+                var irr = BESSModel.calcIRR(flows);
+                var npv = BESSModel.calcNPV(flows, rate);
+                var pb = BESSModel.calcPayback(flows);
+                var lcos = BESSModel.calcLCOS(inp, flows, rate);
+
+                var energyMWh = inp.powerMW * inp.durationHrs;
+                var totCapexKWh = BESSModel.totalCapexPerKWh(inp);
+                var totCapexAUDm = BESSModel.totalCapexAUD(totCapexKWh, energyMWh) / 1e6;
+                var totRevenue = inp.revenueArbitrage + inp.revenueFCAS + inp.revenueContract;
+
+                // Derived read-only fields
+                document.getElementById('out-energy-mwh').textContent = energyMWh.toLocaleString('en-AU');
+                document.getElementById('out-total-capex-kwh').textContent = totCapexKWh.toLocaleString('en-AU');
+                document.getElementById('out-total-capex-audm').textContent = totCapexAUDm.toFixed(1);
+                document.getElementById('out-total-revenue').textContent = totRevenue.toFixed(0);
+
+                // Update unlevered KPIs (always shown, but hidden in levered mode)
+                var irrEl = document.getElementById('kpi-irr');
+                if (irr !== null) {
+                    irrEl.textContent = (irr * 100).toFixed(1) + '%';
+                    irrEl.className = 'kpi-value ' + (irr > rate ? 'kpi-positive' : (irr > rate - 0.02 ? 'kpi-below-hurdle' : 'kpi-negative'));
+                } else {
+                    irrEl.textContent = 'No solution';
+                    irrEl.className = 'kpi-value kpi-negative';
+                }
+
+                var npvEl = document.getElementById('kpi-npv');
+                npvEl.textContent = 'A$' + (npv / 1e6).toFixed(2) + 'M';
+                npvEl.className = 'kpi-value ' + (npv >= 0 ? 'kpi-positive' : 'kpi-negative');
+
+                document.getElementById('kpi-payback').textContent = pb !== null
+                    ? pb.toFixed(1) + ' yr'
+                    : '> life';
+
+                document.getElementById('kpi-lcos').textContent = lcos !== null
+                    ? 'A$' + Math.round(lcos) + '/MWh'
+                    : '—';
+
+                // Levered model (if active)
+                if (isLeveredMode) {
+                    // Create levered inputs object for bess-model.js compatibility
+                    var inpWithDebt = {};
+                    for (var k in inp) { if (inp.hasOwnProperty(k)) inpWithDebt[k] = inp[k]; }
+                    inpWithDebt.debtInputs = {
+                        leverage: inp.leverage,
+                        interestRate: inp.interestRate,
+                        loanTenor: inp.loanTenor,
+                        sculptingMethod: inp.debtMethod,
+                        minDSCR: inp.minDSCR,
+                        dsraMonths: inp.dsraMonths,
+                        arrangementFeePct: inp.arrangementFee,
+                    };
+
+                    var cfads = BESSModel.calculateCFADS(flows);
+                    var debtSchedule = inp.debtMethod === 'annuity'
+                        ? BESSModel.calculateDebtScheduleAnnuity(BESSModel.totalCapexAUD(totCapexKWh, energyMWh) * (inp.leverage / 100), inp.interestRate / 100, inp.loanTenor)
+                        : BESSModel.calculateDebtScheduleSculpted(cfads, BESSModel.totalCapexAUD(totCapexKWh, energyMWh) * (inp.leverage / 100), inp.interestRate / 100, inp.loanTenor, inp.minDSCR);
+
+                    var dsra = BESSModel.calculateDSRA(debtSchedule, inp.dsraMonths);
+                    var totalsObj = BESSModel.calculateTotalDebtAndEquity(inpWithDebt);
+                    var equityFlows = BESSModel.calculateEquityCashFlows(flows, debtSchedule, dsra, totalsObj.totalEquity);
+                    var leveredMetrics = BESSModel.calculateLeveredMetrics(inpWithDebt, equityFlows, debtSchedule);
+
+                    // Update debt derived fields
+                    document.getElementById('out-total-debt').textContent = (totalsObj.totalDebt / 1e6).toFixed(1);
+                    document.getElementById('out-total-equity').textContent = (totalsObj.totalEquity / 1e6).toFixed(1);
+
+                    // Update levered KPIs
+                    var levIrrEl = document.getElementById('kpi-levered-irr');
+                    if (leveredMetrics.leveredIRR !== null) {
+                        levIrrEl.textContent = (leveredMetrics.leveredIRR * 100).toFixed(1) + '%';
+                        levIrrEl.className = 'kpi-value ' + (leveredMetrics.leveredIRR > rate ? 'kpi-positive' : (leveredMetrics.leveredIRR > rate - 0.02 ? 'kpi-below-hurdle' : 'kpi-negative'));
+                    } else {
+                        levIrrEl.textContent = 'No solution';
+                        levIrrEl.className = 'kpi-value kpi-negative';
+                    }
+
+                    var levNpvEl = document.getElementById('kpi-levered-npv');
+                    levNpvEl.textContent = 'A$' + (leveredMetrics.equityNPV / 1e6).toFixed(2) + 'M';
+                    levNpvEl.className = 'kpi-value ' + (leveredMetrics.equityNPV >= 0 ? 'kpi-positive' : 'kpi-negative');
+
+                    document.getElementById('kpi-levered-payback').textContent = leveredMetrics.payback !== null
+                        ? leveredMetrics.payback.toFixed(1) + ' yr'
+                        : '> life';
+
+                    // Min DSCR
+                    var dscrEl = document.getElementById('kpi-min-dscr');
+                    dscrEl.textContent = leveredMetrics.minDSCR !== null ? leveredMetrics.minDSCR.toFixed(2) + 'x' : '—';
+                    if (leveredMetrics.minDSCR !== null) {
+                        var dscrCovenantThreshold = inp.minDSCR;
+                        var dscrGood = leveredMetrics.minDSCR >= dscrCovenantThreshold + 0.1;
+                        var dscrOk = leveredMetrics.minDSCR >= dscrCovenantThreshold;
+                        dscrEl.className = 'kpi-value ' + (dscrGood ? 'dscr-good' : (dscrOk ? 'dscr-amber' : 'dscr-red'));
+                    } else {
+                        dscrEl.className = 'kpi-value kpi-negative';
+                    }
+
+                    // Peak debt service
+                    document.getElementById('kpi-peak-ds').textContent = (leveredMetrics.peakDS / 1e6).toFixed(2);
+
+                    // Store levered flows for sensitivity and CF table
+                    window.currentLeveredData = {
+                        equityFlows: equityFlows,
+                        debtSchedule: debtSchedule,
+                        cfads: cfads
+                    };
+                }
+
+                updateSensitivity();
+                updateCFTable(flows);
+            }
+
+            // ── Sensitivity table ────────────────────────────────────────
+            function updateSensitivity() {
+                var hurdle = inp.discountRate / 100;
+                var curRev = inp.revenueArbitrage + inp.revenueFCAS + inp.revenueContract;
+                var curCap = BESSModel.totalCapexPerKWh(inp);
+
+                // Nearest axis values
+                var revAxis = BESSModel.SENSITIVITY_REVENUE;
+                var capAxis = BESSModel.SENSITIVITY_CAPEX;
+
+                var nearRev = revAxis.reduce(function (a, b) { return Math.abs(b - curRev) < Math.abs(a - curRev) ? b : a; });
+                var nearCap = capAxis.reduce(function (a, b) { return Math.abs(b - curCap) < Math.abs(a - curCap) ? b : a; });
+
+                var tbody = document.getElementById('sensitivity-tbody');
+                tbody.innerHTML = '';
+
+                // Use levered sensitivity if in levered mode
+                var sens;
+                if (isLeveredMode) {
+                    var inpWithDebt = {};
+                    for (var k in inp) { if (inp.hasOwnProperty(k)) inpWithDebt[k] = inp[k]; }
+                    inpWithDebt.debtInputs = {
+                        leverage: inp.leverage,
+                        interestRate: inp.interestRate,
+                        loanTenor: inp.loanTenor,
+                        sculptingMethod: inp.debtMethod,
+                        minDSCR: inp.minDSCR,
+                        dsraMonths: inp.dsraMonths,
+                        arrangementFeePct: inp.arrangementFee,
+                    };
+                    sens = BESSModel.calcSensitivityLevered(inpWithDebt);
+                } else {
+                    sens = BESSModel.calcSensitivity(inp);
+                }
+
+                revAxis.forEach(function (rev) {
+                    var tr = document.createElement('tr');
+                    var th = document.createElement('th');
+                    th.textContent = rev;
+                    tr.appendChild(th);
+
+                    capAxis.forEach(function (capex) {
+                        var td = document.createElement('td');
+                        var irr = sens.results[rev + '_' + capex];
+
+                        if (irr !== null && irr !== undefined) {
+                            td.textContent = fmtPct(irr);
+                            if (irr > hurdle + 0.03) td.className = 'sens-dg';
+                            else if (irr > hurdle) td.className = 'sens-lg';
+                            else if (irr > hurdle - 0.02) td.className = 'sens-amb';
+                            else td.className = 'sens-red';
+                        } else {
+                            td.textContent = 'n/a';
+                            td.className = 'sens-red';
+                        }
+
+                        if (rev === nearRev && capex === nearCap) td.classList.add('sens-current');
+                        tr.appendChild(td);
+                    });
+
+                    tbody.appendChild(tr);
+                });
+            }
+
+            // ── Cash flow table (detailed: sections, line items, subtotals) ──
+            function updateCFTable(flows) {
+                var tbody = document.getElementById('cf-tbody');
+                var thead = document.getElementById('cf-thead');
+                if (!tbody || !thead) return;
+                tbody.innerHTML = '';
+                thead.innerHTML = '';
+
+                // ── Header row ──
+                var headerRow = document.createElement('tr');
+                var cornerTh = document.createElement('th');
+                cornerTh.className = 'cf-metric-col';
+                headerRow.appendChild(cornerTh);
+                flows.forEach(function (row) {
+                    var th = document.createElement('th');
+                    th.className = 'cf-year-header' + (row.year === 0 ? ' cf-year0-header' : '') + (row.isAugYear ? ' cf-aug-header' : '');
+                    th.textContent = row.year === 0 ? 'Yr 0' : 'Yr ' + row.year + (row.isAugYear ? ' ◆' : '');
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+
+                // ── Helper: render a single row ──
+                function renderRow(spec) {
+                    var tr = document.createElement('tr');
+                    tr.className = 'cf-' + spec.type;
+                    if (spec.highlight) tr.className += ' cf-highlight-row';
+
+                    var th = document.createElement('td');
+                    th.className = 'cf-metric-col' + (spec.indent ? ' cf-sub-item' : '');
+                    if (spec.indent) th.style.paddingLeft = '32px';
+                    th.textContent = spec.label;
+                    tr.appendChild(th);
+
+                    if (spec.type === 'section' || spec.type === 'blank') {
+                        // Section/blank rows have no data cells — just repeat empty cells
+                        flows.forEach(function () {
+                            var td = document.createElement('td');
+                            tr.appendChild(td);
+                        });
+                    } else {
+                        // Data rows
+                        flows.forEach(function (row, idx) {
+                            var td = document.createElement('td');
+                            var val = spec.fn ? spec.fn(row, idx) : '—';
+                            td.textContent = val;
+                            if (typeof val === 'string' && val.charAt(0) === '(') td.classList.add('cf-neg');
+                            if (row.year === 0) td.classList.add('cf-col-yr0');
+                            if (row.isAugYear) td.classList.add('cf-col-aug');
+                            tr.appendChild(td);
+                        });
+                    }
+
+                    tbody.appendChild(tr);
+                }
+
+                // ── Define all rows: sections, sub-items, subtotals ──
+                var rowSpecs = [
+                    { label: 'REVENUE', type: 'section' },
+                    { label: 'Energy arbitrage', type: 'sub-item', indent: true, fn: function (r) { return r.year === 0 ? '—' : fmtK(r.revenueArbitrage); } },
+                    { label: 'FCAS', type: 'sub-item', indent: true, fn: function (r) { return r.year === 0 ? '—' : fmtK(r.revenueFCAS); } },
+                    { label: 'Capacity / contract', type: 'sub-item', indent: true, fn: function (r) { return r.year === 0 ? '—' : fmtK(r.revenueContract); } },
+                    { label: 'Total Revenue', type: 'subtotal', fn: function (r) { return r.year === 0 ? '—' : fmtK(r.revenue); } },
+
+                    { label: 'OPERATING COSTS', type: 'section' },
+                    { label: 'Fixed O&M', type: 'sub-item', indent: true, fn: function (r) { return r.year === 0 ? '—' : fmtK(r.opexFixedOM); } },
+                    { label: 'Variable O&M', type: 'sub-item', indent: true, fn: function (r) { return r.year === 0 ? '—' : fmtK(r.opexVariable); } },
+                    { label: 'Insurance & admin', type: 'sub-item', indent: true, fn: function (r) { return r.year === 0 ? '—' : fmtK(r.opexInsurance); } },
+                    { label: 'Land lease', type: 'sub-item', indent: true, fn: function (r) { return r.year === 0 ? '—' : fmtK(r.opexLandLease); } },
+                    { label: 'Total Opex', type: 'subtotal', fn: function (r) { return r.year === 0 ? '—' : fmtK(r.opex); } },
+
+                    { label: 'EBITDA', type: 'section' },
+                    { label: 'EBITDA', type: 'subtotal', fn: function (r) { return r.year === 0 ? '—' : fmtK(r.EBITDA); } },
+
+                    { label: 'NON-CASH & TAX', type: 'section' },
+                    { label: 'Depreciation', type: 'sub-item', indent: true, fn: function (r) { return r.year === 0 ? '—' : fmtK(r.depreciation); } },
+                    { label: 'EBIT', type: 'subtotal', fn: function (r) { return r.year === 0 ? '—' : fmtK(r.EBIT); } },
+                    { label: 'Tax', type: 'sub-item', indent: true, fn: function (r) { return r.year === 0 ? '—' : (r.tax > 0 ? fmtK(-r.tax) : '—'); } },
+                    { label: 'NOPAT', type: 'subtotal', fn: function (r) { return r.year === 0 ? '—' : fmtK(r.NOPAT); } },
+
+                    { label: 'CASH FLOW BRIDGE', type: 'section' },
+                    { label: 'Add back: Depreciation', type: 'sub-item', indent: true, fn: function (r) { return r.year === 0 ? '—' : fmtK(r.depreciation); } },
+                    { label: 'Operating Cash Flow', type: 'subtotal', fn: function (r) { return r.year === 0 ? '—' : fmtK(r.operatingCF); } },
+
+                    { label: 'CAPITAL ITEMS', type: 'section' },
+                    { label: 'Initial Capex', type: 'sub-item', indent: true, fn: function (r) { return r.year === 0 ? fmtK(-r.initialCapex) : '—'; } },
+                    { label: 'Augmentation', type: 'sub-item', indent: true, fn: function (r) { return r.augmentation > 0 ? fmtK(-r.augmentation) : '—'; } },
+                    { label: 'Total Capex', type: 'subtotal', fn: function (r) { var capex = (r.year === 0 ? r.initialCapex : 0) + r.augmentation; return capex > 0 ? fmtK(-capex) : '—'; } },
+
+                    { label: 'FREE CASH FLOW', type: 'section' },
+                    { label: 'Free Cash Flow', type: 'subtotal', fn: function (r) { return fmtK(r.FCF); } },
+                    { label: 'Cumulative FCF', type: 'metric', fn: function (r) { return fmtK(r.cumulativeFCF); } },
+                ];
+
+                // ── Levered mode: add debt sections ──
+                if (isLeveredMode && window.currentLeveredData) {
+                    var ds = window.currentLeveredData.debtSchedule;
+                    var eq = window.currentLeveredData.equityFlows;
+                    var cfads = window.currentLeveredData.cfads;
+
+                    rowSpecs.push({ label: '', type: 'blank' });
+                    rowSpecs.push({ label: 'DEBT SCHEDULE', type: 'section' });
+                    rowSpecs.push({ label: 'Opening debt balance', type: 'sub-item', indent: true, fn: function (r) { var d = ds[r.year]; return d ? fmtK(d.openingBalance) : '—'; } });
+                    rowSpecs.push({ label: 'Debt drawdown', type: 'sub-item', indent: true, fn: function (r) { var d = ds[r.year]; return (r.year === 0 && d && d.drawdown > 0) ? fmtK(d.drawdown) : '—'; } });
+                    rowSpecs.push({ label: 'Interest expense', type: 'sub-item', indent: true, fn: function (r) { var d = ds[r.year]; return (r.year > 0 && d && d.interest > 0) ? fmtK(-d.interest) : '—'; } });
+                    rowSpecs.push({ label: 'Principal repayment', type: 'sub-item', indent: true, fn: function (r) { var d = ds[r.year]; return (r.year > 0 && d && d.principal > 0) ? fmtK(-d.principal) : '—'; } });
+                    rowSpecs.push({ label: 'Closing debt balance', type: 'subtotal', fn: function (r) { var d = ds[r.year]; return d ? fmtK(d.closingBalance) : '—'; } });
+                    rowSpecs.push({ label: 'Total debt service', type: 'sub-item', indent: true, fn: function (r) { var d = ds[r.year]; return (r.year > 0 && d && d.debtService > 0) ? fmtK(-d.debtService) : '—'; } });
+
+                    rowSpecs.push({ label: '', type: 'blank' });
+                    rowSpecs.push({ label: 'DEBT METRICS', type: 'section' });
+                    rowSpecs.push({ label: 'CFADS', type: 'sub-item', indent: true, fn: function (r) { return r.year === 0 ? '—' : fmtK(cfads[r.year]); } });
+                    rowSpecs.push({ label: 'DSCR', type: 'metric', fn: function (r) { var d = ds[r.year]; if (r.year === 0 || !d || !d.debtService) return '—'; return (cfads[r.year] / d.debtService).toFixed(2) + 'x'; } });
+
+                    rowSpecs.push({ label: '', type: 'blank' });
+                    rowSpecs.push({ label: 'EQUITY', type: 'section' });
+                    rowSpecs.push({ label: 'DSRA movement', type: 'sub-item', indent: true, fn: function (r, i) { return eq[i] ? fmtK(eq[i].DSRAmovement) : '—'; } });
+                    rowSpecs.push({ label: 'Equity Cash Flow', type: 'subtotal', fn: function (r, i) { return eq[i] ? fmtK(eq[i].equityFCF) : '—'; }, highlight: true });
+                    rowSpecs.push({ label: 'Cumulative Equity CF', type: 'metric', fn: function (r, i) { return eq[i] ? fmtK(eq[i].cumulativeEquityFCF) : '—'; } });
+                }
+
+                // ── Render all rows ──
+                rowSpecs.forEach(function (spec) {
+                    renderRow(spec);
+                });
+            }
+
+            // ── CSV export ───────────────────────────────────────────────
+            function exportCSV() {
+                var flows = BESSModel.buildCashFlows(inp);
+                var header, lines;
+
+                if (isLeveredMode && window.currentLeveredData) {
+                    header = ['Year', 'Revenue', 'Opex', 'EBITDA', 'D&A', 'EBIT', 'Tax', 'CFADS', 'Debt Balance', 'Interest', 'Principal', 'Debt Service', 'DSCR', 'DSRA Movement', 'Equity FCF', 'Cumulative Equity FCF'];
+                    lines = [header.join(',')];
+                    var debtSchedule = window.currentLeveredData.debtSchedule;
+                    var equityFlows = window.currentLeveredData.equityFlows;
+                    var cfads = window.currentLeveredData.cfads;
+
+                    flows.forEach(function (r, idx) {
+                        if (r.year === 0) {
+                            lines.push([0, '', '', '', '', '', '', '', '', '', '', '', '', '', equityFlows[idx].equityFCF.toFixed(0), equityFlows[idx].cumulativeEquityFCF.toFixed(0)].join(','));
+                        } else {
+                            var debtRow = debtSchedule[r.year];
+                            var eqRow = equityFlows[idx];
+                            var dscr = debtRow && debtRow.debtService > 0 ? cfads[r.year] / debtRow.debtService : 0;
+                            lines.push([
+                                r.year, r.revenue.toFixed(0), r.opex.toFixed(0), r.EBITDA.toFixed(0),
+                                r.depreciation.toFixed(0), r.EBIT.toFixed(0), r.tax.toFixed(0),
+                                cfads[r.year].toFixed(0), debtRow ? debtRow.openingBalance.toFixed(0) : '',
+                                debtRow ? debtRow.interest.toFixed(0) : '', debtRow ? debtRow.principal.toFixed(0) : '',
+                                debtRow ? debtRow.debtService.toFixed(0) : '', debtRow && debtRow.debtService > 0 ? dscr.toFixed(2) : '',
+                                eqRow ? eqRow.DSRAmovement.toFixed(0) : '', eqRow ? eqRow.equityFCF.toFixed(0) : '',
+                                eqRow ? eqRow.cumulativeEquityFCF.toFixed(0) : ''
+                            ].join(','));
+                        }
+                    });
+                } else {
+                    header = ['Year', 'Revenue', 'Opex', 'EBITDA', 'Depreciation', 'EBIT', 'Tax', 'NOPAT', 'DA Addback', 'Augmentation', 'Free Cash Flow', 'Cumulative FCF'];
+                    lines = [header.join(',')];
+
+                    flows.forEach(function (r) {
+                        if (r.year === 0) {
+                            lines.push([0, '', '', '', '', '', '', '', '', '', r.FCF.toFixed(0), r.cumulativeFCF.toFixed(0)].join(','));
+                        } else {
+                            lines.push([
+                                r.year, r.revenue.toFixed(0), r.opex.toFixed(0), r.EBITDA.toFixed(0),
+                                r.depreciation.toFixed(0), r.EBIT.toFixed(0), r.tax.toFixed(0),
+                                r.NOPAT.toFixed(0), r.DnAAddback.toFixed(0),
+                                r.augmentation > 0 ? r.augmentation.toFixed(0) : '',
+                                r.FCF.toFixed(0), r.cumulativeFCF.toFixed(0),
+                            ].join(','));
+                        }
+                    });
+                }
+
+                var blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url; a.download = 'bess-cashflows.csv';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            // ── Reverse solve handlers ───────────────────────────────────
+            function solveCapex() {
+                var el = document.getElementById('rs1-result');
+                if (isLeveredMode) {
+                    el.innerHTML = '<p class="rs-no-solution">Reverse solve not available in levered mode. Use unlevered mode to explore capex sensitivities.</p>';
+                    return;
+                }
+
+                var tIRR = parseFloat(document.getElementById('rs1-target-irr').value) / 100;
+                var tRev = parseFloat(document.getElementById('rs1-total-rev').value);
+                if (isNaN(tIRR) || isNaN(tRev)) return;
+
+                var res = BESSModel.solveMaxCapex(inp, tIRR, tRev);
+                if (!res) {
+                    el.innerHTML = '<p class="rs-no-solution">No solution — target IRR is not achievable in the range 100–2000 AUD/kWh at this revenue level.</p>';
+                    return;
+                }
+                var sign = res.headroomPct >= 0 ? '+' : '';
+                el.innerHTML =
+                    '<div class="rs-result-grid">' +
+                    '<div><span class="rs-result-label">Max total capex</span><span class="rs-result-value">' + res.maxCapexKWh.toFixed(0) + ' AUD/kWh</span></div>' +
+                    '<div><span class="rs-result-label">Max project capex</span><span class="rs-result-value">A$' + res.maxCapexAUDm.toFixed(1) + 'M</span></div>' +
+                    '<div><span class="rs-result-label">Headroom vs current (' + res.currentCapexKWh.toFixed(0) + ' AUD/kWh)</span>' +
+                    '<span class="rs-result-value ' + (res.headroomPct >= 0 ? 'rs-positive' : 'rs-negative') + '">' + sign + res.headroomPct.toFixed(1) + '%</span></div>' +
+                    '</div>';
+            }
+
+            function solveRevenue() {
+                var el = document.getElementById('rs2-result');
+                if (isLeveredMode) {
+                    el.innerHTML = '<p class="rs-no-solution">Reverse solve not available in levered mode. Use unlevered mode to explore revenue sensitivities.</p>';
+                    return;
+                }
+
+                var tIRR = parseFloat(document.getElementById('rs2-target-irr').value) / 100;
+                var tCap = parseFloat(document.getElementById('rs2-total-capex').value);
+                if (isNaN(tIRR) || isNaN(tCap)) return;
+
+                var res = BESSModel.solveMinRevenue(inp, tIRR, tCap);
+                if (!res) {
+                    el.innerHTML = '<p class="rs-no-solution">No solution — target IRR requires revenue above 500 AUD/kW/yr at this capex level.</p>';
+                    return;
+                }
+                var html =
+                    '<div class="rs-result-grid">' +
+                    '<div><span class="rs-result-label">Min total revenue</span><span class="rs-result-value">' + res.minRevenue.toFixed(0) + ' AUD/kW/yr</span></div>' +
+                    '<div><span class="rs-result-label">Implied FCAS required</span><span class="rs-result-value">' + res.impliedFCAS.toFixed(0) + ' AUD/kW/yr</span></div>' +
+                    '</div>';
+                if (res.fcasAggressive) {
+                    html += '<div class="rs-flag rs-flag-warn">⚠ Implied FCAS (' + res.impliedFCAS.toFixed(0) + ' AUD/kW/yr) exceeds 120 — aggressive relative to recent AEMO market levels.</div>';
+                }
+                el.innerHTML = html;
+            }
+
+            function solveFCAS() {
+                var el = document.getElementById('rs3-result');
+                if (isLeveredMode) {
+                    el.innerHTML = '<p class="rs-no-solution">Reverse solve not available in levered mode. Use unlevered mode to explore FCAS sensitivities.</p>';
+                    return;
+                }
+
+                var tIRR = parseFloat(document.getElementById('rs3-target-irr').value) / 100;
+                if (isNaN(tIRR)) return;
+
+                var res = BESSModel.solveMinFCAS(inp, tIRR);
+                if (!res) {
+                    el.innerHTML = '<p class="rs-no-solution">No solution — target IRR not achievable even at max FCAS (300 AUD/kW/yr) with current inputs.</p>';
+                    return;
+                }
+                el.innerHTML =
+                    '<div class="rs-result-grid">' +
+                    '<div><span class="rs-result-label">Min FCAS required</span><span class="rs-result-value">' + res.minFCAS.toFixed(0) + ' AUD/kW/yr</span></div>' +
+                    '</div>' +
+                    '<div class="rs-flag rs-flag-info">ℹ AEMO FCAS markets averaged ~40–80 AUD/kW/year in recent years — use as reference only.</div>';
+            }
+
+            // ── Cash flow toggle ─────────────────────────────────────────
+            function toggleCF() {
+                var wrap = document.getElementById('cf-table-wrap');
+                var btn = document.getElementById('cf-toggle-btn');
+                var open = wrap.style.display === 'block';
+                wrap.style.display = open ? 'none' : 'block';
+                btn.textContent = open ? '▼ Show cash flows' : '▲ Hide cash flows';
+            }
+
+            // ── Mobile nav toggle (matches main.js behaviour) ────────────
+            function initMobileNav() {
+                var toggle = document.querySelector('.menu-toggle');
+                var nav = document.querySelector('.main-nav');
+                if (toggle && nav) {
+                    toggle.addEventListener('click', function () {
+                        nav.classList.toggle('active');
+                    });
+                }
+            }
+
+            // ── Mode toggle handler ──────────────────────────────────────
+            function toggleMode(mode) {
+                isLeveredMode = (mode === 'levered');
+
+                // Update button states
+                document.querySelectorAll('.mode-toggle-btn').forEach(function (btn) {
+                    btn.classList.remove('active');
+                });
+                event.target.classList.add('active');
+
+                // Update meta badge
+                var metaBadge = document.getElementById('meta-mode');
+                metaBadge.textContent = isLeveredMode ? 'Levered (project finance)' : 'Unlevered equity';
+
+                // Show/hide debt inputs section
+                var debtSection = document.querySelector('.debt-inputs-section');
+                if (isLeveredMode) {
+                    debtSection.classList.add('active');
+                } else {
+                    debtSection.classList.remove('active');
+                }
+
+                // Update KPI grid layout
+                var kpiGrid = document.getElementById('kpi-grid');
+                if (isLeveredMode) {
+                    kpiGrid.classList.add('levered-mode');
+                } else {
+                    kpiGrid.classList.remove('levered-mode');
+                }
+
+                // Show/hide levered KPI cards
+                document.querySelectorAll('.kpi-card.levered-only').forEach(function (card) {
+                    if (isLeveredMode) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+
+                // Hide unlevered KPI cards in levered mode (but keep in DOM)
+                document.querySelectorAll('.kpi-card:not(.levered-only)').forEach(function (card) {
+                    if (isLeveredMode) {
+                        card.style.display = 'none';
+                    } else {
+                        card.style.display = 'block';
+                    }
+                });
+
+                recalculate();
+            }
+
+            // ── Bind all inputs ──────────────────────────────────────────
+            document.addEventListener('DOMContentLoaded', function () {
+                // Number inputs
+                NUM_INPUTS.forEach(function (pair) {
+                    var el = document.getElementById(pair[0]);
+                    if (!el) return;
+                    el.addEventListener('input', function () {
+                        var v = parseFloat(this.value);
+                        if (!isNaN(v)) { inp[pair[1]] = v; recalculate(); }
+                    });
+                });
+
+                // Duration toggle
+                var durationToggles = document.querySelectorAll('[data-hours]');
+                durationToggles.forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        durationToggles.forEach(function (b) { b.classList.remove('active'); });
+                        this.classList.add('active');
+                        inp.durationHrs = parseInt(this.dataset.hours, 10);
+                        recalculate();
+                    });
+                });
+
+                // Mode toggle
+                document.querySelectorAll('.mode-toggle-btn').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        var mode = this.dataset.mode;
+                        toggleMode(mode);
+                    });
+                });
+
+                // Debt method toggle
+                var debtMethodToggles = document.querySelectorAll('[data-method]');
+                debtMethodToggles.forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        debtMethodToggles.forEach(function (b) { b.classList.remove('active'); });
+                        this.classList.add('active');
+                        inp.debtMethod = this.dataset.method;
+                        // Show DSCR input only for sculpted method
+                        var dscrRow = document.getElementById('dscr-row');
+                        if (inp.debtMethod === 'sculpted') {
+                            dscrRow.style.display = 'flex';
+                        } else {
+                            dscrRow.style.display = 'none';
+                        }
+                        recalculate();
+                    });
+                });
+
+                // Reverse solve
+                document.getElementById('rs1-btn').addEventListener('click', solveCapex);
+                document.getElementById('rs2-btn').addEventListener('click', solveRevenue);
+                document.getElementById('rs3-btn').addEventListener('click', solveFCAS);
+
+                // Cash flow
+                document.getElementById('cf-toggle-btn').addEventListener('click', toggleCF);
+                document.getElementById('cf-export-btn').addEventListener('click', exportCSV);
+
+                initMobileNav();
+                recalculate();
+            });
+        })();
+    </script>
+</body>
+
+</html>
