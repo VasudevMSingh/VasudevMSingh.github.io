@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "blog16",
+      "slug": "india-vs-china-solar.html",
+      "title": "Solar in India: Industrial Engine or Placebo?",
+      "shortTitle": "India Solar vs China Coal",
+      "description": "India's solar buildout is real and accelerating — but can it power a China-scale industrial boom? A data-driven comparison of electricity demand, generation mix, and what the IEA numbers actually say.",
+      "excerpt": "Solar is doing real work in India. But 'doing real work' and 'enabling a China-scale industrial boom' are different claims. The numbers show why.",
+      "date": "2026-05-22",
+      "dateDisplay": "May 2026",
+      "category": "energy",
+      "categoryLabel": "Energy",
+      "sections": [
+        "ENERGY"
+      ],
+      "related": [
+        "blog7",
+        "blog10",
+        "blog8"
+      ],
+      "image": "images/india-solar.jpg",
+      "imageAlt": "Solar panels in India - industrial energy transition",
+      "tags": [
+        "India",
+        "China",
+        "Solar",
+        "Energy Transition",
+        "Industrial Growth",
+        "Energy Markets"
+      ],
+      "readTime": "12 min read",
+      "featured": true
+    },
+    {
       "id": "blog15",
       "slug": "bess-ancillary-services.html",
       "title": "How a Battery Makes Money: Ancillary Services",
@@ -29,7 +61,7 @@
         "BESS"
       ],
       "readTime": "9 min read",
-      "featured": true
+      "featured": false
     },
     {
       "id": "blog14",
@@ -452,5 +484,5 @@
       }
     ]
   },
-  "lastUpdated": "2026-05-21"
+  "lastUpdated": "2026-05-22"
 }
