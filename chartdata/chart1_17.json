@@ -1,0 +1,31 @@
+{
+  "title": "ERCOT Battery: Queued Standalone vs. Operational Capacity, by Zone",
+  "x_label": "Zone",
+  "y_label": "MW",
+  "source": "ERCOT GIS Report, May 2026 (queued standalone); ERCOT MORA, August 2026 (operational)",
+  "series": {
+    "queued_standalone_mw": {
+      "label": "Queued Standalone BESS",
+      "values": {
+        "NORTH": 35217.97,
+        "SOUTH": 33368.32,
+        "WEST": 20444.39,
+        "COASTAL": 14029.94,
+        "HOUSTON": 12464.72,
+        "PANHANDLE": 2417.43
+      }
+    },
+    "operational_mw": {
+      "label": "Operational BESS",
+      "values": {
+        "NORTH": 5647.61,
+        "WEST": 4859.17,
+        "SOUTH": 4789.46,
+        "COASTAL": 3235.50,
+        "HOUSTON": 2465.66,
+        "PANHANDLE": 504.87
+      }
+    }
+  },
+  "zone_order": ["NORTH", "SOUTH", "WEST", "COASTAL", "HOUSTON", "PANHANDLE"]
+}

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The ERCOT Battery Queue Is Not a Pipeline - The Merit Order</title>
+    <meta name="description" content="163 GW of battery storage sits in ERCOT's interconnection queue. Understanding what separates queue depth from actual build-out is critical for any serious siting or investment decision.">
+    <link rel="canonical" href="https://themeritorder.co/ercot-battery-queue-reality.html">
+
+    <!-- Open Graph / Social (og:image must be absolute URL) -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://themeritorder.co/ercot-battery-queue-reality.html">
+    <meta property="og:title" content="The ERCOT Battery Queue Is Not a Pipeline">
+    <meta property="og:description" content="163 GW of battery storage sits in ERCOT's interconnection queue. Understanding what separates queue depth from actual build-out is critical for any serious siting or investment decision.">
+    <meta property="og:image" content="https://themeritorder.co/images/bess_dispatch_head.jpg">
+    <meta property="article:published_time" content="2026-06-26T00:00:00Z">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <!-- Google Fonts - required for logo to render in DM Serif Display -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Libre+Franklin:wght@300&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Schema.org Article Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "The ERCOT Battery Queue Is Not a Pipeline",
+      "description": "163 GW of battery storage sits in ERCOT's interconnection queue. Understanding what separates queue depth from actual build-out is critical for any serious siting or investment decision.",
+      "image": "https://themeritorder.co/images/bess_dispatch_head.jpg",
+      "datePublished": "2026-06-26T00:00:00Z",
+      "dateModified": "2026-06-26T00:00:00Z",
+      "author": {
+        "@type": "Person",
+        "name": "Vasudev Singh",
+        "url": "https://themeritorder.co/about.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "The Merit Order",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://themeritorder.co/images/logos/logo.svg"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://themeritorder.co/ercot-battery-queue-reality.html"
+      }
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://themeritorder.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Writing",
+          "item": "https://themeritorder.co/#writing"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "The ERCOT Battery Queue Is Not a Pipeline",
+          "item": "https://themeritorder.co/ercot-battery-queue-reality.html"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E6VLPFK24"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-7E6VLPFK24');
+    </script>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="images/logos/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logos/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logos/favicon-16.png">
+</head>
+
+<body>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 56" width="256" height="56" role="img"
+                    aria-label="The Merit Order">
+                    <text x="1" y="13" font-family="'Libre Franklin', 'Arial Narrow', Arial, sans-serif" font-size="12"
+                        font-weight="300" letter-spacing="4.2" fill="#b02418">THE</text>
+                    <text x="0" y="40" font-family="'DM Serif Display', Georgia, 'Times New Roman', serif"
+                        font-size="28" fill="#1a1210">Merit Order</text>
+                    <rect x="0" y="46" width="152" height="2.5" fill="#1a1210" />
+                    <rect x="0" y="51.5" width="152" height="0.8" fill="#1a1210" />
+                </svg>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav">
+                <a href="about.html" class="nav-link">About</a>
+                <a href="index.html#writing" class="nav-link">Writing</a>
+                <a href="energy_viz.html" class="nav-link">Data</a>
+                <a href="about.html#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-page">
+        <article class="article article-analytical">
+            <!-- Article Header -->
+            <header class="article-header">
+                <div class="container-narrow">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span class="separator">/</span>
+                        <span>Writing</span>
+                    </nav>
+
+                    <div class="article-meta-top">
+                        <span class="category-tag category-tag-energy">Energy</span>
+                    </div>
+
+                    <h1 class="article-title">The ERCOT Battery Queue Is Not a Pipeline</h1>
+
+                    <div class="article-meta">
+                        <span class="author">By Vasudev Singh</span>
+                        <span class="separator">|</span>
+                        <time datetime="2026-06-26">June 26, 2026</time>
+                        <span class="separator">|</span>
+                        <span class="read-time">7 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <div class="container-narrow">
+
+                    <hr>
+                    <p class="article-disclaimer"><em>Data as of May 2026 (ERCOT GIS Report, ERCOT Battery Co-location Identification Report, ERCOT MORA). Figures reflect ERCOT's interconnection queue at these snapshot dates and will shift as projects progress, withdraw, or commission.</em></p>
+                    <hr>
+                    <br>
+                    <p>As of May 2026, 163 GW of battery storage sits in ERCOT's interconnection queue. ERCOT has 21.5 GW installed and operational and/or synchronized BESS capacity. These two numbers are not on the same trajectory but most analyses tend to conflate them.</p>
+
+                    <p>The total capacity in queue, which is currently 163 GW, appears frequently in market commentary as evidence of momentum - a proxy for where the industry is heading. But it is in fact a count of expressed interest at a specific point in time. Understanding what separates that figure from what actually gets built is the first requirement of any serious siting or investment decision in ERCOT.</p>
+
+                    <h2>Battery Has Overtaken Solar as ERCOT's Largest Queued Technology</h2>
+
+                    <p>As of the May 2026 GIS snapshot, <span class="data-highlight">918 active battery projects representing 163 GW</span> sit in ERCOT's queue - ahead of solar at 154 GW. Standalone battery dominates the composition: 616 projects, 118 GW, 73% of queued battery MW. Co-location with solar accounts for 291 projects and 43 GW - the remaining 26%. The solar co-location thesis is not yet driving BESS queue volume it seems.</p>
+
+                    <p>Zone distribution reinforces this. NORTH leads with 44 GW of queued standalone battery capacity, followed by SOUTH at 33 GW. WEST - which holds ERCOT's strongest solar resource - is third. Developers are not chasing the solar resource. They are chasing load proximity and existing grid infrastructure. NORTH already leads in operational battery capacity at 5.6 GW. The queue reflects that incumbency.</p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <canvas id="zoneChart"></canvas>
+                        </div>
+                        <figcaption>Figure 1: ERCOT zones show strong incumbency - queued capacity concentrates where battery already operates, not where solar is strongest.</figcaption>
+                    </figure>
+
+                    <h2>Projected Capacity vs Reality</h2>
+
+                    <p>Of the 163 GW in the active queue, <span class="highlight">110 GW carries a projected commercial operation date in 2027 or 2028</span>. That is 5x ERCOT's current total installed battery capacity arriving in two years.</p>
+
+                    <figure class="chart-figure">
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <canvas id="iaChart"></canvas>
+                        </div>
+                        <figcaption>Figure 2: The interconnection agreement waterfall reveals the core constraint - 77% of queued MW have not even cleared the most basic commitment milestone.</figcaption>
+                    </figure>
+
+                    <p>Three facts make this implausible.</p>
+
+                    <p><strong>First,</strong> <span class="data-highlight">76% of queued battery MW - 124 GW - has no executed interconnection agreement today</span>. These projects have not cleared the most basic commitment milestone in the interconnection process. Pre-agreement projects still face FIS completion, cost allocation, and execution risk before any construction decision is made.</p>
+
+                    <p><strong>Second,</strong> commissioning pace. ERCOT added approximately 6 GW of battery capacity in the first eight months of 2026 - a record pace by a wide margin. Annualized, that implies roughly 9 GW per year. At that pace, clearing 110 GW takes over a decade.</p>
+
+                    <p><strong>Third,</strong> historical attrition. Across all battery projects that have fully resolved in ERCOT's queue history - built or withdrawn - completion rates run in the low teens as a percentage. Project withdrawal is not an edge case. It is the norm.</p>
+
+                    <p>The 110 GW figure is not a supply forecast. It is the sum of every developer's optimistic COD assumption at the time of queue entry.</p>
+
+                    <h2>The Queue Reveals Intent, Not Commitment</h2>
+
+                    <p>What the queue does tell you is where developers believe the opportunity is. Standalone dominance signals a market view that merchant battery economics hold without co-location support - that ERCOT's nodal spread and ancillary services revenue stack is sufficient on its own. NORTH zone concentration suggests developers are weighting grid familiarity and load proximity over renewable resource access in their siting decisions.</p>
+
+                    <p>What the queue does <em>not</em> tell you is which of the 918 projects actually gets built. Queue position is not a development commitment. For the 76% without an interconnection agreement, it is closer to a placeholder.</p>
+
+                    <h2>Counting Is Not Screening</h2>
+
+                    <p>163 GW queued and 21.5 GW operational are both true but they describe two different things. The first is an upper bound on stated intent. The second is the output of a process that filters intent through interconnection execution, cost exposure, and market economics.</p>
+
+                    <p>The viable projects inside 163 GW are identifiable - but only by screening simultaneously on interconnection progress, nodal spread economics, and network upgrade cost exposure. A project with strong spread economics at a congested node but no IA and significant GIS study cost exposure is not the same investment as one with an executed agreement, a clean network upgrade history, and comparable spread. The queue treats them identically, but a developer or investor who does the same will underwrite the wrong assets.</p>
+
+                    <p>Queue depth is an input to a screening exercise. It is not a substitute for one.</p>
+
+                    <div class="references">
+                        <p><em>Sources: ERCOT GIS Report, May 2026; ERCOT Battery Co-location Identification Report, May 2026; ERCOT MORA, August 2026.</em></p>
+                    </div>
+
+                    <br>
+                    <p class="article-disclaimer"><em>All views expressed are the author's own and do not represent the position of any employer, client, or affiliated organization. All data cited is drawn from publicly available ERCOT reports; no proprietary or confidential data was used in this analysis.</em></p>
+
+                </div>
+            </div>
+
+            <!-- Article Footer -->
+            <footer class="article-footer">
+                <div class="container-narrow">
+                    <div class="article-tags">
+                        <span class="tag">ERCOT</span>
+                        <span class="tag">Battery Storage</span>
+                        <span class="tag">Interconnection Queue</span>
+                        <span class="tag">Energy Markets</span>
+                        <span class="tag">BESS</span>
+                    </div>
+
+                    <!-- Related Articles - populated by JS from posts.json -->
+                    <div class="related-articles"></div>
+
+                    <!-- Navigation loaded dynamically from data/posts.json -->
+                    <nav class="article-nav">
+                        <!-- Fallback content - will be replaced by JS -->
+                    </nav>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2025 Vasudev Mohan Singh</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/vasudevmohansingh/" target="_blank">LinkedIn</a>
+                    <a href="mailto:vasudevmsingh@gmail.com">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Load and render zone chart
+        fetch('chartdata/chart1_17.json')
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('zoneChart').getContext('2d');
+                const zones = data.zone_order;
+                const queuedValues = zones.map(zone => data.series.queued_standalone_mw.values[zone]);
+                const operationalValues = zones.map(zone => data.series.operational_mw.values[zone]);
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: zones,
+                        datasets: [
+                            {
+                                label: data.series.queued_standalone_mw.label,
+                                data: queuedValues,
+                                backgroundColor: 'rgba(176, 36, 24, 0.7)',
+                                borderColor: 'rgba(176, 36, 24, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: data.series.operational_mw.label,
+                                data: operationalValues,
+                                backgroundColor: 'rgba(26, 18, 16, 0.5)',
+                                borderColor: 'rgba(26, 18, 16, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: data.title
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: data.y_label
+                                },
+                                grid: {
+                                    display: false
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: data.x_label
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+
+        // Load and render interconnection agreement waterfall chart
+        fetch('chartdata/chart2_17.json')
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('iaChart').getContext('2d');
+                const labels = data.data.map(d => d.label);
+
+                // Build waterfall: calculate cumulative values for stacking
+                let cumulative = 0;
+                const values = [];
+                const backgroundColors = [];
+
+                data.data.forEach((d, idx) => {
+                    if (d.type === 'total') {
+                        values.push(d.value);
+                        backgroundColors.push('rgba(176, 36, 24, 0.8)');
+                        cumulative = d.value;
+                    } else if (d.type === 'decrease') {
+                        values.push(d.value);
+                        backgroundColors.push('rgba(200, 100, 100, 0.7)');
+                        cumulative += d.value;
+                    }
+                });
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'MW',
+                                data: values,
+                                backgroundColor: backgroundColors,
+                                borderColor: 'rgba(26, 18, 16, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false,
+                            },
+                            title: {
+                                display: true,
+                                text: data.title,
+                                padding: 20
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const value = context.raw;
+                                        if (value < 0) {
+                                            return Math.abs(value).toLocaleString() + ' MW (removed)';
+                                        }
+                                        return value.toLocaleString() + ' MW';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: data.y_label
+                                },
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    callback: function(value) {
+                                        return (value / 1000).toFixed(0) + 'k';
+                                    }
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+    </script>
+    <script src="main.js"></script>
+</body>
+
+</html>

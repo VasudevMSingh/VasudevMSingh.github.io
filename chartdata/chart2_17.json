@@ -1,0 +1,16 @@
+{
+  "title": "ERCOT Battery Queue: Interconnection Agreement Status",
+  "x_label": "",
+  "y_label": "MW",
+  "source": "ERCOT Battery Co-location Identification Report, May 2026",
+  "data": [
+    { "label": "Total Queued (Active)", "value": 162447.2, "type": "total" },
+    { "label": "No Interconnection Agreement", "value": -125278.3, "type": "decrease" },
+    { "label": "With Interconnection Agreement", "value": 37168.9, "type": "total" }
+  ],
+  "annotation": {
+    "no_ia_share_pct": 77.1,
+    "no_ia_project_count": 686,
+    "with_ia_project_count": 230
+  }
+}

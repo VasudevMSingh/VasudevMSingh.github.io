@@ -1,6 +1,37 @@
 {
   "posts": [
     {
+      "id": "blog17",
+      "slug": "ercot-battery-queue-reality.html",
+      "title": "The ERCOT Battery Queue Is Not a Pipeline",
+      "shortTitle": "ERCOT Queue vs Build Reality",
+      "description": "163 GW of battery storage sits in ERCOT's interconnection queue. Understanding what separates queue depth from actual build-out is critical for any serious siting or investment decision.",
+      "excerpt": "The 160+ GW figure appears frequently in market commentary as evidence of momentum. It is not. It is a count of expressed interest at a specific point in time.",
+      "date": "2026-06-26",
+      "dateDisplay": "June 2026",
+      "category": "energy",
+      "categoryLabel": "Energy",
+      "sections": [
+        "ENERGY"
+      ],
+      "related": [
+        "blog12",
+        "blog8",
+        "blog10"
+      ],
+      "image": "images/bess-queue.jpg",
+      "imageAlt": "ERCOT battery queue analysis - interconnection reality",
+      "tags": [
+        "ERCOT",
+        "Battery Storage",
+        "Interconnection Queue",
+        "Energy Markets",
+        "BESS"
+      ],
+      "readTime": "7 min read",
+      "featured": true
+    },
+    {
       "id": "blog16",
       "slug": "india-vs-china-solar.html",
       "title": "Can Indian Solar Power it's Industrial Future?",
@@ -30,7 +61,7 @@
         "Energy Markets"
       ],
       "readTime": "12 min read",
-      "featured": true
+      "featured": false
     },
     {
       "id": "blog15",
@@ -456,6 +487,10 @@
   "sections": {
     "ENERGY": [
       {
+        "type": "BLOG",
+        "postId": "blog17"
+      },
+      {
         "type": "PROJECT",
         "title": "Energy Visualizations Dashboard",
         "date": "Jan 2025",
@@ -484,5 +519,5 @@
       }
     ]
   },
-  "lastUpdated": "2026-05-22"
+  "lastUpdated": "2026-06-26"
 }
